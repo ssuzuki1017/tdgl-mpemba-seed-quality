@@ -40,8 +40,8 @@ The main first-order `phi6` calculations use the following parameters.
 | Initial fluctuation scale | `D_i = D_0 T_i`, `D_0 = 0.02` |
 | Post-quench noise strength | `D_f = 9e-3` |
 | Initial-state labels | `1.05, 1.10, 1.20, 1.50, 2.00, 3.00` |
-| Barrier-crossing seed threshold | `|phi| > phi_b` |
-| Ordered-like seed threshold | `|phi| > 0.5 phi_s` |
+| Barrier-crossing seed threshold | `abs(phi) > phi_b` |
+| Ordered-like seed threshold | `abs(phi) > 0.5 phi_s` |
 | Nucleation cluster threshold | `C_th = 20` |
 | Persistence condition | `n_cons = 3` |
 
@@ -74,27 +74,31 @@ preeq_steps = 1000
 
 ## 3. Data files
 
-The `data/` directory should contain the CSV files used to generate the figures.
+The `data/` directory contains the CSV files used to generate the figures.
 
-Minimum expected files:
+Expected main data files:
 
 ```text
-data/
+data/main/
   phi4_samples.csv
-
   phi6_N64_dt0p02_tmax300_pre500_Df9em3_D00p02_ns50_*seed5678*cth20*.samples.csv
   phi6_N64_dt0p02_tmax300_pre500_Df9em3_D00p02_ns50_*seed9876*cth20*.samples.csv
+```
 
-  phi6_N64_dt0p02_tmax300_pre500_Df9em3_*cth10*.samples.csv
-  phi6_N64_dt0p02_tmax300_pre500_Df9em3_*cth30*.samples.csv
+Expected robustness data files:
+
+```text
+data/robustness/
+  phi6_*cth10*.samples.csv
+  phi6_*cth30*.samples.csv
   phi6_N64_dt0p01_tmax300_pre500_Df9em3_*cth20*.samples.csv
   phi6_N128_dt0p02_tmax300_pre500_Df9em3_*cth40*.samples.csv
   phi6_N64_dt0p02_tmax300_pre1000_Df9em3_*cth20*.samples.csv
 ```
 
-The exact filenames may be longer because they encode the numerical parameters. The figure scripts search for the relevant patterns automatically.
+The exact filenames are longer because they encode numerical parameters. The figure scripts search for the relevant patterns automatically.
 
-Important columns for `phi6` sample files include:
+Important columns for `phi6` sample files:
 
 ```text
 label
@@ -108,7 +112,7 @@ seed_compactness
 seed_rg
 ```
 
-Important columns for `phi4_samples.csv` include:
+Important columns for `phi4_samples.csv`:
 
 ```text
 label
@@ -122,15 +126,15 @@ Run commands from the repository root.
 ### 4.1 phi4 baseline figure
 
 ```bash
-python src/tdgl_phi4_baseline_figure.py --data-dir data --outdir figures
+python src/tdgl_phi4_baseline_figure.py --data-dir data/main --outdir figures/main
 ```
 
 Expected output:
 
 ```text
-figures/phi4_baseline_transition_time.pdf
-figures/phi4_baseline_transition_time.png
-figures/phi4_baseline_summary.csv
+figures/main/phi4_baseline_transition_time.pdf
+figures/main/phi4_baseline_transition_time.png
+figures/main/phi4_baseline_summary.csv
 ```
 
 ### 4.2 phi6 main and supplemental figures
@@ -142,20 +146,20 @@ python src/tdgl_manuscript_figures_v4_multipanel.py --data-dir data --outdir fig
 Expected main outputs:
 
 ```text
-figures/fig2_nucleation_multipanel.pdf
-figures/fig3_seed_amount_multipanel.pdf
-figures/fig4_seed_quality_multipanel.pdf
+figures/main/fig2_nucleation_multipanel.pdf
+figures/main/fig3_seed_amount_multipanel.pdf
+figures/main/fig4_seed_quality_multipanel.pdf
 ```
 
 Expected supplemental outputs:
 
 ```text
-figures/figS1_p_ordered_seed.pdf
-figures/figS2_c_ordered_seed.pdf
-figures/figS3_cluster_threshold_nucleation_probability.pdf
-figures/figS4_dt_dependence_nucleation_probability.pdf
-figures/figS5_p_seed_robustness.pdf
-figures/figS6_seed_compactness_robustness.pdf
+figures/supplemental/figS1_p_ordered_seed.pdf
+figures/supplemental/figS2_c_ordered_seed.pdf
+figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf
+figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf
+figures/supplemental/figS5_p_seed_robustness.pdf
+figures/supplemental/figS6_seed_compactness_robustness.pdf
 ```
 
 If the survival-curve panel in Fig. 2 is visually crowded, use:
@@ -229,26 +233,20 @@ In Overleaf:
 
 | Manuscript figure | Source file |
 |---|---|
-| Fig. 1 | `figures/phi4_baseline_transition_time.pdf` |
-| Fig. 2 | `figures/fig2_nucleation_multipanel.pdf` |
-| Fig. 3 | `figures/fig3_seed_amount_multipanel.pdf` |
-| Fig. 4 | `figures/fig4_seed_quality_multipanel.pdf` |
-| Fig. S1 | `figures/figS1_p_ordered_seed.pdf` |
-| Fig. S2 | `figures/figS2_c_ordered_seed.pdf` |
-| Fig. S3 | `figures/figS3_cluster_threshold_nucleation_probability.pdf` |
-| Fig. S4 | `figures/figS4_dt_dependence_nucleation_probability.pdf` |
-| Fig. S5 | `figures/figS5_p_seed_robustness.pdf` |
-| Fig. S6 | `figures/figS6_seed_compactness_robustness.pdf` |
+| Fig. 1 | `figures/main/phi4_baseline_transition_time.pdf` |
+| Fig. 2 | `figures/main/fig2_nucleation_multipanel.pdf` |
+| Fig. 3 | `figures/main/fig3_seed_amount_multipanel.pdf` |
+| Fig. 4 | `figures/main/fig4_seed_quality_multipanel.pdf` |
+| Fig. S1 | `figures/supplemental/figS1_p_ordered_seed.pdf` |
+| Fig. S2 | `figures/supplemental/figS2_c_ordered_seed.pdf` |
+| Fig. S3 | `figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf` |
+| Fig. S4 | `figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf` |
+| Fig. S5 | `figures/supplemental/figS5_p_seed_robustness.pdf` |
+| Fig. S6 | `figures/supplemental/figS6_seed_compactness_robustness.pdf` |
 
 ## 8. Data availability statement
 
-For a private repository:
-
-```text
-The simulation data and analysis scripts used to generate the figures are available from the author upon reasonable request.
-```
-
-For a public GitHub repository:
+For this public repository:
 
 ```text
 The simulation data and analysis scripts used to generate the figures are available at
@@ -257,12 +255,11 @@ https://github.com/ssuzuki1017/tdgl-mpemba-seed-quality.
 
 For an archival release, create a GitHub release and connect it to Zenodo, then replace the GitHub URL with the Zenodo DOI.
 
-## 9. Checklist before public release
+## 9. Checklist before archival release
 
-- [ ] Remove or replace `LICENSE_TODO.md`.
-- [ ] Add a final `LICENSE` file.
 - [ ] Confirm that no private paths or personal local directories remain in scripts or README files.
 - [ ] Confirm that all figure files can be regenerated from files in `data/`.
 - [ ] Confirm that `manuscript_revtex.tex` and `supplemental_material.tex` compile in Overleaf.
 - [ ] Confirm that `CITATION.cff` contains the final title and author information.
-- [ ] Decide whether to keep the repository private until publication or make it public before submission.
+- [ ] Create a GitHub release.
+- [ ] Optionally archive the release on Zenodo and update the manuscript data availability statement with the DOI.

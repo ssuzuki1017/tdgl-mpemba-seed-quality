@@ -22,72 +22,73 @@ tdgl-mpemba-seed-quality/
   README.md
   README_REPRODUCIBILITY.md
   CITATION.cff
+  LICENSE
   requirements.txt
-  LICENSE_TODO.md
 
   manuscript/
     manuscript_revtex.tex
     supplemental_material.tex
     references_verified.bib
-    manuscript_revtex.pdf                 # optional compiled output
-    supplemental_material.pdf              # optional compiled output
 
   src/
     tdgl_run_auto_v3.py
     tdgl_manuscript_figures_v4_multipanel.py
     tdgl_phi4_baseline_figure.py
-    tdgl_manuscript_figures_v3.py          # optional legacy figure script
-    tdgl_mpemba_revised.py                 # optional exploratory script
+    legacy/
 
   data/
-    phi4_samples.csv
-    phi6_*.samples.csv
-    summary_*.csv                          # optional analysis summaries
+    main/
+      phi4_samples.csv
+      phi6_N64_dt0p02_tmax300_pre500_Df9em3_D00p02_ns50_*seed5678*cth20*.samples.csv
+      phi6_N64_dt0p02_tmax300_pre500_Df9em3_D00p02_ns50_*seed9876*cth20*.samples.csv
+    robustness/
+      additional CSV files for threshold, time-step, system-size, pre-equilibration, and exploratory checks
 
   figures/
-    phi4_baseline_transition_time.pdf
-    fig2_nucleation_multipanel.pdf
-    fig3_seed_amount_multipanel.pdf
-    fig4_seed_quality_multipanel.pdf
-    figS1_p_ordered_seed.pdf
-    figS2_c_ordered_seed.pdf
-    figS3_cluster_threshold_nucleation_probability.pdf
-    figS4_dt_dependence_nucleation_probability.pdf
-    figS5_p_seed_robustness.pdf
-    figS6_seed_compactness_robustness.pdf
+    main/
+      phi4_baseline_transition_time.pdf
+      fig2_nucleation_multipanel.pdf
+      fig3_seed_amount_multipanel.pdf
+      fig4_seed_quality_multipanel.pdf
+    supplemental/
+      figS1_p_ordered_seed.pdf
+      figS2_c_ordered_seed.pdf
+      figS3_cluster_threshold_nucleation_probability.pdf
+      figS4_dt_dependence_nucleation_probability.pdf
+      figS5_p_seed_robustness.pdf
+      figS6_seed_compactness_robustness.pdf
 
   checks/
     TABLE_I_PARAMETER_CHECK.md
     REFERENCES_FINAL_CHECK.md
     PRE_SUBMISSION_CHECKLIST.md
     GITHUB_PREPARATION_GUIDE.md
+    GITHUB_DIRECTORY_CONTENTS.md
 ```
-
-File names may differ slightly depending on the final local export. The essential requirement is that the data files, scripts, manuscript sources, and figure files needed to reproduce the manuscript figures are all included.
 
 ## Main manuscript figures
 
 | Figure | File | Description |
 |---|---|---|
-| Fig. 1 | `figures/phi4_baseline_transition_time.pdf` | Continuous-transition `phi4` baseline transition time |
-| Fig. 2 | `figures/fig2_nucleation_multipanel.pdf` | First-order `phi6` nucleation probability and survival curves |
-| Fig. 3 | `figures/fig3_seed_amount_multipanel.pdf` | Barrier-crossing seed amount: `p_seed` and `c_seed` |
-| Fig. 4 | `figures/fig4_seed_quality_multipanel.pdf` | Seed quality: compactness and radius of gyration |
+| Fig. 1 | `figures/main/phi4_baseline_transition_time.pdf` | Continuous-transition `phi4` baseline transition time |
+| Fig. 2 | `figures/main/fig2_nucleation_multipanel.pdf` | First-order `phi6` nucleation probability and survival curves |
+| Fig. 3 | `figures/main/fig3_seed_amount_multipanel.pdf` | Barrier-crossing seed amount: `p_seed` and `c_seed` |
+| Fig. 4 | `figures/main/fig4_seed_quality_multipanel.pdf` | Seed quality: compactness and radius of gyration |
 
 ## Supplemental figures
 
 | Figure | File | Description |
 |---|---|---|
-| Fig. S1 | `figures/figS1_p_ordered_seed.pdf` | Ordered-like seed fraction |
-| Fig. S2 | `figures/figS2_c_ordered_seed.pdf` | Largest ordered-like seed cluster size |
-| Fig. S3 | `figures/figS3_cluster_threshold_nucleation_probability.pdf` | Cluster-threshold robustness |
-| Fig. S4 | `figures/figS4_dt_dependence_nucleation_probability.pdf` | Time-step robustness |
-| Fig. S5 | `figures/figS5_p_seed_robustness.pdf` | Robustness of `p_seed` to system size and pre-equilibration |
-| Fig. S6 | `figures/figS6_seed_compactness_robustness.pdf` | Robustness of seed compactness to system size and pre-equilibration |
+| Fig. S1 | `figures/supplemental/figS1_p_ordered_seed.pdf` | Ordered-like seed fraction |
+| Fig. S2 | `figures/supplemental/figS2_c_ordered_seed.pdf` | Largest ordered-like seed cluster size |
+| Fig. S3 | `figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf` | Cluster-threshold robustness |
+| Fig. S4 | `figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf` | Time-step robustness |
+| Fig. S5 | `figures/supplemental/figS5_p_seed_robustness.pdf` | Robustness of `p_seed` to system size and pre-equilibration |
+| Fig. S6 | `figures/supplemental/figS6_seed_compactness_robustness.pdf` | Robustness of seed compactness to system size and pre-equilibration |
 
 ## Reproducibility
 
-See [`README_REPRODUCIBILITY.md`](README_REPRODUCIBILITY.md) for details on the numerical parameters, expected input files, figure-generation commands, and manuscript compilation.
+See [`README_REPRODUCIBILITY.md`](README_REPRODUCIBILITY.md) for numerical parameters, expected input files, figure-generation commands, and manuscript compilation.
 
 ## Requirements
 
@@ -111,9 +112,9 @@ The manuscript source is written in REVTeX format.
 
 To compile in Overleaf:
 
-1. Upload the repository contents or the `manuscript/` and `figures/` folders.
-2. Set `manuscript_revtex.tex` as the main document for the main manuscript.
-3. Set `supplemental_material.tex` as the main document for the supplemental material.
+1. Upload the repository contents, including the `manuscript/` and `figures/` folders.
+2. Set `manuscript/manuscript_revtex.tex` as the main document for the main manuscript.
+3. Set `manuscript/supplemental_material.tex` as the main document for the supplemental material.
 4. Use pdfLaTeX.
 
 The bibliography file is:
@@ -124,35 +125,13 @@ manuscript/references_verified.bib
 
 ## Data availability
 
-If this repository is public, the data availability statement in the manuscript can be written as:
+The simulation data and analysis scripts used to generate the figures are available in this repository.
 
-```text
-The simulation data and analysis scripts used to generate the figures are available at
-https://github.com/ssuzuki1017/tdgl-mpemba-seed-quality.
-```
-
-If the repository remains private during submission, use:
-
-```text
-The simulation data and analysis scripts used to generate the figures are available from the author upon reasonable request.
-```
-
-For a final archival version, creating a GitHub release and linking it to Zenodo is recommended.
+For a final archival version, creating a GitHub release and linking it to Zenodo is recommended. After obtaining a Zenodo DOI, the data availability statement in the manuscript should be updated to cite the DOI.
 
 ## Citation
 
 If you use this repository, please cite the manuscript and/or the repository metadata in `CITATION.cff`.
-
-## License
-
-A license has not yet been finalized. See `LICENSE_TODO.md`.
-
-Recommended choices:
-
-- Code: MIT License or BSD-3-Clause License
-- Manuscript, figures, and data: CC BY 4.0
-
-Before making the repository public, replace `LICENSE_TODO.md` with the selected license file and clarify the reuse terms in this README.
 
 ## License
 
