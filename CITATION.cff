@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+title: "Seed quality and nucleation-controlled Mpemba-like transition times in TDGL models"
+authors:
+  - family-names: Suzuki
+    given-names: Soma
+version: "0.1.0"
+date-released: "2026-05-18"
+message: "If you use this code or data, please cite the associated manuscript."

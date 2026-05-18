@@ -1,0 +1,77 @@
+\documentclass[aps,pre,preprint,amsmath,amssymb,superscriptaddress]{revtex4-2}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{xurl}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\graphicspath{{figures/}}
+
+\begin{document}
+
+\title{Supplemental Material for ``Seed quality and nucleation-controlled Mpemba-like transition times in time-dependent Ginzburg--Landau models''}
+\author{Soma Suzuki}
+\affiliation{Independent researcher}
+\date{\today}
+\maketitle
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\section*{Supplementary figures}
+
+\section*{Ordered-like seed statistics}
+Figures~\ref{fig:S1-ordered-fraction} and \ref{fig:S2-ordered-cluster} show the statistics of ordered-like seeds, defined by $|\phi(\mathbf{x},0)|>0.5\phi_s$. These quantities remain close to zero for all initial-state labels, indicating that the initial state does not typically contain pre-existing stable-phase droplets.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\linewidth]{figS1_p_ordered_seed}
+\caption{Mean ordered-like seed fraction, defined by $|\phi(\mathbf{x},0)|>0.5\phi_s$. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S1-ordered-fraction}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\linewidth]{figS2_c_ordered_seed}
+\caption{Mean largest ordered-like seed cluster size. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S2-ordered-cluster}
+\end{figure}
+
+\clearpage
+
+\section*{Numerical robustness checks}
+Figures~\ref{fig:S3-threshold} and \ref{fig:S4-dt} show checks against the nucleation-cluster threshold and the time step. Figures~\ref{fig:S5-pseed} and \ref{fig:S6-compactness} show checks against system size and pre-equilibration length.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figS3_cluster_threshold_nucleation_probability}
+\caption{Robustness check for the cluster threshold used to define nucleation events. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S3-threshold}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figS4_dt_dependence_nucleation_probability}
+\caption{Robustness check for the numerical time step. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S4-dt}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figS5_p_seed_robustness}
+\caption{Robustness of $p_{\mathrm{seed}}$ against system size and pre-equilibration length. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S5-pseed}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figS6_seed_compactness_robustness}
+\caption{Robustness of seed compactness against system size and pre-equilibration length. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S6-compactness}
+\end{figure}
+
+\end{document}
