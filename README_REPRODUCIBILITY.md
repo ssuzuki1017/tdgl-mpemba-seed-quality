@@ -233,16 +233,16 @@ In Overleaf:
 
 | Manuscript figure | Source file |
 |---|---|
-| Fig. 1 | `figures/main/phi4_baseline_transition_time.pdf` |
-| Fig. 2 | `figures/main/fig2_nucleation_multipanel.pdf` |
-| Fig. 3 | `figures/main/fig3_seed_amount_multipanel.pdf` |
-| Fig. 4 | `figures/main/fig4_seed_quality_multipanel.pdf` |
-| Fig. S1 | `figures/supplemental/figS1_p_ordered_seed.pdf` |
-| Fig. S2 | `figures/supplemental/figS2_c_ordered_seed.pdf` |
-| Fig. S3 | `figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf` |
-| Fig. S4 | `figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf` |
-| Fig. S5 | `figures/supplemental/figS5_p_seed_robustness.pdf` |
-| Fig. S6 | `figures/supplemental/figS6_seed_compactness_robustness.pdf` |
+| Fig. 1 | [`figures/main/phi4_baseline_transition_time.pdf`](figures/main/phi4_baseline_transition_time.pdf) |
+| Fig. 2 | [`figures/main/fig2_nucleation_multipanel.pdf`](figures/main/fig2_nucleation_multipanel.pdf) |
+| Fig. 3 | [`figures/main/fig3_seed_amount_multipanel.pdf`](figures/main/fig3_seed_amount_multipanel.pdf) |
+| Fig. 4 | [`figures/main/fig4_seed_quality_multipanel.pdf`](figures/main/fig4_seed_quality_multipanel.pdf) |
+| Fig. S1 | [`figures/supplemental/figS1_p_ordered_seed.pdf`](figures/supplemental/figS1_p_ordered_seed.pdf) |
+| Fig. S2 | [`figures/supplemental/figS2_c_ordered_seed.pdf`](figures/supplemental/figS2_c_ordered_seed.pdf) |
+| Fig. S3 | [`figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf`](figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf) |
+| Fig. S4 | [`figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf`](figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf) |
+| Fig. S5 | [`figures/supplemental/figS5_p_seed_robustness.pdf`](figures/supplemental/figS5_p_seed_robustness.pdf) |
+| Fig. S6 | [`figures/supplemental/figS6_seed_compactness_robustness.pdf`](figures/supplemental/figS6_seed_compactness_robustness.pdf) |
 
 ## 8. Data availability statement
 

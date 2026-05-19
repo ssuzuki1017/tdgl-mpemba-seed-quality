@@ -70,21 +70,24 @@ tdgl-mpemba-seed-quality/
 
 | Figure | File | Description |
 |---|---|---|
-| Fig. 1 | `figures/main/phi4_baseline_transition_time.pdf` | Continuous-transition `phi4` baseline transition time |
-| Fig. 2 | `figures/main/fig2_nucleation_multipanel.pdf` | First-order `phi6` nucleation probability and survival curves |
-| Fig. 3 | `figures/main/fig3_seed_amount_multipanel.pdf` | Barrier-crossing seed amount: `p_seed` and `c_seed` |
-| Fig. 4 | `figures/main/fig4_seed_quality_multipanel.pdf` | Seed quality: compactness and radius of gyration |
+| Fig. 1 | [`figures/main/phi4_baseline_transition_time.pdf`](figures/main/phi4_baseline_transition_time.pdf) | Continuous-transition `phi4` baseline transition time |
+| Fig. 2 | [`figures/main/fig2_nucleation_multipanel.pdf`](figures/main/fig2_nucleation_multipanel.pdf) | First-order `phi6` nucleation probability and survival curves |
+| Fig. 3 | [`figures/main/fig3_seed_amount_multipanel.pdf`](figures/main/fig3_seed_amount_multipanel.pdf) | Barrier-crossing seed amount: `p_seed` and `c_seed` |
+| Fig. 4 | [`figures/main/fig4_seed_quality_multipanel.pdf`](figures/main/fig4_seed_quality_multipanel.pdf) | Seed quality: compactness and radius of gyration |
+
+> Note: GitHub does not render PDF files inline in Markdown. The links above point to the PDF files used for the manuscript. For inline previews on GitHub, use the corresponding PNG files in the same figure folders.
+
 
 ## Supplemental figures
 
 | Figure | File | Description |
 |---|---|---|
-| Fig. S1 | `figures/supplemental/figS1_p_ordered_seed.pdf` | Ordered-like seed fraction |
-| Fig. S2 | `figures/supplemental/figS2_c_ordered_seed.pdf` | Largest ordered-like seed cluster size |
-| Fig. S3 | `figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf` | Cluster-threshold robustness |
-| Fig. S4 | `figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf` | Time-step robustness |
-| Fig. S5 | `figures/supplemental/figS5_p_seed_robustness.pdf` | Robustness of `p_seed` to system size and pre-equilibration |
-| Fig. S6 | `figures/supplemental/figS6_seed_compactness_robustness.pdf` | Robustness of seed compactness to system size and pre-equilibration |
+| Fig. S1 | [`figures/supplemental/figS1_p_ordered_seed.pdf`](figures/supplemental/figS1_p_ordered_seed.pdf) | Ordered-like seed fraction |
+| Fig. S2 | [`figures/supplemental/figS2_c_ordered_seed.pdf`](figures/supplemental/figS2_c_ordered_seed.pdf) | Largest ordered-like seed cluster size |
+| Fig. S3 | [`figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf`](figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf) | Cluster-threshold robustness |
+| Fig. S4 | [`figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf`](figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf) | Time-step robustness |
+| Fig. S5 | [`figures/supplemental/figS5_p_seed_robustness.pdf`](figures/supplemental/figS5_p_seed_robustness.pdf) | Robustness of `p_seed` to system size and pre-equilibration |
+| Fig. S6 | [`figures/supplemental/figS6_seed_compactness_robustness.pdf`](figures/supplemental/figS6_seed_compactness_robustness.pdf) | Robustness of seed compactness to system size and pre-equilibration |
 
 ## Reproducibility
 
