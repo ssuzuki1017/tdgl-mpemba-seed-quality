@@ -128,4 +128,38 @@ Figure~S5 visualizes the same conservative sample-level check. The binned probab
 \label{fig:S5-sample-level-seed-quality}
 \end{figure}
 
+
+\clearpage
+
+\section*{Bootstrap and permutation trend checks for seed geometry}
+
+We additionally checked the label-level trends in the main seed observables by bootstrap resampling within each initial-state label and by a permutation test of the label-mean trend. The test statistic is the Spearman rank correlation between the initial-state label and the label-averaged observable. This analysis is not intended to prove a microscopic nucleation mechanism. Its purpose is to test whether the trends shown in Figs.~3 and 4 are stable under resampling of the finite ensemble.
+
+Table~S3 summarizes the results. The trends are very stable in the present data set. The seed amount measures $p_{\rm seed}$ and $c_{\rm seed}$ increase monotonically with the initial-state label, while the compactness decreases monotonically and the radius of gyration increases monotonically. In all four cases, the bootstrap confidence interval for the Spearman trend does not cross zero.
+
+\begin{table}[t]
+\centering
+\caption{Bootstrap and permutation trend checks for the main first-order data set. The Spearman coefficient is computed from the six label-averaged values. Bootstrap confidence intervals are obtained by resampling realizations within each label.}
+\label{tab:S3-bootstrap-trend}
+\begin{tabular}{lcccc}
+\hline
+Observable & Spearman $\rho$ & Permutation $p$ & Bootstrap 95\% CI & High--low difference \\
+\hline
+$p_{\rm seed}$ & 1.000 & 0.0034 & $[1.000,1.000]$ & 0.219 \\
+$c_{\rm seed}$ & 1.000 & 0.0031 & $[0.943,1.000]$ & 31.62 \\
+$C_{\rm comp}$ & $-1.000$ & 0.0027 & $[-1.000,-0.943]$ & $-0.184$ \\
+$R_g$ & 1.000 & 0.0031 & $[0.943,1.000]$ & 2.214 \\
+\hline
+\end{tabular}
+\end{table}
+
+Figure~S6 shows the corresponding label-mean trends. These results strengthen the conservative conclusion that seed amount and seed geometry change systematically in different directions. However, the current full-column aggregate CSV files do not contain the perimeter or boundary length of the largest barrier-crossing cluster. Therefore, a true perimeter-to-area ratio cannot be reconstructed from the present aggregate outputs alone. Such a measure should be computed in future runs at the point where the largest seed-cluster mask is available.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\linewidth]{figS6_seed_geometry_trend_tests}
+\caption{Bootstrap/permutation trend-check diagnostics for the main first-order data set. The plotted observables are label means with standard-error bars. The trends in seed amount, compactness, and radius of gyration are stable under bootstrap resampling within labels.}
+\label{fig:S6-seed-geometry-trends}
+\end{figure}
+
 \end{document}
