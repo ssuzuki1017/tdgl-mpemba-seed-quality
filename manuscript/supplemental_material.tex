@@ -11,7 +11,7 @@
 
 \begin{document}
 
-\title{Supplemental Material for ``Seed quality and nucleation-controlled Mpemba-like transition times in time-dependent Ginzburg--Landau models''}
+\title{Supplemental Material for ``Seed quality in nucleation-controlled transition times in time-dependent Ginzburg--Landau models''}
 \author{Soma Suzuki}
 \affiliation{Independent researcher}
 \date{\today}
@@ -19,6 +19,8 @@
 
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
 
 \section*{Supplementary figures}
 
@@ -70,6 +72,60 @@ For the main first-order data set, the combined sample contains 600 realizations
 \includegraphics[width=0.75\linewidth]{figS7_tnuc_vs_ttr_scatter}
 \caption{Relation between the cluster nucleation time $t_{\rm nuc}$ and the global transition time $t_{\rm tr}$ in the first-order $\phi^6$ model. Only samples for which both times were observed are shown. The dashed line indicates $t_{\rm tr}=t_{\rm nuc}$.}
 \label{fig:S4-tnuc-ttr}
+\end{figure}
+
+
+\clearpage
+
+\section*{Sample-level seed-quality analysis}
+
+As an additional check, we examined whether initial seed variables carry sample-level information about whether a cluster nucleation event is observed by the final observation time. For each realization in the main first-order data set, we defined a binary outcome equal to one if $t_{\rm nuc}$ was observed and zero otherwise. We then fitted logistic models using standardized predictors. This analysis should not be interpreted as a committor calculation: it uses only a small set of initial geometric descriptors and a finite final observation time.
+
+Table~S1 summarizes the Akaike information criterion (AIC) values for several low-dimensional models. The model using seed compactness and radius of gyration has the lowest AIC among the tested models, but its improvement over the intercept-only model is modest, with $\Delta{\rm AIC}=1.08$. The combined model containing both seed-amount and seed-geometry variables is not preferred by AIC. Thus, the sample-level predictive evidence is weak and should be used only as a consistency check.
+
+\begin{table}[t]
+\centering
+\caption{Logistic-model comparison for the binary outcome of whether cluster nucleation was observed by the final observation time. Lower AIC is better. The sample contains 600 realizations, of which 206 nucleated by the final observation time.}
+\label{tab:S1-logistic-aic}
+\begin{tabular}{lcc}
+\hline
+Model & Predictors & $\Delta{\rm AIC}$ \\
+\hline
+Seed quality & $C_{\rm comp}, R_g$ & 0.00 \\
+Intercept only & none & 1.08 \\
+Label only & $T_i$ & 2.87 \\
+Amount plus quality & $p_{\rm seed}, c_{\rm seed}, C_{\rm comp}, R_g$ & 3.70 \\
+Seed amount & $p_{\rm seed}, c_{\rm seed}$ & 4.09 \\
+All predictors & $T_i, p_{\rm seed}, c_{\rm seed}, C_{\rm comp}, R_g$ & 5.47 \\
+\hline
+\end{tabular}
+\end{table}
+
+Table~S2 shows the standardized coefficients for the model containing both seed-amount and seed-geometry variables. Seed compactness has a positive standardized coefficient, $\beta=0.25$, with an approximate two-sided $p$ value of 0.052. The coefficients of $p_{\rm seed}$, $c_{\rm seed}$, and $R_g$ are not statistically decisive in this finite data set. This result is consistent with the physical interpretation that compactness may be relevant, but it is not by itself a quantitative nucleation-rate theory.
+
+\begin{table}[t]
+\centering
+\caption{Standardized coefficients in the logistic model containing both seed-amount and seed-geometry variables. Approximate standard errors and $p$ values are based on the local Hessian of the log-likelihood.}
+\label{tab:S2-logistic-coefficients}
+\begin{tabular}{lccc}
+\hline
+Predictor & Standardized coefficient & Approx. $p$ value & Odds ratio per 1 s.d. \\
+\hline
+$p_{\rm seed}$ & $-0.090$ & 0.618 & 0.914 \\
+$c_{\rm seed}$ & 0.122 & 0.662 & 1.130 \\
+$C_{\rm comp}$ & 0.250 & 0.052 & 1.284 \\
+$R_g$ & 0.168 & 0.568 & 1.182 \\
+\hline
+\end{tabular}
+\end{table}
+
+Figure~S5 visualizes the same sample-level check. The binned probabilities and within-$p_{\rm seed}$ comparisons are intended only as descriptive diagnostics. They do not replace a committor analysis or a direct critical-droplet calculation.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{figS5_sample_level_seed_quality}
+\caption{Sample-level seed-quality diagnostics for the main first-order data set. (a) Nucleation probability binned by $p_{\rm seed}$. (b) Nucleation probability binned by seed compactness. (c) Low- and high-compactness subsets compared within $p_{\rm seed}$ terciles. (d) Jittered binary nucleation outcome against compactness. These diagnostics provide only modest predictive support for compactness and are used as a conservative consistency check rather than as a committor analysis.}
+\label{fig:S5-sample-level-seed-quality}
 \end{figure}
 
 \end{document}

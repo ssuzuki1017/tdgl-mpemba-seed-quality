@@ -8,7 +8,8 @@ The intended workflow is:
 2. verify that the required CSV files are present,
 3. regenerate the phi4 baseline figure,
 4. regenerate the phi6 main and supplemental multi-panel figures,
-5. confirm that the expected files are produced.
+5. regenerate the sample-level seed-quality diagnostic used for Supplemental Fig. S5,
+6. confirm that the expected files are produced.
 
 The full stochastic simulations do not need to be rerun if the CSV files are already included under `data/`.
 
@@ -136,9 +137,76 @@ Check the output list with:
 Get-ChildItem "$smoke\v5" -File | Select-Object Name
 ```
 
-## 6. Git hygiene
+## 6. Regenerate the sample-level seed-quality analysis
 
-The `_smoke_figures/` directory is a temporary smoke-test output directory and should not be committed.
+The sample-level seed-quality diagnostic used for Supplemental Fig. S5 can be regenerated with:
+
+```powershell
+python .\src\analyze_seed_quality_sample_level.py `
+  --data-dir .\data `
+  --outdir .\analysis_seed_quality
+```
+
+Expected outputs include:
+
+```text
+analysis_seed_quality/fig5_sample_level_seed_quality.png
+analysis_seed_quality/fig5_sample_level_seed_quality.pdf
+analysis_seed_quality/seed_quality_model_comparison.csv
+analysis_seed_quality/seed_quality_logistic_coefficients.csv
+analysis_seed_quality/seed_quality_binned_probabilities.csv
+analysis_seed_quality/seed_quality_within_pseed_bins.csv
+analysis_seed_quality/sample_level_main_data_used.csv
+analysis_seed_quality/README_seed_quality_analysis.md
+```
+
+For the supplemental material, the figure files are copied as:
+
+```text
+figures/supplemental/figS5_sample_level_seed_quality.png
+figures/supplemental/figS5_sample_level_seed_quality.pdf
+```
+
+## 7. Compile the manuscript
+
+The manuscript uses REVTeX. A typical local build is:
+
+```powershell
+cd .\manuscript
+
+pdflatex manuscript_revtex.tex
+bibtex manuscript_revtex
+pdflatex manuscript_revtex.tex
+pdflatex manuscript_revtex.tex
+
+pdflatex supplemental_material.tex
+pdflatex supplemental_material.tex
+```
+
+Expected PDF outputs:
+
+```text
+manuscript/manuscript_revtex.pdf
+manuscript/supplemental_material.pdf
+```
+
+If `pdflatex` or `bibtex` is not recognized, install a LaTeX distribution such as MiKTeX or TeX Live and reopen the terminal so that the PATH is updated.
+
+## 8. Git hygiene
+
+The `_smoke_figures/` and `analysis_seed_quality/` directories are temporary output directories and do not need to be committed unless you intentionally want to archive intermediate analysis tables.
+
+LaTeX auxiliary files should normally not be committed:
+
+```text
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*Notes.bib
+*.synctex.gz
+```
 
 After the test:
 
@@ -146,13 +214,14 @@ After the test:
 git status
 ```
 
-If `_smoke_figures/` appears as untracked, remove it:
+If temporary outputs appear as untracked files, remove them:
 
 ```powershell
-Remove-Item .\_smoke_figures -Recurse -Force
+Remove-Item .\_smoke_figures -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item .\analysis_seed_quality -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
-## 7. Pass criteria
+## 9. Pass criteria
 
 The smoke test passes if:
 
@@ -162,4 +231,6 @@ The smoke test passes if:
 4. the two full-column phi6 main alias files are detected,
 5. the six phi6 multi-panel PNG/PDF figure pairs are generated,
 6. `summary_main_df9.csv` is generated,
-7. temporary smoke-test outputs are not committed.
+7. the sample-level seed-quality diagnostic figure and CSV tables are generated,
+8. the main manuscript and supplemental PDFs compile without undefined citations or references,
+9. temporary output directories and LaTeX auxiliary files are not committed.

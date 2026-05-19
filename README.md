@@ -2,18 +2,18 @@
 
 This repository contains simulation code, data tables, figure-generation scripts, figures, and manuscript sources for the study:
 
-**Seed quality and nucleation-controlled Mpemba-like transition times in time-dependent Ginzburg--Landau models**
+**Seed quality and nucleation-controlled transition times in TDGL models motivated by phase-transition Mpemba effects**
 
 ## Overview
 
-This project studies Mpemba-like transition times in spatially extended time-dependent Ginzburg--Landau models.
+This project studies transition times in spatially extended time-dependent Ginzburg--Landau models motivated by phase-transition Mpemba-like relaxation.
 
 We compare:
 
 1. a continuous-transition `phi4` TDGL baseline model, and
 2. a first-order `phi6` TDGL model in which the post-quench state is metastable and transitions proceed through stochastic nucleation.
 
-The main result is that, in the first-order model, larger initial-state labels generate more barrier-crossing seeds, but those seeds become less compact and more spatially extended. Therefore, the nucleation probability is not determined solely by the amount of barrier-crossing seed; seed quality, especially compactness and spatial extent, is also important.
+The main result is that, in the first-order model, larger initial-state labels generate more barrier-crossing seed candidates, but those seeds become less compact and more spatially extended. Therefore, the amount of barrier-crossing seed is not by itself sufficient to characterize nucleation-controlled transition times. Seed geometry, especially compactness and spatial extent, should be analyzed separately.
 
 ## Repository structure
 
@@ -29,11 +29,14 @@ tdgl-mpemba-seed-quality/
     manuscript_revtex.tex
     supplemental_material.tex
     references_verified.bib
+    manuscript_revtex.pdf
+    supplemental_material.pdf
 
   src/
     tdgl_run_auto_v3.py
     tdgl_phi4_baseline_figure.py
     tdgl_manuscript_figures_v5_strict_fullcols_alias.py
+    analyze_seed_quality_sample_level.py
     make_tnuc_ttr_supplement_v3.py
 
   data/
@@ -64,13 +67,13 @@ pip install -r requirements.txt
 
 ## Reproducibility
 
-For numerical parameters, expected input files, figure-generation commands, and manuscript compilation instructions, see:
+For expected input files, figure-generation commands, smoke-test instructions, and manuscript compilation notes, see:
 
 ```text
 README_REPRODUCIBILITY.md
 ```
 
-If the CSV files are already included in `data/`, re-running the full simulations is not required to reproduce the manuscript figures.
+If the CSV files are already included in `data/`, re-running the full stochastic simulations is not required to reproduce the manuscript figures.
 
 ## Main outputs
 
@@ -89,9 +92,12 @@ Supplemental figures:
 figures/supplemental/figS1_ordered_seed_multipanel.pdf
 figures/supplemental/figS2_numerical_checks_multipanel.pdf
 figures/supplemental/figS3_robustness_multipanel.pdf
+figures/supplemental/figS5_sample_level_seed_quality.pdf
 ```
 
-## Figure generation smoke test
+The supplemental material also discusses the relation between nucleation and global transition times.
+
+## Figure-generation smoke test
 
 From the repository root, the manuscript figures can be regenerated from the included CSV files with:
 
@@ -109,7 +115,13 @@ python .\src\tdgl_manuscript_figures_v5_strict_fullcols_alias.py `
   --max-survival-labels 3
 ```
 
-The second command writes both PNG and PDF versions of the multi-panel manuscript figures.
+The sample-level seed-quality analysis used for Supplemental Fig. S5 can be regenerated with:
+
+```powershell
+python .\src\analyze_seed_quality_sample_level.py `
+  --data-dir .\data `
+  --outdir .\analysis_seed_quality
+```
 
 ## Manuscript
 
@@ -131,6 +143,13 @@ Bibliography:
 
 ```text
 manuscript/references_verified.bib
+```
+
+Compiled PDFs:
+
+```text
+manuscript/manuscript_revtex.pdf
+manuscript/supplemental_material.pdf
 ```
 
 ## Data availability

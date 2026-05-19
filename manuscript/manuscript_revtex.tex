@@ -12,14 +12,15 @@
 
 \begin{document}
 
-\title{Seed quality and nucleation-controlled Mpemba-like transition times in time-dependent Ginzburg--Landau models}
+\title{Seed quality in nucleation-controlled transition times in time-dependent Ginzburg--Landau models}
 
 \author{Soma Suzuki}
 \affiliation{Independent researcher}
 \date{\today}
 
+
 \begin{abstract}
-The Mpemba effect and its generalizations concern anomalous relaxation in which a system prepared farther from equilibrium can reach a target state faster than a system prepared closer to equilibrium. Phase transitions provide a particularly important setting because the relevant time scale may be controlled not only by smooth relaxation but also by the appearance of a new phase. Here we study Mpemba-like transition times in spatially extended time-dependent Ginzburg--Landau (TDGL) models. We first use a continuous-transition $\phi^4$ model as a baseline and then analyze a first-order $\phi^6$ model in which the post-quench state is metastable and the transition requires nucleation. In the first-order model, larger temperature-like initial-state labels generate more barrier-crossing seeds, as measured by the fraction and largest cluster size of sites satisfying $|\phi|>\phi_b$. However, these seeds become less compact and more spatially extended as the initial-state label increases. Ordered-like initial seeds close to the stable phase are almost absent, indicating that nucleation is not simply deterministic growth of pre-existing ordered droplets. Consequently, the nucleation probability is not determined solely by the amount of barrier-crossing seed. A direct comparison of nucleation and transition times further supports the interpretation that the global transition time is closely tied to stochastic nucleation in the first-order model. Our results highlight seed quality, especially compactness and spatial extent, as an essential ingredient in nucleation-controlled phase-transition Mpemba-like behavior.
+Generalized Mpemba effects concern anomalous relaxation in which a system prepared farther from equilibrium can reach a target condition faster than a system prepared closer to equilibrium. Phase transitions are a stringent setting for this idea because the relevant time scale can be controlled not only by smooth relaxation but also by nucleation of a new phase. Motivated by this problem, we study transition times in spatially extended time-dependent Ginzburg--Landau (TDGL) models. We first use a continuous-transition $\phi^4$ model as a baseline and then analyze a first-order $\phi^6$ model in which the post-quench state is metastable. In the first-order model, larger temperature-like initial-state labels generate more barrier-crossing seed candidates, as measured by the fraction and largest cluster size of sites satisfying $|\phi|>\phi_b$. However, these seed candidates become less compact and more spatially extended as the initial-state label increases. Ordered-like initial seeds close to the stable phase are almost absent, and the global transition time is strongly tied to the stochastic cluster-nucleation time once both are observed. The results show that the amount of barrier-crossing field is not by itself sufficient to characterize nucleation-controlled transition times. Seed geometry, especially compactness and spatial extent, should therefore be retained as a separate ingredient when interpreting phase-transition settings motivated by the Mpemba effect.
 \end{abstract}
 
 \keywords{Mpemba effect; time-dependent Ginzburg--Landau equation; first-order phase transition; nucleation; seed compactness; nonequilibrium relaxation}
@@ -32,9 +33,9 @@ The Mpemba effect refers to the counterintuitive observation that, under certain
 
 In modern terms, a generalized Mpemba effect occurs when a system prepared further from equilibrium relaxes faster than a system prepared closer to equilibrium after both are quenched to the same final condition \cite{LuRaz2017,Klich2019}. Controlled experiments on colloidal systems have demonstrated such anomalous relaxation in settings where the relevant state variables and thermal bath are well characterized \cite{Kumar2020}. These developments have motivated theoretical studies that relate the effect to the spectral structure of relaxation dynamics, the overlap of the initial state with slow modes, and the geometry of relaxation pathways in state space.
 
-A particularly important case is the Mpemba effect through a phase transition. In many experimentally motivated situations, including freezing, the relevant observable is not merely the relaxation of an average temperature but the time at which a new phase appears or becomes dominant. Holtzman and Raz formulated this idea using Landau theory and introduced a phase-transition time as a concrete observable for identifying Mpemba-like behavior through a continuous transition \cite{Holtzman2022}. Related mean-field studies have also considered phase-transition times as the relevant observable for Mpemba-like behavior \cite{YangHou2022}. First-order transitions provide another natural setting because their kinetics are typically controlled by metastability and nucleation \cite{Langer1969} rather than by deterministic linear growth alone. Zhang and Hou proposed a theoretical model for Mpemba-like behavior through a canonical first-order phase transition, showing that different initial temperatures may follow different transition pathways and thereby exhibit inverted transition times \cite{ZhangHou2022}.
+A particularly important case is the Mpemba effect through a phase transition. In many experimentally motivated situations, including freezing, the relevant observable is not merely the relaxation of an average temperature but the time at which a new phase appears or becomes dominant. Holtzman and Raz formulated this idea using Landau theory and introduced a phase-transition time as a concrete observable for identifying Mpemba-like behavior through a continuous transition \cite{Holtzman2022}. Related mean-field studies have also considered phase-transition times as the relevant observable for Mpemba-like behavior \cite{YangHou2022}. First-order transitions provide another natural setting because their kinetics are typically controlled by metastability, interfacial free-energy costs, and nucleation \cite{BeckerDoring1935,Langer1969,GuntonSanMiguelSahni1983,Binder1987,KeltonGreer2010} rather than by deterministic linear growth alone. Zhang and Hou proposed a theoretical model for Mpemba-like behavior through a canonical first-order phase transition, showing that different initial temperatures may follow different transition pathways and thereby exhibit inverted transition times \cite{ZhangHou2022}.
 
-Despite these advances, the role of spatial structure in nucleation-controlled Mpemba-like behavior remains incompletely understood. In spatially extended systems, the existence of local fluctuations beyond a free-energy barrier does not automatically imply the formation of a growing nucleus. A local seed must also have sufficient size, compactness, and proximity to the stable phase to overcome the interfacial cost associated with forming a domain boundary. This distinction is especially relevant for first-order transitions, where subcritical droplets may frequently appear and disappear without triggering a macroscopic transition. Related studies in spin systems have also emphasized that spatial correlations in the initial state can strongly influence the apparent Mpemba effect \cite{Vadakkayil2021,Chatterjee2024}.
+Despite these advances, the role of spatial structure in nucleation-controlled Mpemba-like behavior remains incompletely understood. In spatially extended systems, the existence of local fluctuations beyond a free-energy barrier does not automatically imply the formation of a growing nucleus. A local seed must also have sufficient size, compactness, and proximity to the stable phase to overcome the interfacial cost associated with forming a domain boundary \cite{CahnHilliard1958,AllenCahn1979,KeltonGreer2010}. This distinction is especially relevant for first-order transitions, where subcritical droplets may frequently appear and disappear without triggering a macroscopic transition. Related studies in spin systems have also emphasized that spatial correlations in the initial state can strongly influence the apparent Mpemba effect \cite{Vadakkayil2021,Chatterjee2024}.
 
 In this work, we investigate this issue using time-dependent Ginzburg--Landau dynamics in spatially extended scalar field models. We compare two minimal settings. The first is a continuous-transition $\phi^4$ model, used as a baseline in which ordering is driven by the growth of unstable long-wavelength modes. The second is a first-order $\phi^6$ model, in which the post-quench state is metastable and the transition requires nucleation of the stable phase.
 
@@ -42,7 +43,7 @@ The central question of this work is how a temperature-like initial-state label 
 
 Our numerical results show that the answer is nontrivial. In the first-order model, larger initial-state labels generate more barrier-crossing seeds, as measured by the fraction and maximum cluster size of sites satisfying $|\phi|>\phi_b$, where $\phi_b$ is the barrier location. However, these seeds are not necessarily ordered-phase droplets. Ordered-like initial seeds, defined by $|\phi|>0.5\phi_s$, are almost absent. Moreover, the largest barrier-crossing seed becomes less compact and more spatially extended as the initial-state label increases. Consequently, the nucleation probability is not simply determined by the monotonic increase in the number of barrier-crossing seeds.
 
-The purpose of the present paper is therefore not to claim that the hotter initial state always transforms faster. Rather, we use a minimal TDGL model to show that nucleation-controlled Mpemba-like transition times depend on both the amount and quality of initial seeds. In particular, seed compactness and post-quench stochastic nucleation can modify or obscure a simple monotonic relation between the initial-state label and transition time.
+The purpose of the present paper is therefore not to claim that the hotter initial state always transforms faster. Rather, we use a minimal TDGL model to show that transition-time anomalies in a nucleation-controlled setting cannot be understood from seed amount alone and require spatial information about seed quality. In particular, seed compactness and post-quench stochastic nucleation can modify or obscure a simple monotonic relation between the initial-state label and transition time.
 
 The remainder of this paper is organized as follows. In Sec.~\ref{model-and-numerical-protocol}, we define the TDGL models, the quench protocol, and the observables used to detect transition and nucleation times. In Sec.~\ref{results}, we present the numerical results, starting from the continuous-transition baseline and then analyzing nucleation, seed amount, and seed quality in the first-order model. In Sec.~\ref{discussion}, we discuss the physical interpretation, limitations, and relation to phase-transition Mpemba effects. Section~\ref{conclusion} summarizes the conclusions.
 
@@ -58,7 +59,7 @@ evolving under overdamped time-dependent Ginzburg--Landau dynamics,
 \begin{equation}
 \frac{\partial \phi}{\partial t}=\nabla^2\phi-\frac{\partial V(\phi)}{\partial \phi}+\eta({\bf x},t).
 \end{equation}
-This is a Model-A-type relaxational dynamics for a nonconserved scalar order parameter \cite{Hohenberg1977,Bray1994}.
+This is a Model-A-type relaxational dynamics for a nonconserved scalar order parameter \cite{Hohenberg1977,Bray1994,AllenCahn1979}.
 
 Here, $V(\phi)$ is a local Landau free-energy density and $\eta$ is a Gaussian white noise term. Unless otherwise stated, the noise satisfies
 \begin{equation}
@@ -83,7 +84,7 @@ This sudden parameter change is referred to as a quench. Physically, it represen
 \begin{equation}
 T_i\in\{1.05,1.10,1.20,1.50,2.00,3.00\}.
 \end{equation}
-In the current implementation, $T_i$ should be interpreted as an initial-state label rather than as a calibrated physical temperature. For the first-order model, the main initialization scheme fixes the initial mass parameter $a_i$ and changes the initial fluctuation strength as
+In the current implementation, $T_i$ should be interpreted as an initial-state label rather than as a calibrated physical temperature. In particular, we do not attempt to impose a unique thermodynamic temperature scale for the nonequilibrium preparation dynamics; $T_i$ rescales the initial fluctuation strength used to generate the pre-quench ensemble. For the first-order model, the main initialization scheme fixes the initial mass parameter $a_i$ and changes the initial fluctuation strength as
 \begin{equation}
 D_i=D_0T_i.
 \end{equation}
@@ -223,8 +224,9 @@ The TDGL equation is solved on a two-dimensional periodic grid of size $N\times 
 the Fourier-space update has the schematic form
 \begin{equation}
 \phi_{\bf k}(t+\Delta t)=\frac{\phi_{\bf k}(t)+\Delta t\,{\cal N}_{\bf k}(t)+\Delta W_{\bf k}}{1+\Delta t(k^2-\alpha)}.
+\label{eq:semiimplicit_update}
 \end{equation}
-Here $\Delta W_{\bf k}$ is the Fourier transform of the real-space stochastic increment. In the discrete implementation, the real-space stochastic increment at each time step is generated with variance proportional to $2D\Delta t/\Delta x^2$. The timestep used in the main first-order runs is $\Delta t=0.02$. Robustness checks with a smaller timestep, larger system size, longer pre-equilibration, and alternative nucleation thresholds are reported in the Supplemental Material.
+Here $\Delta W_{\bf k}$ is the Fourier transform of the real-space stochastic increment. Equation~(\ref{eq:semiimplicit_update}) is meant as a schematic representation of the semi-implicit update; in the code the Fourier wave numbers are those appropriate to the periodic grid and the chosen discretization of the Laplacian. In the discrete implementation, the real-space stochastic increment at each time step is generated with variance proportional to $2D\Delta t/\Delta x^2$. The timestep used in the main first-order runs is $\Delta t=0.02$. Robustness checks with a smaller timestep, larger system size, longer pre-equilibration, and alternative nucleation thresholds are reported in the Supplemental Material.
 
 \section{Results}\label{results}
 
@@ -253,7 +255,7 @@ We next study the first-order $\phi^6$ TDGL model. In the post-quench potential,
 
 Figure~\ref{fig:nucleation}(a) shows the nucleation probability $P_{\rm nuc}$ as a function of the initial-state label. The nucleation probability does not increase monotonically with the initial-state label. This is important because, as shown below, the amount of barrier-crossing seeds increases monotonically with the initial-state label. Thus, the nucleation probability is not determined solely by the amount of such seeds.
 
-Figure~\ref{fig:nucleation}(b) shows the survival curves of the nucleation time $t_{\rm nuc}$. Samples that do not nucleate by the final observation time are treated as right-censored. The survival curves show that nucleation is broadly distributed in time and strongly stochastic. The initial-state label alone does not uniquely determine the nucleation time.
+Figure~\ref{fig:nucleation}(b) shows the survival curves of the nucleation time $t_{\rm nuc}$. Samples that do not nucleate by the final observation time are treated as right-censored. The survival curves are product-limit curves with right-censoring at the final observation time \cite{KaplanMeier1958}. They show that nucleation is broadly distributed in time and strongly stochastic. The initial-state label alone does not uniquely determine the nucleation time.
 
 These results indicate that the transition time in the first-order $\phi^6$ model is controlled by a combination of the initial seed structure and stochastic post-quench nucleation dynamics. A direct comparison between $t_{\rm nuc}$ and $t_{\rm tr}$ for samples in which both times were observed is shown in Fig.~S4 of the Supplemental Material. The strong correlation between these two times supports the interpretation that the global transition time is closely tied to the stochastic nucleation time in the first-order model.
 
@@ -287,7 +289,7 @@ However, comparing Fig.~\ref{fig:nucleation}(a) and Fig.~\ref{fig:seed-amount} r
 
 \subsection{Seed quality and spatial structure}\label{seed-quality-and-spatial-structure}
 
-A barrier-crossing seed is not necessarily a growing nucleus. In a first-order transition, a stable-phase domain must overcome the interfacial cost associated with forming a boundary with the surrounding metastable phase, as emphasized in classical nucleation theory \cite{Langer1969}. Therefore, not only the amount but also the spatial quality of the seed is important.
+A barrier-crossing seed is not necessarily a growing nucleus. In a first-order transition, a stable-phase domain must overcome the interfacial cost associated with forming a boundary with the surrounding metastable phase, as emphasized in classical nucleation theory \cite{BeckerDoring1935,Langer1969,GuntonSanMiguelSahni1983,Binder1987,KeltonGreer2010}. Therefore, not only the amount but also the spatial quality of the seed is important.
 
 Figure~\ref{fig:seed-quality}(a) shows the compactness of the largest barrier-crossing seed cluster. The compactness decreases with the initial-state label. Thus, although hotter initial states contain more and larger barrier-crossing seeds, those seeds become less compact.
 
@@ -297,7 +299,7 @@ Together, Fig.~\ref{fig:seed-amount} and Fig.~\ref{fig:seed-quality} indicate th
 \begin{quote}
 Hotter initial states contain more and larger barrier-crossing seeds. However, those seeds are less compact and more spatially extended.
 \end{quote}
-This provides a natural explanation for why the nucleation probability is not a monotonic function of the amount of barrier-crossing seed. Noncompact seeds may have a larger interfacial cost relative to their area and may therefore be less efficient at developing into growing nuclei.
+This suggests a natural mechanism for why the nucleation probability need not follow the monotonic increase of the barrier-crossing seed amount. Noncompact seeds may have a larger interfacial cost relative to their area and may therefore be less efficient at developing into growing nuclei. At the same time, this interpretation should be read conservatively: compactness and $R_g$ are simple geometric diagnostics, not direct measurements of a committor probability or of a critical-droplet free energy.
 
 \begin{figure}[t]
 \centering
@@ -316,15 +318,17 @@ Third, we reduced the time step from $\Delta t=0.02$ to $\Delta t=0.01$. As show
 
 Finally, we checked the system size and pre-equilibration length. As shown in Fig.~S3, the increase of $p_{\rm seed}$ and the decrease of seed compactness with the initial-state label are preserved in a small $N=128$ check and in simulations with longer pre-equilibration. These robustness checks support the central conclusion that hotter initial states generate more barrier-crossing seeds, but those seeds are less compact and more spatially extended.
 
+As an additional sample-level check, we fitted logistic models for whether a cluster nucleation event was observed by the final observation time using seed-amount variables, seed-geometry variables, and their combination. The details are reported in the Supplemental Material. The seed-geometry-only model has the lowest Akaike information criterion in this check, but its improvement over an intercept-only model is modest. In the combined model, seed compactness has a positive standardized coefficient close to conventional significance, whereas $p_{\rm seed}$, $c_{\rm seed}$, and $R_g$ do not provide statistically decisive predictors. We therefore do not interpret the logistic analysis as a committor calculation. Its role is instead to support the more conservative conclusion that seed amount and seed geometry should not be conflated.
+
 \section{Discussion}\label{discussion}
 
 \subsection{Main interpretation: barrier-crossing seeds are not nuclei}\label{main-interpretation-barrier-crossing-seeds-are-not-nuclei}
 
 The central message of the present work is that a barrier-crossing seed should not be identified with a growing nucleus. A site or cluster satisfying $|\phi|>\phi_b$ has crossed the local free-energy barrier in field amplitude, but nucleation in a spatially extended first-order transition is not determined by local amplitude alone. A new-phase region must also overcome the interfacial free-energy cost associated with forming a boundary with the surrounding metastable phase \cite{Langer1969}.
 
-This distinction explains the otherwise counterintuitive combination of results. The fraction of barrier-crossing sites $p_{\rm seed}$ and the largest barrier-crossing cluster size $c_{\rm seed}$ both increase monotonically with the initial-state label. If local barrier crossing were sufficient for nucleation, one would expect the nucleation probability to exhibit the same clear monotonic trend. Instead, the nucleation probability does not show such a trend within the present statistics. The missing information is the spatial quality of the seed.
+This distinction explains the otherwise counterintuitive combination of results. The fraction of barrier-crossing sites $p_{\rm seed}$ and the largest barrier-crossing cluster size $c_{\rm seed}$ both increase monotonically with the initial-state label. If local barrier crossing were sufficient for nucleation, one would expect the nucleation probability to exhibit the same clear monotonic trend. Instead, the nucleation probability does not show such a trend within the present statistics. A natural candidate for the missing information is the spatial quality of the seed.
 
-In the present simulations, increasing the initial-state label produces more and larger barrier-crossing clusters, but these clusters become less compact and more spatially extended. Such clusters are not necessarily efficient nuclei. A fragmented or elongated cluster can have a large interfacial cost relative to its area, making it more susceptible to shrinking or being washed out by subsequent dynamics. Thus, seed amount and seed quality are distinct observables, and both are required to interpret nucleation-controlled transition times.
+In the present simulations, increasing the initial-state label produces more and larger barrier-crossing clusters, but these clusters become less compact and more spatially extended. Such clusters are not necessarily efficient nuclei. A fragmented or elongated cluster can have a large interfacial cost relative to its area, making it more susceptible to shrinking or being washed out by subsequent dynamics. Thus, seed amount and seed quality are distinct observables and should be analyzed separately when interpreting nucleation-controlled transition times.
 
 \subsection{Competition between seed amount and seed quality}\label{competition-between-seed-amount-and-seed-quality}
 
@@ -332,7 +336,7 @@ The results suggest a competition between two effects. On one hand, larger initi
 
 This competition provides a natural mechanism by which a first-order transition can fail to show a simple monotonic relation between the initial-state label and the transition time. A state with fewer but more compact seed candidates may compete with a state containing many extended, irregular barrier-crossing regions. In this sense, the relevant variable is not simply how much of the initial field has crossed the local barrier, but how much of that barrier-crossing field is organized into spatial structures that can survive the interfacial penalty.
 
-The compactness used here is a deliberately simple geometric proxy rather than a direct measurement of interfacial free energy. Nevertheless, the monotonic decrease of compactness and the monotonic increase of the radius of gyration provide consistent evidence that the geometry of the largest barrier-crossing cluster changes systematically with the initial-state label. This is the main reason why we interpret the observed behavior in terms of seed quality rather than seed amount alone.
+The compactness used here is a deliberately simple geometric proxy rather than a direct measurement of interfacial free energy. Nevertheless, the monotonic decrease of compactness and the monotonic increase of the radius of gyration provide consistent evidence that the geometry of the largest barrier-crossing cluster changes systematically with the initial-state label. A sample-level logistic check reported in the Supplemental Material gives only modest predictive support for compactness, so the strongest conclusion is not that compactness alone determines nucleation. Rather, the robust conclusion is that seed geometry changes systematically and cannot be reduced to seed amount alone.
 
 \subsection{Role of post-quench stochastic dynamics}\label{role-of-post-quench-stochastic-dynamics}
 
@@ -358,7 +362,9 @@ A second possible objection is that the compactness trend might be a numerical a
 
 A third possible objection is that the present statistics are not sufficient to identify a unique optimal initial-state label. We agree. The detailed label dependence of the nucleation probability remains noisy, and we therefore do not claim that any particular initial-state label is optimal. The robust conclusion is more conservative: the nucleation probability is not determined solely by the monotonic increase in barrier-crossing seed amount.
 
-A fourth possible objection is that compactness is not the same as the true committor probability or the exact critical droplet free energy. This is also correct. Compactness is used here as a simple and transparent geometric measure. A more quantitative nucleation analysis would require committor calculations, direct estimates of critical droplet shapes, or free-energy-based cluster analysis. The present result should therefore be read as evidence that seed geometry matters, not as a complete theory of nucleation rates.
+A fourth possible objection is that a sample-level predictive analysis gives only limited evidence that compactness alone predicts nucleation. This is also correct. In the Supplemental Material, a logistic model using seed compactness and $R_g$ gives the lowest AIC among the tested low-dimensional models, but its improvement over the intercept-only model is small. In a combined model, the compactness coefficient is positive and close to conventional significance, while the other seed variables are not statistically decisive. We therefore do not claim a quantitatively predictive nucleation-rate model from these observables alone.
+
+A fifth possible objection is that compactness is not the same as the true committor probability or the exact critical droplet free energy. This is also correct. Compactness is used here as a simple and transparent geometric measure. A more quantitative nucleation analysis would require committor calculations, direct estimates of critical droplet shapes, or free-energy-based cluster analysis \cite{DellagoBolhuisChandler1998,BolhuisDellagoChandlerGeissler2002,WeinanRenVandenEijnden2005}. The present result should therefore be read as evidence that seed geometry is a necessary diagnostic to track, not as a complete theory of nucleation rates.
 
 \subsection{Limitations}\label{limitations}
 
@@ -368,7 +374,7 @@ Second, the model is a two-dimensional scalar TDGL model with a nonconserved ord
 
 Third, the definitions of nucleation time, ordered-like seed, and compactness are operational. We have checked robustness against several changes, but other definitions may emphasize different aspects of the dynamics. In particular, future work should compare the present geometric seed measures with committor-based or free-energy-based measures of nucleation probability.
 
-Fourth, most of the main statistics are obtained at finite system size and over a finite number of stochastic samples. The robust trends in seed amount and seed geometry are clear, but precise estimates of nucleation probabilities and rare-event tails would require larger ensembles.
+Fourth, most of the main statistics are obtained at finite system size and over a finite number of stochastic samples. The robust trends in seed amount and seed geometry are clear, but precise estimates of nucleation probabilities, rare-event tails, and sample-level predictive relations would require larger ensembles.
 
 \subsection{Outlook}\label{outlook}
 
@@ -386,14 +392,14 @@ The key observation is that seed amount and seed quality change in different dir
 
 A direct comparison between nucleation and transition times further supports this picture: when both $t_{\rm nuc}$ and $t_{\rm tr}$ are observed, the global transition time is strongly correlated with the nucleation time. Thus, in the first-order model, transition times are tied to stochastic nucleation and subsequent growth rather than to seed amount alone.
 
-Thus, the main conclusion of this work is that nucleation-controlled phase-transition Mpemba-like behavior cannot be characterized by seed amount alone. Seed quality, especially compactness and spatial extent, is an essential ingredient in determining whether barrier-crossing fluctuations can develop into growing nuclei.
+Thus, the main conclusion of this work is that nucleation-controlled transition dynamics in phase-transition settings motivated by Mpemba-like relaxation cannot be characterized by seed amount alone. Seed quality, especially compactness and spatial extent, is an important diagnostic of whether barrier-crossing fluctuations are organized in a way that may develop into growing nuclei. A fully quantitative prediction of nucleation probabilities will require larger ensembles and more direct committor- or free-energy-based analyses.
 
 \begin{acknowledgments}
 The author thanks the open-source scientific Python community for providing the numerical tools used in this work.
 \end{acknowledgments}
 
 \section*{Data Availability}
-The simulation data and analysis scripts used to generate the figures are available from the author upon reasonable request. A public archival repository will be provided upon publication.
+The simulation data, figure-generation scripts, and reproducibility instructions are available in the public repository associated with this work. For the submitted version, the repository URL or archival DOI should be inserted here after final repository release.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{references_verified}
