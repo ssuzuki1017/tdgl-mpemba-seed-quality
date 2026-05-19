@@ -1,0 +1,2 @@
+n_total,n_observed_both,n_nuc_observed,n_tr_observed,pearson_corr,spearman_corr_no_scipy,mean_t_nuc,mean_t_tr,mean_ttr_minus_tnuc,median_ttr_minus_tnuc
+600,165,206,165,0.9967142828840343,0.9950978690074792,170.53757575757575,214.0667634230612,43.529187665485416,44.499514930670585

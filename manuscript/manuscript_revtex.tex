@@ -1,5 +1,4 @@
-
-\documentclass[aps,pre,preprint,amsmath,amssymb,superscriptaddress,longbibliography,showkeys]{revtex4-2}
+\documentclass[aps,pre,preprint,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -7,14 +6,9 @@
 \usepackage{dcolumn}
 \usepackage{bm}
 \usepackage{hyperref}
-\hypersetup{hidelinks}
 \usepackage{xurl}
-
-% Compatibility with Markdown/Pandoc-generated compact lists.
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}%
-}
-\graphicspath{{figures/}}
+\hypersetup{hidelinks}
+\graphicspath{{../figures/main/}{../figures/supplemental/}{figures/main/}{figures/supplemental/}{figures/}}
 
 \begin{document}
 
@@ -25,7 +19,7 @@
 \date{\today}
 
 \begin{abstract}
-The Mpemba effect and its generalizations concern anomalous relaxation in which a system prepared farther from equilibrium can reach a target state faster than a system prepared closer to equilibrium. Phase transitions provide a particularly important setting because the relevant time scale may be controlled not only by smooth relaxation but also by the appearance of a new phase. Here we study Mpemba-like transition times in spatially extended time-dependent Ginzburg--Landau (TDGL) models. We first use a continuous-transition $\phi^4$ model as a baseline and then analyze a first-order $\phi^6$ model in which the post-quench state is metastable and the transition requires nucleation. In the first-order model, larger temperature-like initial-state labels generate more barrier-crossing seeds, as measured by the fraction and largest cluster size of sites satisfying $|\phi|>\phi_b$. However, these seeds become less compact and more spatially extended as the initial-state label increases. Ordered-like initial seeds close to the stable phase are almost absent, indicating that nucleation is not simply deterministic growth of pre-existing ordered droplets. Consequently, the nucleation probability is not determined solely by the amount of barrier-crossing seed. Our results highlight seed quality, especially compactness and spatial extent, as an essential ingredient in nucleation-controlled phase-transition Mpemba-like behavior.
+The Mpemba effect and its generalizations concern anomalous relaxation in which a system prepared farther from equilibrium can reach a target state faster than a system prepared closer to equilibrium. Phase transitions provide a particularly important setting because the relevant time scale may be controlled not only by smooth relaxation but also by the appearance of a new phase. Here we study Mpemba-like transition times in spatially extended time-dependent Ginzburg--Landau (TDGL) models. We first use a continuous-transition $\phi^4$ model as a baseline and then analyze a first-order $\phi^6$ model in which the post-quench state is metastable and the transition requires nucleation. In the first-order model, larger temperature-like initial-state labels generate more barrier-crossing seeds, as measured by the fraction and largest cluster size of sites satisfying $|\phi|>\phi_b$. However, these seeds become less compact and more spatially extended as the initial-state label increases. Ordered-like initial seeds close to the stable phase are almost absent, indicating that nucleation is not simply deterministic growth of pre-existing ordered droplets. Consequently, the nucleation probability is not determined solely by the amount of barrier-crossing seed. A direct comparison of nucleation and transition times further supports the interpretation that the global transition time is closely tied to stochastic nucleation in the first-order model. Our results highlight seed quality, especially compactness and spatial extent, as an essential ingredient in nucleation-controlled phase-transition Mpemba-like behavior.
 \end{abstract}
 
 \keywords{Mpemba effect; time-dependent Ginzburg--Landau equation; first-order phase transition; nucleation; seed compactness; nonequilibrium relaxation}
@@ -42,11 +36,11 @@ A particularly important case is the Mpemba effect through a phase transition. I
 
 Despite these advances, the role of spatial structure in nucleation-controlled Mpemba-like behavior remains incompletely understood. In spatially extended systems, the existence of local fluctuations beyond a free-energy barrier does not automatically imply the formation of a growing nucleus. A local seed must also have sufficient size, compactness, and proximity to the stable phase to overcome the interfacial cost associated with forming a domain boundary. This distinction is especially relevant for first-order transitions, where subcritical droplets may frequently appear and disappear without triggering a macroscopic transition. Related studies in spin systems have also emphasized that spatial correlations in the initial state can strongly influence the apparent Mpemba effect \cite{Vadakkayil2021,Chatterjee2024}.
 
-In this work, we investigate this issue using time-dependent Ginzburg--Landau dynamics in spatially extended scalar field models. We compare two minimal settings. The first is a continuous-transition \(\phi^4\) model, used as a baseline in which ordering is driven by the growth of unstable long-wavelength modes. The second is a first-order \(\phi^6\) model, in which the post-quench state is metastable and the transition requires nucleation of the stable phase.
+In this work, we investigate this issue using time-dependent Ginzburg--Landau dynamics in spatially extended scalar field models. We compare two minimal settings. The first is a continuous-transition $\phi^4$ model, used as a baseline in which ordering is driven by the growth of unstable long-wavelength modes. The second is a first-order $\phi^6$ model, in which the post-quench state is metastable and the transition requires nucleation of the stable phase.
 
 The central question of this work is how a temperature-like initial-state label affects the transition time when the transition is controlled by nucleation. More specifically, we ask whether the amount of barrier-crossing seed is sufficient to predict the nucleation probability, or whether spatial information about the seed is also needed.
 
-Our numerical results show that the answer is nontrivial. In the first-order model, larger initial-state labels generate more barrier-crossing seeds, as measured by the fraction and maximum cluster size of sites satisfying \(|\phi|>\phi_b\), where \(\phi_b\) is the barrier location. However, these seeds are not necessarily ordered-phase droplets. Ordered-like initial seeds, defined by \(|\phi|>0.5\phi_s\), are almost absent. Moreover, the largest barrier-crossing seed becomes less compact and more spatially extended as the initial-state label increases. Consequently, the nucleation probability is not simply determined by the monotonic increase in the number of barrier-crossing seeds.
+Our numerical results show that the answer is nontrivial. In the first-order model, larger initial-state labels generate more barrier-crossing seeds, as measured by the fraction and maximum cluster size of sites satisfying $|\phi|>\phi_b$, where $\phi_b$ is the barrier location. However, these seeds are not necessarily ordered-phase droplets. Ordered-like initial seeds, defined by $|\phi|>0.5\phi_s$, are almost absent. Moreover, the largest barrier-crossing seed becomes less compact and more spatially extended as the initial-state label increases. Consequently, the nucleation probability is not simply determined by the monotonic increase in the number of barrier-crossing seeds.
 
 The purpose of the present paper is therefore not to claim that the hotter initial state always transforms faster. Rather, we use a minimal TDGL model to show that nucleation-controlled Mpemba-like transition times depend on both the amount and quality of initial seeds. In particular, seed compactness and post-quench stochastic nucleation can modify or obscure a simple monotonic relation between the initial-state label and transition time.
 
@@ -57,469 +51,194 @@ The remainder of this paper is organized as follows. In Sec.~\ref{model-and-nume
 \subsection{TDGL dynamics}\label{tdgl-dynamics}
 
 We consider a two-dimensional scalar order parameter field,
-
-\[
-\phi=\phi(\mathbf{x},t),
-\]
-
+\begin{equation}
+\phi=\phi({\bf x},t),
+\end{equation}
 evolving under overdamped time-dependent Ginzburg--Landau dynamics,
-
-\[
-\frac{\partial \phi}{\partial t}
-=
-\nabla^2 \phi
--
-\frac{\partial V(\phi)}{\partial \phi}
-+
-\eta(\mathbf{x},t).
-\]
-
+\begin{equation}
+\frac{\partial \phi}{\partial t}=\nabla^2\phi-\frac{\partial V(\phi)}{\partial \phi}+\eta({\bf x},t).
+\end{equation}
 This is a Model-A-type relaxational dynamics for a nonconserved scalar order parameter \cite{Hohenberg1977,Bray1994}.
 
-Here, \(V(\phi)\) is a local Landau free-energy density and \(\eta\) is a Gaussian white noise term. Unless otherwise stated, the noise satisfies
-
-\[
-\langle \eta(\mathbf{x},t)\rangle=0,
-\]
-
-\[
-\langle \eta(\mathbf{x},t)\eta(\mathbf{x}',t')\rangle
-=
-2D\,\delta(\mathbf{x}-\mathbf{x}')\delta(t-t').
-\]
-
-The coefficient \(D\) controls the strength of stochastic fluctuations. In the present work, \(D_i\) denotes the noise strength used to prepare the initial state, while \(D_f\) denotes the post-quench noise strength.
+Here, $V(\phi)$ is a local Landau free-energy density and $\eta$ is a Gaussian white noise term. Unless otherwise stated, the noise satisfies
+\begin{equation}
+\langle \eta({\bf x},t)\rangle=0,
+\end{equation}
+\begin{equation}
+\langle \eta({\bf x},t)\eta({\bf x}',t')\rangle=2D\delta({\bf x}-{\bf x}')\delta(t-t').
+\end{equation}
+The coefficient $D$ controls the strength of stochastic fluctuations. In the present work, $D_i$ denotes the noise strength used to prepare the initial state, while $D_f$ denotes the post-quench noise strength.
 
 The spatial Laplacian term corresponds to a gradient-energy contribution,
-
-\[
-F[\phi]
-=
-\int d^2x
-\left[
-\frac{1}{2}|\nabla\phi|^2
-+
-V(\phi)
-\right].
-\]
-
-This term penalizes sharp spatial variations in \(\phi\). It therefore generates an interfacial cost between regions in different phases, which is crucial for nucleation.
+\begin{equation}
+F[\phi]=\int d^2x\left[\frac{1}{2}|\nabla\phi|^2+V(\phi)\right].
+\end{equation}
+This term penalizes sharp spatial variations in $\phi$. It therefore generates an interfacial cost between regions in different phases, which is crucial for nucleation.
 
 \subsection{Quench protocol}\label{quench-protocol}
 
-The simulations use the following protocol.
+The simulations use the following protocol. First, an initial field is prepared by evolving the TDGL equation under an initial potential $V_i(\phi)$ and an initial noise strength $D_i$. Second, at $t=0$, the initial parameters are suddenly replaced by final parameters $V_f(\phi)$ and $D_f$. Third, the subsequent relaxation, nucleation, and transition of the field are monitored.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Prepare an initial field by evolving the TDGL equation under an initial potential \(V_i(\phi)\) and an initial noise strength \(D_i\).
-\item
-  At \(t=0\), suddenly replace the initial parameters by final parameters \(V_f(\phi)\) and \(D_f\).
-\item
-  Monitor the subsequent relaxation, nucleation, and transition of the field.
-\end{enumerate}
+This sudden parameter change is referred to as a quench. Physically, it represents an idealized rapid cooling or rapid change of thermodynamic control parameters. Initial states are labeled by a temperature-like parameter
+\begin{equation}
+T_i\in\{1.05,1.10,1.20,1.50,2.00,3.00\}.
+\end{equation}
+In the current implementation, $T_i$ should be interpreted as an initial-state label rather than as a calibrated physical temperature. For the first-order model, the main initialization scheme fixes the initial mass parameter $a_i$ and changes the initial fluctuation strength as
+\begin{equation}
+D_i=D_0T_i.
+\end{equation}
+This isolates the effect of stronger initial fluctuations while keeping the pre-quench potential structure fixed.
 
-This sudden parameter change is referred to as a quench. Physically, it represents an idealized rapid cooling or rapid change of thermodynamic control parameters.
-
-Initial states are labeled by a temperature-like parameter,
-
-\[
-T_i \in \{1.05,1.10,1.20,1.50,2.00,3.00\}.
-\]
-
-In this implementation, \(T_i\) should be interpreted as an initial-state label rather than as a calibrated physical temperature. For the first-order model, the main initialization scheme fixes the initial mass parameter \(a_i\) and changes the initial fluctuation strength as
-
-\[
-D_i = D_0 T_i.
-\]
-
-This isolates the effect of stronger initial fluctuations while keeping the pre-quench potential structure fixed. In this work, we focus on this initialization protocol in order to isolate the effect of the initial fluctuation strength.
-
-\subsection{\texorpdfstring{Continuous-transition baseline: \(\phi^4\) model}{Continuous-transition baseline: \textbackslash phi\^{}4 model}}\label{continuous-transition-baseline-phi4-model}
+\subsection{Continuous-transition baseline: \texorpdfstring{$\phi^4$}{phi4} model}\label{continuous-transition-baseline-phi4-model}
 
 As a baseline, we consider a continuous-transition TDGL model with
-
-\[
-V_4(\phi;r)
-=
-\frac{r}{2}\phi^2
-+
-\frac{1}{4}\phi^4.
-\]
-
-The initial state is prepared with \(r_i>0\), for which \(\phi=0\) is stable. After the quench, the final potential is
-
-\[
-V_{4,f}(\phi)
-=
--\frac{1}{2}\phi^2
-+
-\frac{1}{4}\phi^4.
-\]
-
+\begin{equation}
+V_4(\phi;r)=\frac{r}{2}\phi^2+\frac{1}{4}\phi^4.
+\end{equation}
+The initial state is prepared with $r_i>0$, for which $\phi=0$ is stable. After the quench, the final potential is
+\begin{equation}
+V_{4,f}(\phi)=-\frac{1}{2}\phi^2+\frac{1}{4}\phi^4.
+\end{equation}
 The post-quench dynamics is therefore
-
-\[
-\frac{\partial \phi}{\partial t}
-=
-\nabla^2\phi
-+
-\phi
--
-\phi^3
-+
-\eta_f.
-\]
-
-At early times and small \(\phi\), this reduces to the linearized equation
-
-\[
-\frac{\partial \phi_{\mathbf{k}}}{\partial t}
-=
-(1-k^2)\phi_{\mathbf{k}},
-\]
-
-so that modes with \(k<1\) grow exponentially. Thus, in this model, the early ordering dynamics is controlled by the initial overlap with unstable long-wavelength modes.
+\begin{equation}
+\frac{\partial \phi}{\partial t}=\nabla^2\phi+\phi-\phi^3+\eta_f.
+\end{equation}
+At early times and small $\phi$, this reduces to the linearized equation
+\begin{equation}
+\frac{\partial \phi_{\bf k}}{\partial t}=(1-k^2)\phi_{\bf k},
+\end{equation}
+so that modes with $k<1$ grow exponentially. Thus, in this model, the early ordering dynamics is controlled by the initial overlap with unstable long-wavelength modes.
 
 We monitor the global ordering measure
+\begin{equation}
+Q(t)=\langle \phi^2({\bf x},t)\rangle,
+\end{equation}
+where $\langle\cdots\rangle$ denotes the spatial average. The transition time is defined operationally as the first time at which
+\begin{equation}
+Q(t)>Q_{\rm th}.
+\end{equation}
+For the baseline calculations, we use $Q_{\rm th}=0.5$.
 
-\[
-Q(t)=\langle \phi^2(\mathbf{x},t)\rangle,
-\]
-
-where \(\langle \cdots \rangle\) denotes the spatial average. The transition time is defined operationally as the first time at which
-
-\[
-Q(t) > Q_{\rm th}.
-\]
-
-For the baseline calculations, we use \(Q_{\rm th}=0.5\).
-
-\subsection{\texorpdfstring{First-order transition model: \(\phi^6\) potential}{First-order transition model: \textbackslash phi\^{}6 potential}}\label{first-order-transition-model-phi6-potential}
+\subsection{First-order transition model: \texorpdfstring{$\phi^6$}{phi6} potential}\label{first-order-transition-model-phi6-potential}
 
 To study nucleation-controlled transition times, we use a first-order Landau potential,
-
-\[
-V_6(\phi)
-=
-\frac{a}{2}\phi^2
--
-\frac{b}{4}\phi^4
-+
-\frac{c}{6}\phi^6,
-\]
-
-with \(b>0\) and \(c>0\). In most simulations we set
-
-\[
-b=c=1,
-\]
-
-so that \(a\) is the main control parameter.
+\begin{equation}
+V_6(\phi)=\frac{a}{2}\phi^2-\frac{b}{4}\phi^4+\frac{c}{6}\phi^6,
+\end{equation}
+with $b>0$ and $c>0$. In most simulations we set $b=c=1$, so that $a$ is the main control parameter.
 
 The extrema satisfy
-
-\[
-\frac{\partial V_6}{\partial \phi}
-=
-a\phi-b\phi^3+c\phi^5
-=
-0.
-\]
-
-Besides \(\phi=0\), the nonzero extrema satisfy
-
-\[
+\begin{equation}
+\frac{\partial V_6}{\partial \phi}=a\phi-b\phi^3+c\phi^5=0.
+\end{equation}
+Besides $\phi=0$, the nonzero extrema satisfy
+\begin{equation}
 c\phi^4-b\phi^2+a=0.
-\]
-
-When \(0<a<b^2/(4c)\), the two nonzero extrema are given by
-
-\[
-\phi_b^2
-=
-\frac{b-\sqrt{b^2-4ac}}{2c},
-\]
-
-\[
-\phi_s^2
-=
-\frac{b+\sqrt{b^2-4ac}}{2c}.
-\]
-
-Here, \(\phi_b\) is the barrier location and \(\phi_s\) is the stable-phase amplitude. For
-
-\[
-0<a<\frac{3b^2}{16c},
-\]
-
-the state \(\phi=0\) is metastable and \(\phi=\pm \phi_s\) are the globally stable phases. This is the regime used for the first-order post-quench dynamics.
+\end{equation}
+When $0<a<b^2/(4c)$, the two nonzero extrema are given by
+\begin{equation}
+\phi_b^2=\frac{b-\sqrt{b^2-4ac}}{2c},
+\end{equation}
+\begin{equation}
+\phi_s^2=\frac{b+\sqrt{b^2-4ac}}{2c}.
+\end{equation}
+Here, $\phi_b$ is the barrier location and $\phi_s$ is the stable-phase amplitude. For $0<a<3b^2/(16c)$, the state $\phi=0$ is metastable and $\phi=\pm\phi_s$ are the globally stable phases. This is the regime used for the first-order post-quench dynamics.
 
 The post-quench equation is
-
-\[
-\frac{\partial \phi}{\partial t}
-=
-\nabla^2\phi
--
-a_f\phi
-+
-b\phi^3
--
-c\phi^5
-+
-\eta_f.
-\]
-
+\begin{equation}
+\frac{\partial \phi}{\partial t}=\nabla^2\phi-a_f\phi+b\phi^3-c\phi^5+\eta_f.
+\end{equation}
 In the main simulations, we use
-
-\[
-a_f=0.02,\quad b=c=1,
-\]
-
-The post-quench noise strength \(D_f\) controls the stochastic nucleation rate; the value used for the main data set is summarized in Table~\ref{tab:main-parameters}.
+\begin{equation}
+a_f=0.02,\quad b=c=1.
+\end{equation}
 
 \subsection{Seed definitions}\label{seed-definitions}
 
 For the first-order model, we distinguish several notions of seed.
 
-\subsubsection{Barrier-crossing seed}\label{barrier-crossing-seed}
-
 A barrier-crossing seed is defined as an initial region satisfying
-
-\[
-|\phi(\mathbf{x},0)|>\phi_b.
-\]
-
+\begin{equation}
+|\phi({\bf x},0)|>\phi_b.
+\end{equation}
 This identifies local fluctuations that have crossed the free-energy barrier in field amplitude. We define
-
-\[
-p_{\rm seed}
-=
-\frac{1}{N^2}
-\sum_{\mathbf{x}}
-\mathbf{1}\left(|\phi(\mathbf{x},0)|>\phi_b\right),
-\]
-
+\begin{equation}
+p_{\rm seed}=\frac{1}{N^2}\sum_{\bf x}{\bf 1}\left(|\phi({\bf x},0)|>\phi_b\right),
+\end{equation}
 and
-
-\[
-c_{\rm seed}
-=
-\max_{\rm clusters}
-\left[
-\text{cluster size of } |\phi(\mathbf{x},0)|>\phi_b
-\right].
-\]
-
+\begin{equation}
+c_{\rm seed}=\max_{\rm clusters}\left[\text{cluster size of }|\phi({\bf x},0)|>\phi_b\right].
+\end{equation}
 These observables measure the amount and size of barrier-crossing seed candidates. However, they do not by themselves imply the existence of a growing nucleus.
 
-\subsubsection{Ordered-like seed}\label{ordered-like-seed}
-
 To detect initial regions already close to the stable phase, we also define ordered-like seeds by
-
-\[
-|\phi(\mathbf{x},0)|>0.5\phi_s.
-\]
-
-The corresponding observables are
-
-\[
-p_{\rm ordered\ seed}
-=
-\frac{1}{N^2}
-\sum_{\mathbf{x}}
-\mathbf{1}\left(|\phi(\mathbf{x},0)|>0.5\phi_s\right),
-\]
-
-and
-
-\[
-c_{\rm ordered\ seed}
-=
-\max_{\rm clusters}
-\left[
-\text{cluster size of } |\phi(\mathbf{x},0)|>0.5\phi_s
-\right].
-\]
-
-The threshold \(0.5\phi_s\) is an operational choice. It is stricter than the barrier threshold \(\phi_b\), but less restrictive than requiring the field to reach \(\phi_s\) itself. It is therefore used to identify regions that are substantially displaced toward the stable phase.
-
-\subsubsection{Seed compactness}\label{seed-compactness}
+\begin{equation}
+|\phi({\bf x},0)|>0.5\phi_s.
+\end{equation}
+The corresponding observables are $p_{\rm ordered\ seed}$ and $c_{\rm ordered\ seed}$, defined analogously to $p_{\rm seed}$ and $c_{\rm seed}$. The threshold $0.5\phi_s$ is an operational choice. It is stricter than the barrier threshold $\phi_b$, but less restrictive than requiring the field to reach $\phi_s$ itself.
 
 For the largest barrier-crossing seed cluster, we compute a compactness measure,
-
-\[
-C_{\rm comp}
-=
-\frac{A_{\rm seed}}{A_{\rm bbox}},
-\]
-
-where \(A_{\rm seed}\) is the cluster area and \(A_{\rm bbox}\) is the area of the smallest unwrapped bounding box containing that cluster. A compact cluster has \(C_{\rm comp}\) closer to unity, while a string-like or spatially extended cluster has a smaller value.
-
-We also compute the radius of gyration,
-
-\[
-R_g^2
-=
-\frac{1}{A_{\rm seed}}
-\sum_{\mathbf{x}\in {\rm seed}}
-|\mathbf{x}-\mathbf{x}_{\rm cm}|^2,
-\]
-
-where \(\mathbf{x}_{\rm cm}\) is the cluster center of mass in the unwrapped coordinates. Together, compactness and \(R_g\) quantify the spatial quality of a seed.
+\begin{equation}
+C_{\rm comp}=\frac{A_{\rm seed}}{A_{\rm bbox}},
+\end{equation}
+where $A_{\rm seed}$ is the cluster area and $A_{\rm bbox}$ is the area of the smallest unwrapped bounding box containing that cluster. A compact cluster has $C_{\rm comp}$ closer to unity, while a string-like or spatially extended cluster has a smaller value. We also compute the radius of gyration,
+\begin{equation}
+R_g^2=\frac{1}{A_{\rm seed}}\sum_{{\bf x}\in {\rm seed}}|{\bf x}-{\bf x}_{\rm cm}|^2,
+\end{equation}
+where ${\bf x}_{\rm cm}$ is the cluster center of mass in the unwrapped coordinates. Together, compactness and $R_g$ quantify the spatial quality of a seed.
 
 \subsection{Nucleation and transition times}\label{nucleation-and-transition-times}
 
-The nucleation time is defined using clusters of ordered-like regions during the post-quench dynamics. At each time, we identify sites satisfying
-
-\[
-|\phi(\mathbf{x},t)|>0.5\phi_s.
-\]
-
-Let
-
-\[
-C_{\max}(t)
-\]
-
-be the maximum cluster size of such ordered-like sites. We define the cluster nucleation time \(t_{\rm nuc}\) as the first time at which
-
-\[
-C_{\max}(t) \ge C_{\rm th}
-\]
-
-for at least \(n_{\rm cons}\) consecutive measurements. Unless otherwise stated,
-
-\[
+The nucleation time is defined using clusters of ordered-like regions during the post-quench dynamics. At each measurement time, we identify sites satisfying
+\begin{equation}
+|\phi({\bf x},t)|>0.5\phi_s.
+\end{equation}
+Let $C_{\max}(t)$ be the maximum cluster size of such ordered-like sites. We define the cluster nucleation time $t_{\rm nuc}$ as the first time at which
+\begin{equation}
+C_{\max}(t)\ge C_{\rm th}
+\end{equation}
+for at least $n_{\rm cons}$ consecutive measurements. In the main calculations,
+\begin{equation}
 C_{\rm th}=20,\quad n_{\rm cons}=3.
-\]
-
+\end{equation}
 This persistence requirement reduces false positives from short-lived stochastic fluctuations.
 
-The transition time is defined from the global order measure,
-
-\[
-Q(t)=\langle \phi^2(\mathbf{x},t)\rangle.
-\]
-
-For the first-order model, we use
-
-\[
+The transition time is defined from the global order measure $Q(t)=\langle \phi^2({\bf x},t)\rangle$. For the first-order model, we use
+\begin{equation}
 Q_{\rm th}=q_{\rm frac}\phi_s^2,
-\]
-
-with
-
-\[
-q_{\rm frac}=0.5.
-\]
-
+\quad q_{\rm frac}=0.5.
+\end{equation}
 Thus,
-
-\[
-t_{\rm tr}
-=
-\min\{t:Q(t)>Q_{\rm th}\}.
-\]
-
-The nucleation time \(t_{\rm nuc}\) captures the first formation of a persistent ordered cluster, while \(t_{\rm tr}\) measures the later, more global progress of the transition.
+\begin{equation}
+t_{\rm tr}=\min\{t:Q(t)>Q_{\rm th}\}.
+\end{equation}
+The nucleation time $t_{\rm nuc}$ captures the first formation of a persistent ordered cluster, while $t_{\rm tr}$ measures the later, more global progress of the transition.
 
 \subsection{Numerical discretization}\label{numerical-discretization}
 
-The TDGL equation is solved on a two-dimensional periodic grid of size
-
-\[
-N\times N.
-\]
-
-Unless otherwise stated, simulations are performed with
-
-\[
-N=64,\quad \Delta x=1.
-\]
-
-The deterministic linear part is treated semi-implicitly in Fourier space, while the nonlinear terms and noise are treated explicitly. For an equation of the form
-
-\[
-\frac{\partial \phi}{\partial t}
-=
-\nabla^2\phi
-+
-\alpha\phi
-+
-\mathcal{N}(\phi)
-+
-\eta,
-\]
-
+The TDGL equation is solved on a two-dimensional periodic grid of size $N\times N$. Most main calculations use $N=64$ and $\Delta x=1$. The deterministic linear part is treated semi-implicitly in Fourier space, while the nonlinear terms and noise are treated explicitly. For an equation of the form
+\begin{equation}
+\frac{\partial \phi}{\partial t}=\nabla^2\phi+\alpha\phi+{\cal N}(\phi)+\eta,
+\end{equation}
 the Fourier-space update has the schematic form
-
-\[
-\phi_{\mathbf{k}}(t+\Delta t)
-=
-\frac{
-\phi_{\mathbf{k}}(t)
-+
-\Delta t\,\mathcal{N}_{\mathbf{k}}(t)
-+
-\Delta W_{\mathbf{k}}
-}{
-1+\Delta t(k^2-\alpha)
-}.
-\]
-
-Here \(\Delta W_{\mathbf{k}}\) is the Fourier transform of the real-space stochastic increment. The timestep used in the main simulations is
-
-\[
-\Delta t=0.02.
-\]
-
-Robustness checks with a smaller timestep, larger system size, longer pre-equilibration, and alternative nucleation thresholds are reported in Sec.~\ref{robustness-checks} and in the Supplemental Material.
-
-
-\begin{table}[t]
-\caption{Simulation parameters used for the main data sets and robustness checks. The main $\phi^6$ results in Figs.~\ref{fig:nucleation}--\ref{fig:seed-quality} use two independent random seeds with 50 realizations per label each.}
-\label{tab:main-parameters}
-\begin{ruledtabular}
-\begin{tabular}{lc}
-Parameter & Value \\
-\hline
-System size for main $\phi^6$ runs & $N=64$ \\
-Grid spacing & $\Delta x=1$ \\
-Time step for main $\phi^6$ runs & $\Delta t=0.02$ \\
-Final time for main $\phi^6$ runs & $t_{\max}=300$ \\
-Pre-equilibration steps & 500 \\
-Final potential parameters & $a_f=0.02$, $b=c=1$ \\
-Initial fluctuation strength & $D_i=D_0T_i$, $D_0=0.02$ \\
-Post-quench noise strength for main $\phi^6$ runs & $D_f=9\times10^{-3}$ \\
-Initial-state labels & $T_i=1.05,1.10,1.20,1.50,2.00,3.00$ \\
-Nucleation threshold & $C_{\rm th}=20$ \\
-Persistence condition & $n_{\rm cons}=3$ \\
-Main $\phi^6$ sample count & 100 realizations per label \\
-$\phi^4$ baseline sample count & 5 realizations per label \\
-Threshold check sample count & 30 realizations per label \\
-Time-step check sample count & 30 realizations per label \\
-$N=128$ check sample count & 20 realizations per label \\
-\end{tabular}
-\end{ruledtabular}
-\end{table}
+\begin{equation}
+\phi_{\bf k}(t+\Delta t)=\frac{\phi_{\bf k}(t)+\Delta t\,{\cal N}_{\bf k}(t)+\Delta W_{\bf k}}{1+\Delta t(k^2-\alpha)}.
+\end{equation}
+Here $\Delta W_{\bf k}$ is the Fourier transform of the real-space stochastic increment. In the discrete implementation, the real-space stochastic increment at each time step is generated with variance proportional to $2D\Delta t/\Delta x^2$. The timestep used in the main first-order runs is $\Delta t=0.02$. Robustness checks with a smaller timestep, larger system size, longer pre-equilibration, and alternative nucleation thresholds are reported in the Supplemental Material.
 
 \section{Results}\label{results}
 
-In this section, we first examine the continuous-transition \(\phi^4\) TDGL model as a baseline. We then analyze the nucleation probability, the amount of barrier-crossing seeds, and the spatial quality of seeds in the first-order \(\phi^6\) TDGL model.
+In this section, we first examine the continuous-transition $\phi^4$ TDGL model as a baseline. We then analyze the nucleation probability, the amount of barrier-crossing seeds, and the spatial quality of seeds in the first-order $\phi^6$ TDGL model.
 
 The central result is that hotter initial states contain more barrier-crossing seeds, but those seeds become less compact and more spatially extended. Therefore, the nucleation probability cannot be explained solely by the amount of barrier-crossing seeds.
 
 \subsection{Continuous-transition baseline}\label{continuous-transition-baseline}
 
-We first consider the continuous-transition \(\phi^4\) TDGL model as a baseline. After the quench, the state \(\phi=0\) becomes linearly unstable, and the early ordering dynamics is controlled by the overlap of the initial field with unstable growing modes.
+We first consider the continuous-transition $\phi^4$ TDGL model as a baseline. After the quench, the state $\phi=0$ becomes linearly unstable, and the early ordering dynamics is controlled by the overlap of the initial field with unstable growing modes.
 
-Figure 1 shows the mean transition time \(t_{\mathrm{tr}}\) as a function of the initial-state label. Under the present standard initialization, \(t_{\mathrm{tr}}\) increases with the initial-state label. Thus, a simple Mpemba-like inversion, in which a hotter initial state transforms faster, is not observed in the continuous-transition \(\phi^4\) baseline.
+Figure~\ref{fig:phi4-baseline} shows the mean transition time $t_{\rm tr}$ as a function of the initial-state label. Under the present standard initialization, $t_{\rm tr}$ increases with the initial-state label. Thus, a simple Mpemba-like inversion, in which a hotter initial state transforms faster, is not observed in the continuous-transition $\phi^4$ baseline.
 
-This result provides a useful reference point for the first-order model discussed below. In the standard continuous-transition TDGL model, increasing the initial-state label does not automatically accelerate the transition. Therefore, the behavior of the first-order \(\phi^6\) model must be interpreted in terms of nucleation rather than simple deterministic growth of unstable modes.
-
+This result provides a useful reference point for the first-order model discussed below. In the standard continuous-transition TDGL model, increasing the initial-state label does not automatically accelerate the transition. Therefore, the behavior of the first-order $\phi^6$ model must be interpreted in terms of nucleation rather than simple deterministic growth of unstable modes.
 
 \begin{figure}[t]
 \centering
@@ -530,14 +249,13 @@ This result provides a useful reference point for the first-order model discusse
 
 \subsection{Nucleation-controlled transition in the first-order model}\label{nucleation-controlled-transition-in-the-first-order-model}
 
-We next study the first-order \(\phi^6\) TDGL model. In the post-quench potential, \(\phi=0\) is metastable and \(\phi=\pm\phi_s\) are stable phases. The transition therefore proceeds through nucleation out of the metastable state rather than through a linear instability.
+We next study the first-order $\phi^6$ TDGL model. In the post-quench potential, $\phi=0$ is metastable and $\phi=\pm\phi_s$ are stable phases. The transition therefore proceeds through nucleation out of the metastable state rather than through a linear instability.
 
-Figure 2(a) shows the nucleation probability \(P_{\mathrm{nuc}}\) as a function of the initial-state label. Unlike the seed statistics shown below, the nucleation probability does not show a clear monotonic increase with the initial-state label within the present statistics. This is important because, as shown below, the amount of barrier-crossing seeds increases monotonically with the initial-state label. Thus, the nucleation probability is not determined solely by the amount of such seeds.
+Figure~\ref{fig:nucleation}(a) shows the nucleation probability $P_{\rm nuc}$ as a function of the initial-state label. The nucleation probability does not increase monotonically with the initial-state label. This is important because, as shown below, the amount of barrier-crossing seeds increases monotonically with the initial-state label. Thus, the nucleation probability is not determined solely by the amount of such seeds.
 
-Figure 2(b) shows the survival curves of the nucleation time \(t_{\mathrm{nuc}}\). Samples that do not nucleate by the final observation time are treated as right-censored. The survival curves show that nucleation is broadly distributed in time and strongly stochastic. The initial-state label alone does not uniquely determine the nucleation time.
+Figure~\ref{fig:nucleation}(b) shows the survival curves of the nucleation time $t_{\rm nuc}$. Samples that do not nucleate by the final observation time are treated as right-censored. The survival curves show that nucleation is broadly distributed in time and strongly stochastic. The initial-state label alone does not uniquely determine the nucleation time.
 
-These results indicate that the transition time in the first-order \(\phi^6\) model is controlled by a combination of the initial seed structure and stochastic post-quench nucleation dynamics.
-
+These results indicate that the transition time in the first-order $\phi^6$ model is controlled by a combination of the initial seed structure and stochastic post-quench nucleation dynamics. A direct comparison between $t_{\rm nuc}$ and $t_{\rm tr}$ for samples in which both times were observed is shown in Fig.~S4 of the Supplemental Material. The strong correlation between these two times supports the interpretation that the global transition time is closely tied to the stochastic nucleation time in the first-order model.
 
 \begin{figure}[t]
 \centering
@@ -549,24 +267,21 @@ These results indicate that the transition time in the first-order \(\phi^6\) mo
 \subsection{Barrier-crossing seed amount}\label{barrier-crossing-seed-amount}
 
 In a first-order transition, local fluctuations beyond the free-energy barrier can act as seed candidates. We therefore define barrier-crossing seeds by
+\begin{equation}
+|\phi({\bf x},0)|>\phi_b,
+\end{equation}
+where $\phi_b$ is the barrier location.
 
-\[
-|\phi(\mathbf{x},0)|>\phi_b,
-\]
+Figure~\ref{fig:seed-amount}(a) shows the barrier-crossing seed fraction $p_{\rm seed}$. This quantity increases monotonically with the initial-state label. Thus, hotter initial states contain more local fluctuations that cross the free-energy barrier.
 
-where \(\phi_b\) is the barrier location.
+Figure~\ref{fig:seed-amount}(b) shows the largest barrier-crossing cluster size $c_{\rm seed}$. This quantity also increases monotonically with the initial-state label. Therefore, hotter initial states not only contain more barrier-crossing sites, but also contain larger connected barrier-crossing clusters.
 
-Figure 3(a) shows the barrier-crossing seed fraction \(p_{\mathrm{seed}}\). This quantity increases monotonically with the initial-state label. Thus, hotter initial states contain more local fluctuations that cross the free-energy barrier.
-
-Figure 3(b) shows the largest barrier-crossing cluster size \(c_{\mathrm{seed}}\). This quantity also increases monotonically with the initial-state label. Therefore, hotter initial states not only contain more barrier-crossing sites, but also contain larger connected barrier-crossing clusters.
-
-However, comparing Fig.~\ref{fig:nucleation}(a) and Fig.~\ref{fig:seed-amount} reveals an important point. While both \(p_{\mathrm{seed}}\) and \(c_{\mathrm{seed}}\) increase monotonically, \(P_{\mathrm{nuc}}\) does not show the same clear monotonic trend within the present statistics. This shows that the amount of barrier-crossing seed is insufficient to predict the nucleation probability.
-
+However, comparing Fig.~\ref{fig:nucleation}(a) and Fig.~\ref{fig:seed-amount} reveals an important point. While both $p_{\rm seed}$ and $c_{\rm seed}$ increase monotonically, $P_{\rm nuc}$ does not show the same clear monotonic trend within the present statistics. This shows that the amount of barrier-crossing seed is insufficient to predict the nucleation probability.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\linewidth]{fig3_seed_amount_multipanel}
-\caption{Amount of barrier-crossing seeds in the first-order $\phi^6$ model. (a) Mean fraction of sites satisfying $|\phi(\mathbf{x},0)|>\phi_b$. (b) Mean largest cluster size of the barrier-crossing region. Error bars indicate standard errors over stochastic realizations. Both quantities increase monotonically with the initial-state label.}
+\caption{Amount of barrier-crossing seeds in the first-order $\phi^6$ model. (a) Mean fraction of sites satisfying $|\phi({\bf x},0)|>\phi_b$. (b) Mean largest cluster size of the barrier-crossing region. Error bars indicate standard errors over stochastic realizations. Both quantities increase monotonically with the initial-state label.}
 \label{fig:seed-amount}
 \end{figure}
 
@@ -574,53 +289,40 @@ However, comparing Fig.~\ref{fig:nucleation}(a) and Fig.~\ref{fig:seed-amount} r
 
 A barrier-crossing seed is not necessarily a growing nucleus. In a first-order transition, a stable-phase domain must overcome the interfacial cost associated with forming a boundary with the surrounding metastable phase, as emphasized in classical nucleation theory \cite{Langer1969}. Therefore, not only the amount but also the spatial quality of the seed is important.
 
-Figure 4(a) shows the compactness of the largest barrier-crossing seed cluster. The compactness decreases with the initial-state label. Thus, although hotter initial states contain more and larger barrier-crossing seeds, those seeds become less compact.
+Figure~\ref{fig:seed-quality}(a) shows the compactness of the largest barrier-crossing seed cluster. The compactness decreases with the initial-state label. Thus, although hotter initial states contain more and larger barrier-crossing seeds, those seeds become less compact.
 
-Figure 4(b) shows the radius of gyration \(R_g\) of the largest barrier-crossing seed cluster. \(R_g\) increases with the initial-state label, showing that seeds in hotter initial states are more spatially extended. Although compactness is a geometric proxy rather than a direct measure of interfacial free energy, this trend indicates that the spatial organization of the seed changes systematically with the initial-state label.
+Figure~\ref{fig:seed-quality}(b) shows the radius of gyration $R_g$ of the largest barrier-crossing seed cluster. $R_g$ increases with the initial-state label, showing that seeds in hotter initial states are more spatially extended.
 
 Together, Fig.~\ref{fig:seed-amount} and Fig.~\ref{fig:seed-quality} indicate the following picture:
-
 \begin{quote}
 Hotter initial states contain more and larger barrier-crossing seeds. However, those seeds are less compact and more spatially extended.
 \end{quote}
-
-This provides a natural explanation for why the nucleation probability need not be a simple monotonic function of the amount of barrier-crossing seed. Noncompact seeds may have a larger interfacial cost relative to their area and may therefore be less efficient at developing into growing nuclei.
-
+This provides a natural explanation for why the nucleation probability is not a monotonic function of the amount of barrier-crossing seed. Noncompact seeds may have a larger interfacial cost relative to their area and may therefore be less efficient at developing into growing nuclei.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\linewidth]{fig4_seed_quality_multipanel}
-\caption{Spatial quality of barrier-crossing seeds. (a) Mean compactness of the largest barrier-crossing seed cluster. (b) Mean radius of gyration of the largest barrier-crossing seed cluster. Error bars indicate standard errors over stochastic realizations. Higher initial-state labels generate larger but less compact and more spatially extended seeds.}
+\caption{Spatial quality of barrier-crossing seeds. (a) Mean compactness of the largest barrier-crossing seed cluster. (b) Mean radius of gyration of the largest barrier-crossing seed cluster. Higher initial-state labels generate larger but less compact and more spatially extended seeds.}
 \label{fig:seed-quality}
 \end{figure}
 
 \subsection{Robustness checks}\label{robustness-checks}
 
-We performed several robustness checks to verify that the above conclusions are not artifacts of a particular numerical or operational choice. The corresponding supplementary figures are provided in the Supplemental Material.
+We performed several robustness checks to verify that the above conclusions are not artifacts of a particular numerical or operational choice. First, we examined ordered-like seeds defined by $|\phi({\bf x},0)|>0.5\phi_s$. As shown in Fig.~S1 of the Supplemental Material, the ordered-like seed fraction and the largest ordered-like cluster size are almost zero. This indicates that the observed nucleation events are unlikely to be deterministic growth of pre-existing ordered-phase droplets. Instead, nucleation is more naturally interpreted as a stochastic event formed during post-quench dynamics.
 
-First, we examined ordered-like seeds defined by
+Second, we varied the cluster threshold used to identify nucleation events. As shown in Fig.~S2(a), changing the threshold modifies the absolute nucleation probability, but the qualitative conclusion remains unchanged: nucleation is not determined solely by the amount of barrier-crossing seed.
 
-\[
-|\phi(\mathbf{x},0)|>0.5\phi_s.
-\]
+Third, we reduced the time step from $\Delta t=0.02$ to $\Delta t=0.01$. As shown in Fig.~S2(b), the nucleation probability remains of the same order, and the qualitative seed statistics are preserved.
 
-As shown in Fig.~S1 and Fig.~S2, the ordered-like seed fraction and the largest ordered-like cluster size are almost zero. This indicates that the observed nucleation events are unlikely to be deterministic growth of pre-existing ordered-phase droplets. Instead, nucleation is more naturally interpreted as a stochastic event formed during post-quench dynamics.
-
-Second, we varied the cluster threshold used to identify nucleation events. As shown in Fig.~S3, changing the threshold modifies the absolute nucleation probability, but the qualitative conclusion remains unchanged: nucleation is not determined solely by the amount of barrier-crossing seed.
-
-Third, we reduced the time step from \(\Delta t=0.02\) to \(\Delta t=0.01\). As shown in Fig.~S4, the nucleation probability remains of the same order, and the qualitative seed statistics are preserved.
-
-Finally, we checked the system size and pre-equilibration length. As shown in Fig.~S5 and Fig.~S6, the increase of \(p_{\mathrm{seed}}\) and the decrease of seed compactness with the initial-state label are preserved in a small \(N=128\) check and in simulations with longer pre-equilibration.
-
-These robustness checks support the central conclusion that hotter initial states generate more barrier-crossing seeds, but those seeds are less compact and more spatially extended.
+Finally, we checked the system size and pre-equilibration length. As shown in Fig.~S3, the increase of $p_{\rm seed}$ and the decrease of seed compactness with the initial-state label are preserved in a small $N=128$ check and in simulations with longer pre-equilibration. These robustness checks support the central conclusion that hotter initial states generate more barrier-crossing seeds, but those seeds are less compact and more spatially extended.
 
 \section{Discussion}\label{discussion}
 
 \subsection{Main interpretation: barrier-crossing seeds are not nuclei}\label{main-interpretation-barrier-crossing-seeds-are-not-nuclei}
 
-The central message of the present work is that a barrier-crossing seed should not be identified with a growing nucleus. A site or cluster satisfying \(|\phi|>\phi_b\) has crossed the local free-energy barrier in field amplitude, but nucleation in a spatially extended first-order transition is not determined by local amplitude alone. A new-phase region must also overcome the interfacial free-energy cost associated with forming a boundary with the surrounding metastable phase \cite{Langer1969}.
+The central message of the present work is that a barrier-crossing seed should not be identified with a growing nucleus. A site or cluster satisfying $|\phi|>\phi_b$ has crossed the local free-energy barrier in field amplitude, but nucleation in a spatially extended first-order transition is not determined by local amplitude alone. A new-phase region must also overcome the interfacial free-energy cost associated with forming a boundary with the surrounding metastable phase \cite{Langer1969}.
 
-This distinction explains the otherwise counterintuitive combination of results. The fraction of barrier-crossing sites \(p_{\rm seed}\) and the largest barrier-crossing cluster size \(c_{\rm seed}\) both increase monotonically with the initial-state label. If local barrier crossing were sufficient for nucleation, one would expect the nucleation probability to exhibit the same clear monotonic trend. Instead, the nucleation probability does not show such a trend within the present statistics. The missing information is the spatial quality of the seed.
+This distinction explains the otherwise counterintuitive combination of results. The fraction of barrier-crossing sites $p_{\rm seed}$ and the largest barrier-crossing cluster size $c_{\rm seed}$ both increase monotonically with the initial-state label. If local barrier crossing were sufficient for nucleation, one would expect the nucleation probability to exhibit the same clear monotonic trend. Instead, the nucleation probability does not show such a trend within the present statistics. The missing information is the spatial quality of the seed.
 
 In the present simulations, increasing the initial-state label produces more and larger barrier-crossing clusters, but these clusters become less compact and more spatially extended. Such clusters are not necessarily efficient nuclei. A fragmented or elongated cluster can have a large interfacial cost relative to its area, making it more susceptible to shrinking or being washed out by subsequent dynamics. Thus, seed amount and seed quality are distinct observables, and both are required to interpret nucleation-controlled transition times.
 
@@ -634,9 +336,9 @@ The compactness used here is a deliberately simple geometric proxy rather than a
 
 \subsection{Role of post-quench stochastic dynamics}\label{role-of-post-quench-stochastic-dynamics}
 
-The ordered-like seed analysis further constrains the mechanism. Ordered-like seeds, defined by \(|\phi|>0.5\phi_s\), are almost absent in the initial state. Therefore, the observed nucleation events are unlikely to be deterministic growth of pre-existing stable-phase droplets. Instead, the initial field should be regarded as a spatially structured fluctuation landscape in which post-quench stochastic dynamics subsequently produces persistent ordered clusters.
+The ordered-like seed analysis further constrains the mechanism. Ordered-like seeds, defined by $|\phi|>0.5\phi_s$, are almost absent in the initial state. Therefore, the observed nucleation events are unlikely to be deterministic growth of pre-existing stable-phase droplets. Instead, the initial field should be regarded as a spatially structured fluctuation landscape in which post-quench stochastic dynamics subsequently produces persistent ordered clusters.
 
-This interpretation is consistent with the broad distribution of nucleation times and with the survival curves in Fig.~\ref{fig:nucleation}(b). The initial-state label controls the statistical structure of the field at the moment of the quench, while the post-quench stochastic dynamics controls whether and when a persistent nucleus appears.
+This interpretation is consistent with the broad distribution of nucleation times and with the survival curves in Fig.~\ref{fig:nucleation}(b). It is also supported by the direct comparison of $t_{\rm nuc}$ and $t_{\rm tr}$ in Fig.~S4 of the Supplemental Material. The data show that, once both times are observed, the global transition time closely follows the stochastic nucleation time with a subsequent growth delay. The initial-state label controls the statistical structure of the field at the moment of the quench, while the post-quench stochastic dynamics controls whether and when a persistent nucleus appears.
 
 A useful way to state the mechanism is therefore the following. The initial state does not usually supply an already-formed ordered nucleus. Rather, it supplies barrier-crossing fluctuations with a label-dependent spatial structure. Nucleation then occurs through post-quench stochastic dynamics, and the probability of nucleation depends on whether those fluctuations are spatially organized in a way that can develop into a growing cluster.
 
@@ -652,7 +354,7 @@ The present work also complements studies emphasizing spatial correlations in sp
 
 A first possible objection is that the conclusion might depend on the operational definition of nucleation. To address this, we varied the cluster threshold used to identify nucleation events. The absolute nucleation probability changes with this threshold, as expected, but the qualitative conclusion remains unchanged: nucleation is not predicted by the amount of barrier-crossing seed alone.
 
-A second possible objection is that the compactness trend might be a numerical artifact of the discretization or of insufficient initial equilibration. We therefore checked a smaller time step, a larger system size, and a longer pre-equilibration time. These tests preserve the main trends: \(p_{\rm seed}\) and \(c_{\rm seed}\) increase with the initial-state label, while seed compactness decreases. These checks do not prove full finite-size convergence, but they make it unlikely that the seed-quality trend is an artifact of one numerical setting.
+A second possible objection is that the compactness trend might be a numerical artifact of the discretization or of insufficient initial equilibration. We therefore checked a smaller time step, a larger system size, and a longer pre-equilibration time. These tests preserve the main trends: $p_{\rm seed}$ and $c_{\rm seed}$ increase with the initial-state label, while seed compactness decreases. These checks do not prove full finite-size convergence, but they make it unlikely that the seed-quality trend is an artifact of one numerical setting.
 
 A third possible objection is that the present statistics are not sufficient to identify a unique optimal initial-state label. We agree. The detailed label dependence of the nucleation probability remains noisy, and we therefore do not claim that any particular initial-state label is optimal. The robust conclusion is more conservative: the nucleation probability is not determined solely by the monotonic increase in barrier-crossing seed amount.
 
@@ -670,27 +372,28 @@ Fourth, most of the main statistics are obtained at finite system size and over 
 
 \subsection{Outlook}\label{outlook}
 
-The present work suggests several directions for future study. One natural direction is to quantify the initial spatial structure more directly, for example through structure factors, correlation lengths, or cluster-shape distributions. Another is to vary the parameters \(a\), \(b\), and \(c\) in the \(\phi^6\) potential in order to tune the strength of the first-order transition and the nucleation barrier.
+The present work suggests several directions for future study. One natural direction is to quantify the initial spatial structure more directly, for example through structure factors, correlation lengths, or cluster-shape distributions. Another is to vary the parameters $a$, $b$, and $c$ in the $\phi^6$ potential in order to tune the strength of the first-order transition and the nucleation barrier.
 
 It would also be useful to replace the present compactness proxy with more direct measures of nucleation quality, such as perimeter-to-area ratio, critical cluster analysis, or committor probabilities. Finally, extending the analysis to models with conserved fields, hydrodynamic couplings, or explicit latent-heat transport may help connect the present minimal picture to more realistic phase-change systems.
 
 \section{Conclusion}\label{conclusion}
 
-We investigated Mpemba-like transition times in spatially extended time-dependent Ginzburg--Landau models, focusing on the contrast between continuous and first-order transitions. The continuous-transition \(\phi^4\) model was used as a baseline. Under the present initialization, its transition time increases with the initial-state label, and a simple Mpemba-like inversion is not observed.
+We investigated Mpemba-like transition times in spatially extended time-dependent Ginzburg--Landau models, focusing on the contrast between continuous and first-order transitions. The continuous-transition $\phi^4$ model was used as a baseline. Under the present initialization, its transition time increases with the initial-state label, and a simple Mpemba-like inversion is not observed.
 
-In the first-order \(\phi^6\) model, the post-quench state is metastable and the transition proceeds through stochastic nucleation. Larger temperature-like initial-state labels generate more barrier-crossing seeds, as measured by both the seed fraction \(p_{\mathrm{seed}}\) and the largest seed cluster size \(c_{\mathrm{seed}}\). However, the nucleation probability does not show the same clear monotonic increase within the present statistics.
+In the first-order $\phi^6$ model, the post-quench state is metastable and the transition proceeds through stochastic nucleation. Larger temperature-like initial-state labels generate more barrier-crossing seeds, as measured by both the seed fraction $p_{\rm seed}$ and the largest seed cluster size $c_{\rm seed}$. However, the nucleation probability does not follow this monotonic increase.
 
 The key observation is that seed amount and seed quality change in different directions. As the initial-state label increases, barrier-crossing seeds become more numerous and larger, but also less compact and more spatially extended. Ordered-like seeds close to the stable phase are almost absent in the initial state. These results indicate that nucleation is not simply deterministic growth of pre-existing ordered droplets, but a stochastic post-quench process influenced by the spatial structure of the initial field.
 
+A direct comparison between nucleation and transition times further supports this picture: when both $t_{\rm nuc}$ and $t_{\rm tr}$ are observed, the global transition time is strongly correlated with the nucleation time. Thus, in the first-order model, transition times are tied to stochastic nucleation and subsequent growth rather than to seed amount alone.
+
 Thus, the main conclusion of this work is that nucleation-controlled phase-transition Mpemba-like behavior cannot be characterized by seed amount alone. Seed quality, especially compactness and spatial extent, is an essential ingredient in determining whether barrier-crossing fluctuations can develop into growing nuclei.
 
+\begin{acknowledgments}
+The author thanks the open-source scientific Python community for providing the numerical tools used in this work.
+\end{acknowledgments}
 
-
-\section*{Data availability}
-The simulation data and analysis scripts used to generate the figures are available from the author upon reasonable request.
-
-\section*{Acknowledgments}
-The author acknowledges the use of ChatGPT, an AI language model developed by OpenAI, for assistance with code organization, manuscript editing, and language polishing. The author is responsible for all scientific content, calculations, and conclusions. No external funding was received for this work.
+\section*{Data Availability}
+The simulation data and analysis scripts used to generate the figures are available from the author upon reasonable request. A public archival repository will be provided upon publication.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{references_verified}

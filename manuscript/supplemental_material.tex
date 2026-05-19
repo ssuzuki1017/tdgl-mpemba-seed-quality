@@ -7,7 +7,7 @@
 \usepackage{xurl}
 \usepackage{hyperref}
 \hypersetup{hidelinks}
-\graphicspath{{figures/}}
+\graphicspath{{../figures/supplemental/}{figures/supplemental/}{figures/}}
 
 \begin{document}
 
@@ -23,55 +23,53 @@
 \section*{Supplementary figures}
 
 \section*{Ordered-like seed statistics}
-Figures~\ref{fig:S1-ordered-fraction} and \ref{fig:S2-ordered-cluster} show the statistics of ordered-like seeds, defined by $|\phi(\mathbf{x},0)|>0.5\phi_s$. These quantities remain close to zero for all initial-state labels, indicating that the initial state does not typically contain pre-existing stable-phase droplets.
+
+Figure~S1 shows the statistics of ordered-like seeds, defined by
+\begin{equation}
+|\phi({\bf x},0)|>0.5\phi_s.
+\end{equation}
+These quantities remain close to zero for all initial-state labels, indicating that the initial state does not typically contain pre-existing stable-phase droplets.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.72\linewidth]{figS1_p_ordered_seed}
-\caption{Mean ordered-like seed fraction, defined by $|\phi(\mathbf{x},0)|>0.5\phi_s$. Error bars indicate standard errors over stochastic realizations.}
-\label{fig:S1-ordered-fraction}
-\end{figure}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.72\linewidth]{figS2_c_ordered_seed}
-\caption{Mean largest ordered-like seed cluster size. Error bars indicate standard errors over stochastic realizations.}
-\label{fig:S2-ordered-cluster}
+\includegraphics[width=0.86\linewidth]{figS1_ordered_seed_multipanel}
+\caption{Ordered-like seed statistics in the initial state. (a) Mean ordered-like seed fraction, defined by $|\phi({\bf x},0)|>0.5\phi_s$. (b) Mean largest ordered-like seed cluster size. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S1-ordered-seed-multipanel}
 \end{figure}
 
 \clearpage
 
 \section*{Numerical robustness checks}
-Figures~\ref{fig:S3-threshold} and \ref{fig:S4-dt} show checks against the nucleation-cluster threshold and the time step. Figures~\ref{fig:S5-pseed} and \ref{fig:S6-compactness} show checks against system size and pre-equilibration length.
+
+Figures~S2 and S3 show numerical and operational robustness checks. The purpose of these checks is not to establish full finite-size convergence, but to verify that the central seed-quality trend is not an artifact of one particular numerical setting or nucleation criterion.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.86\linewidth]{figS3_cluster_threshold_nucleation_probability}
-\caption{Robustness check for the cluster threshold used to define nucleation events. Error bars indicate standard errors over stochastic realizations.}
-\label{fig:S3-threshold}
+\includegraphics[width=0.95\linewidth]{figS2_numerical_checks_multipanel}
+\caption{Numerical robustness checks for the nucleation probability. (a) Dependence on the cluster threshold $C_{\rm th}$ used to identify nucleation events. (b) Dependence on the time step. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S2-numerical-checks}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.86\linewidth]{figS4_dt_dependence_nucleation_probability}
-\caption{Robustness check for the numerical time step. Error bars indicate standard errors over stochastic realizations.}
-\label{fig:S4-dt}
+\includegraphics[width=0.95\linewidth]{figS3_robustness_multipanel}
+\caption{Robustness of seed statistics against system size and pre-equilibration length. (a) Barrier-crossing seed fraction $p_{\rm seed}$. (b) Seed compactness. The increase of $p_{\rm seed}$ and the decrease of seed compactness with the initial-state label are preserved in these checks. Error bars indicate standard errors over stochastic realizations.}
+\label{fig:S3-seed-robustness}
 \end{figure}
 
 \clearpage
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.86\linewidth]{figS5_p_seed_robustness}
-\caption{Robustness of $p_{\mathrm{seed}}$ against system size and pre-equilibration length. Error bars indicate standard errors over stochastic realizations.}
-\label{fig:S5-pseed}
-\end{figure}
+\section*{Relation between nucleation and transition times}
+
+Figure~S4 shows the relation between the cluster nucleation time $t_{\rm nuc}$ and the global transition time $t_{\rm tr}$ for samples in which both times were observed. The two times are strongly correlated. This supports the interpretation that the global transition time is closely tied to the stochastic nucleation time in the first-order model.
+
+For the main first-order data set, the combined sample contains 600 realizations. Among these, 206 realizations show an observed cluster nucleation event and 165 realizations show an observed global transition by the final observation time. The scatter plot includes the 165 realizations for which both $t_{\rm nuc}$ and $t_{\rm tr}$ were observed. The Pearson correlation between these two times is approximately 0.997, and the Spearman rank correlation is approximately 0.995. The mean delay $t_{\rm tr}-t_{\rm nuc}$ is approximately 43.5 time units.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.86\linewidth]{figS6_seed_compactness_robustness}
-\caption{Robustness of seed compactness against system size and pre-equilibration length. Error bars indicate standard errors over stochastic realizations.}
-\label{fig:S6-compactness}
+\includegraphics[width=0.75\linewidth]{figS7_tnuc_vs_ttr_scatter}
+\caption{Relation between the cluster nucleation time $t_{\rm nuc}$ and the global transition time $t_{\rm tr}$ in the first-order $\phi^6$ model. Only samples for which both times were observed are shown. The dashed line indicates $t_{\rm tr}=t_{\rm nuc}$.}
+\label{fig:S4-tnuc-ttr}
 \end{figure}
 
 \end{document}
