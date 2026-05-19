@@ -79,9 +79,9 @@ For the main first-order data set, the combined sample contains 600 realizations
 
 \section*{Sample-level seed-quality analysis}
 
-As an additional check, we examined whether initial seed variables carry sample-level information about whether a cluster nucleation event is observed by the final observation time. For each realization in the main first-order data set, we defined a binary outcome equal to one if $t_{\rm nuc}$ was observed and zero otherwise. We then fitted logistic models using standardized predictors. This analysis should not be interpreted as a committor calculation: it uses only a small set of initial geometric descriptors and a finite final observation time.
+As an additional check, we examined whether initial seed variables carry sample-level information about whether a cluster nucleation event is observed within the finite observation window. For each realization in the main first-order data set, we defined a binary outcome equal to one if $t_{\rm nuc}$ was observed by the final observation time and zero otherwise. We then fitted logistic models using standardized predictors. This analysis should not be interpreted as a committor calculation: it uses only a small set of initial geometric descriptors and a finite final observation time.
 
-Table~S1 summarizes the Akaike information criterion (AIC) values for several low-dimensional models. The model using seed compactness and radius of gyration has the lowest AIC among the tested models, but its improvement over the intercept-only model is modest, with $\Delta{\rm AIC}=1.08$. The combined model containing both seed-amount and seed-geometry variables is not preferred by AIC. Thus, the sample-level predictive evidence is weak and should be used only as a consistency check.
+Table~S1 summarizes the Akaike information criterion (AIC) values for several low-dimensional models. The model using seed compactness and radius of gyration has the lowest AIC among the tested models, but its improvement over the intercept-only model is modest, with $\Delta{\rm AIC}=1.08$. The combined model containing both seed-amount and seed-geometry variables is not preferred by AIC. Thus, the sample-level predictive evidence is modest and should be used only as a consistency check.
 
 \begin{table}[t]
 \centering
@@ -101,7 +101,7 @@ All predictors & $T_i, p_{\rm seed}, c_{\rm seed}, C_{\rm comp}, R_g$ & 5.47 \\
 \end{tabular}
 \end{table}
 
-Table~S2 shows the standardized coefficients for the model containing both seed-amount and seed-geometry variables. Seed compactness has a positive standardized coefficient, $\beta=0.25$, with an approximate two-sided $p$ value of 0.052. The coefficients of $p_{\rm seed}$, $c_{\rm seed}$, and $R_g$ are not statistically decisive in this finite data set. This result is consistent with the physical interpretation that compactness may be relevant, but it is not by itself a quantitative nucleation-rate theory.
+Table~S2 shows the standardized coefficients for the model containing both seed-amount and seed-geometry variables. Seed compactness has a positive standardized coefficient, $\beta=0.25$, with an approximate two-sided $p$ value of 0.052. The coefficients of $p_{\rm seed}$, $c_{\rm seed}$, and $R_g$ are not statistically decisive in this finite data set. This result is consistent with the physical interpretation that compactness may be relevant, but it is not by itself a quantitative nucleation-rate theory and should not be read as a committor estimate.
 
 \begin{table}[t]
 \centering
