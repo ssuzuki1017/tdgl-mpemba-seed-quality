@@ -1,104 +1,50 @@
-# Reproducibility notes
+# Reproducibility guide
 
-This document describes the files and commands needed to reproduce the manuscript figures for:
+This document describes how to reproduce the smoke-test figure outputs for the TDGL Mpemba seed-quality study.
 
-**Seed quality and nucleation-controlled Mpemba-like transition times in time-dependent Ginzburg--Landau models**
+The intended workflow is:
+
+1. install the Python dependencies,
+2. verify that the required CSV files are present,
+3. regenerate the phi4 baseline figure,
+4. regenerate the phi6 main and supplemental multi-panel figures,
+5. confirm that the expected files are produced.
+
+The full stochastic simulations do not need to be rerun if the CSV files are already included under `data/`.
 
 ## 1. Environment
 
-Recommended environment:
+From the repository root:
+
+```powershell
+python --version
+python -m pip install -r requirements.txt
+```
+
+The required Python packages are listed in `requirements.txt`:
 
 ```text
-Python >= 3.10
 numpy
 pandas
 matplotlib
 ```
 
-Install dependencies:
+## 2. Required data files
 
-```bash
-pip install -r requirements.txt
-```
-
-The scripts do not require GPU computation.
-
-## 2. Main numerical parameters
-
-The main first-order `phi6` calculations use the following parameters.
-
-| Parameter | Value |
-|---|---|
-| Model | first-order `phi6` TDGL |
-| System size | `N = 64` |
-| Grid spacing | `dx = 1` |
-| Time step | `dt = 0.02` |
-| Final time | `tmax = 300` |
-| Pre-equilibration steps | `preeq_steps = 500` |
-| Final potential parameter | `a_f = 0.02` |
-| Landau coefficients | `b = c = 1` |
-| Initial fluctuation scale | `D_i = D_0 T_i`, `D_0 = 0.02` |
-| Post-quench noise strength | `D_f = 9e-3` |
-| Initial-state labels | `1.05, 1.10, 1.20, 1.50, 2.00, 3.00` |
-| Barrier-crossing seed threshold | `abs(phi) > phi_b` |
-| Ordered-like seed threshold | `abs(phi) > 0.5 phi_s` |
-| Nucleation cluster threshold | `C_th = 20` |
-| Persistence condition | `n_cons = 3` |
-
-Main `phi6` results combine two independent random seeds:
+The phi4 baseline figure expects:
 
 ```text
-seed = 5678, nsamples = 50 per label
-seed = 9876, nsamples = 50 per label
-combined = 100 realizations per label
+data/main/phi4_samples.csv
 ```
 
-The continuous-transition `phi4` baseline uses:
+The phi6 v5 multi-panel figure script expects full-column main files containing the seed-quality columns:
 
 ```text
-N = 64
-dt = 0.05
-tmax = 10
-preeq_steps = 500
-5 realizations per label
+data/main/phi6_main_Df9em3_seed5678_fullcols.samples.csv
+data/main/phi6_main_Df9em3_seed9876_fullcols.samples.csv
 ```
 
-Robustness checks include:
-
-```text
-cluster_threshold = 10 and 30
-dt = 0.01
-N = 128
-preeq_steps = 1000
-```
-
-## 3. Data files
-
-The `data/` directory contains the CSV files used to generate the figures.
-
-Expected main data files:
-
-```text
-data/main/
-  phi4_samples.csv
-  phi6_N64_dt0p02_tmax300_pre500_Df9em3_D00p02_ns50_*seed5678*cth20*.samples.csv
-  phi6_N64_dt0p02_tmax300_pre500_Df9em3_D00p02_ns50_*seed9876*cth20*.samples.csv
-```
-
-Expected robustness data files:
-
-```text
-data/robustness/
-  phi6_*cth10*.samples.csv
-  phi6_*cth30*.samples.csv
-  phi6_N64_dt0p01_tmax300_pre500_Df9em3_*cth20*.samples.csv
-  phi6_N128_dt0p02_tmax300_pre500_Df9em3_*cth40*.samples.csv
-  phi6_N64_dt0p02_tmax300_pre1000_Df9em3_*cth20*.samples.csv
-```
-
-The exact filenames are longer because they encode numerical parameters. The figure scripts search for the relevant patterns automatically.
-
-Important columns for `phi6` sample files:
+These files must include at least the following columns:
 
 ```text
 label
@@ -106,160 +52,114 @@ t_nuc_cluster
 t_tr
 p_seed
 c_seed
-p_ordered_seed
-c_ordered_seed
 seed_compactness
 seed_rg
+p_ordered_seed
+c_ordered_seed
 ```
 
-Important columns for `phi4_samples.csv`:
+The repository may also contain older long-name main CSV files without `seed_compactness` and `seed_rg`. Those files are useful historical outputs, but they are not sufficient for regenerating the v5 seed-quality figures.
+
+Optional robustness files are read from `data/robustness/` when present.
+
+To list available CSV files:
+
+```powershell
+Get-ChildItem .\data -Recurse -Filter "*.csv" | Select-Object FullName
+```
+
+## 3. Smoke-test output directory
+
+Create a temporary output directory so the committed `figures/` directory is not modified:
+
+```powershell
+$root = (Get-Location).Path
+$smoke = Join-Path $root "_smoke_figures"
+
+Remove-Item $smoke -Recurse -Force -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Path $smoke | Out-Null
+```
+
+## 4. Regenerate the phi4 baseline figure
+
+```powershell
+python .\src\tdgl_phi4_baseline_figure.py `
+  --data-dir .\data\main `
+  --outdir "$smoke\main"
+```
+
+Expected outputs include:
 
 ```text
-label
-t_tr
+_smoke_figures/main/phi4_baseline_summary.csv
+_smoke_figures/main/phi4_baseline_transition_time.png
+_smoke_figures/main/phi4_baseline_transition_time.pdf
+_smoke_figures/main/README_phi4_baseline_figure.md
 ```
 
-## 4. Reproducing figures
+## 5. Regenerate the phi6 v5 multi-panel figures
 
-Run commands from the repository root.
-
-### 4.1 phi4 baseline figure
-
-```bash
-python src/tdgl_phi4_baseline_figure.py --data-dir data/main --outdir figures/main
+```powershell
+python .\src\tdgl_manuscript_figures_v5_strict_fullcols_alias.py `
+  --data-dir .\data `
+  --outdir "$smoke\v5" `
+  --max-survival-labels 3
 ```
 
-Expected output:
+Important notes:
+
+- Do not pass `--formats`; this script always writes both `.png` and `.pdf`.
+- `--data-dir .\data` is the recommended form.
+- The script should select the full-column alias files in `data/main/` for seed `5678` and seed `9876`.
+
+Expected outputs include:
 
 ```text
-figures/main/phi4_baseline_transition_time.pdf
-figures/main/phi4_baseline_transition_time.png
-figures/main/phi4_baseline_summary.csv
+_smoke_figures/v5/fig2_nucleation_multipanel.png
+_smoke_figures/v5/fig2_nucleation_multipanel.pdf
+_smoke_figures/v5/fig3_seed_amount_multipanel.png
+_smoke_figures/v5/fig3_seed_amount_multipanel.pdf
+_smoke_figures/v5/fig4_seed_quality_multipanel.png
+_smoke_figures/v5/fig4_seed_quality_multipanel.pdf
+_smoke_figures/v5/figS1_ordered_seed_multipanel.png
+_smoke_figures/v5/figS1_ordered_seed_multipanel.pdf
+_smoke_figures/v5/figS2_numerical_checks_multipanel.png
+_smoke_figures/v5/figS2_numerical_checks_multipanel.pdf
+_smoke_figures/v5/figS3_robustness_multipanel.png
+_smoke_figures/v5/figS3_robustness_multipanel.pdf
+_smoke_figures/v5/summary_main_df9.csv
 ```
 
-### 4.2 phi6 main and supplemental figures
+Check the output list with:
 
-```bash
-python src/tdgl_manuscript_figures_v4_multipanel.py --data-dir data --outdir figures
+```powershell
+Get-ChildItem "$smoke\v5" -File | Select-Object Name
 ```
 
-Expected main outputs:
+## 6. Git hygiene
 
-```text
-figures/main/fig2_nucleation_multipanel.pdf
-figures/main/fig3_seed_amount_multipanel.pdf
-figures/main/fig4_seed_quality_multipanel.pdf
+The `_smoke_figures/` directory is a temporary smoke-test output directory and should not be committed.
+
+After the test:
+
+```powershell
+git status
 ```
 
-Expected supplemental outputs:
+If `_smoke_figures/` appears as untracked, remove it:
 
-```text
-figures/supplemental/figS1_p_ordered_seed.pdf
-figures/supplemental/figS2_c_ordered_seed.pdf
-figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf
-figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf
-figures/supplemental/figS5_p_seed_robustness.pdf
-figures/supplemental/figS6_seed_compactness_robustness.pdf
+```powershell
+Remove-Item .\_smoke_figures -Recurse -Force
 ```
 
-If the survival-curve panel in Fig. 2 is visually crowded, use:
+## 7. Pass criteria
 
-```bash
-python src/tdgl_manuscript_figures_v4_multipanel.py --data-dir data --outdir figures --max-survival-labels 3
-```
+The smoke test passes if:
 
-## 5. Re-running simulations
-
-If the CSV files are already included in `data/`, re-running simulations is not required to reproduce the figures.
-
-If simulations need to be re-run, use the main run script, for example:
-
-```bash
-python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 50 --tmax 300 --preeq_steps 500 --af 0.02 --Df 9e-3 --D0 0.02 --cluster_threshold 20 --seed 5678
-```
-
-Second independent run:
-
-```bash
-python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 50 --tmax 300 --preeq_steps 500 --af 0.02 --Df 9e-3 --D0 0.02 --cluster_threshold 20 --seed 9876
-```
-
-Robustness examples:
-
-```bash
-python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 30 --tmax 300 --preeq_steps 500 --af 0.02 --Df 9e-3 --D0 0.02 --cluster_threshold 10 --seed 5678
-
-python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 30 --tmax 300 --preeq_steps 500 --af 0.02 --Df 9e-3 --D0 0.02 --cluster_threshold 30 --seed 5678
-
-python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 30 --tmax 300 --preeq_steps 500 --af 0.02 --Df 9e-3 --D0 0.02 --cluster_threshold 20 --dt 0.01 --seed 5678
-```
-
-The exact supported command-line options depend on the final version of `tdgl_run_auto_v3.py`. If a command fails, run:
-
-```bash
-python src/tdgl_run_auto_v3.py --help
-```
-
-## 6. Manuscript compilation
-
-Main manuscript:
-
-```text
-manuscript/manuscript_revtex.tex
-```
-
-Supplemental material:
-
-```text
-manuscript/supplemental_material.tex
-```
-
-Bibliography:
-
-```text
-manuscript/references_verified.bib
-```
-
-The manuscript was compiled using REVTeX 4.2 with pdfLaTeX.
-
-In Overleaf:
-
-1. Upload the repository contents.
-2. Set `manuscript/manuscript_revtex.tex` as the main document.
-3. Compile with pdfLaTeX.
-4. For the supplement, set `manuscript/supplemental_material.tex` as the main document and compile separately.
-
-## 7. Figure mapping
-
-| Manuscript figure | Source file |
-|---|---|
-| Fig. 1 | [`figures/main/phi4_baseline_transition_time.pdf`](figures/main/phi4_baseline_transition_time.pdf) |
-| Fig. 2 | [`figures/main/fig2_nucleation_multipanel.pdf`](figures/main/fig2_nucleation_multipanel.pdf) |
-| Fig. 3 | [`figures/main/fig3_seed_amount_multipanel.pdf`](figures/main/fig3_seed_amount_multipanel.pdf) |
-| Fig. 4 | [`figures/main/fig4_seed_quality_multipanel.pdf`](figures/main/fig4_seed_quality_multipanel.pdf) |
-| Fig. S1 | [`figures/supplemental/figS1_p_ordered_seed.pdf`](figures/supplemental/figS1_p_ordered_seed.pdf) |
-| Fig. S2 | [`figures/supplemental/figS2_c_ordered_seed.pdf`](figures/supplemental/figS2_c_ordered_seed.pdf) |
-| Fig. S3 | [`figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf`](figures/supplemental/figS3_cluster_threshold_nucleation_probability.pdf) |
-| Fig. S4 | [`figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf`](figures/supplemental/figS4_dt_dependence_nucleation_probability.pdf) |
-| Fig. S5 | [`figures/supplemental/figS5_p_seed_robustness.pdf`](figures/supplemental/figS5_p_seed_robustness.pdf) |
-| Fig. S6 | [`figures/supplemental/figS6_seed_compactness_robustness.pdf`](figures/supplemental/figS6_seed_compactness_robustness.pdf) |
-
-## 8. Data availability statement
-
-For this public repository:
-
-```text
-The simulation data and analysis scripts used to generate the figures are available at
-https://github.com/ssuzuki1017/tdgl-mpemba-seed-quality.
-```
-
-For an archival release, create a GitHub release and connect it to Zenodo, then replace the GitHub URL with the Zenodo DOI.
-
-## 9. Checklist before archival release
-
-- [ ] Confirm that no private paths or personal local directories remain in scripts or README files.
-- [ ] Confirm that all figure files can be regenerated from files in `data/`.
-- [ ] Confirm that `manuscript_revtex.tex` and `supplemental_material.tex` compile in Overleaf.
-- [ ] Confirm that `CITATION.cff` contains the final title and author information.
-- [ ] Create a GitHub release.
-- [ ] Optionally archive the release on Zenodo and update the manuscript data availability statement with the DOI.
+1. dependencies install without error,
+2. `data/main/phi4_samples.csv` is detected,
+3. the phi4 baseline PNG/PDF files are generated,
+4. the two full-column phi6 main alias files are detected,
+5. the six phi6 multi-panel PNG/PDF figure pairs are generated,
+6. `summary_main_df9.csv` is generated,
+7. temporary smoke-test outputs are not committed.

@@ -52,10 +52,20 @@ def choose_main_file(data_dir: Path, seed: int) -> Path:
     # caused by very long original filenames. Recommended aliases:
     #   data/main/phi6_main_Df9em3_seed5678_fullcols.samples.csv
     #   data/main/phi6_main_Df9em3_seed9876_fullcols.samples.csv
-    alias_candidates = [
-        data_dir / "data" / "main" / f"phi6_main_Df9em3_seed{seed}_fullcols.samples.csv",
-        data_dir / "data" / "main" / f"phi6_main_seed{seed}_fullcols.samples.csv",
+    #
+    # Support both common calling conventions:
+    #   --data-dir .       -> aliases live under ./data/main
+    #   --data-dir ./data  -> aliases live under ./data/main
+    alias_main_dirs = [
+        data_dir / "main",
+        data_dir / "data" / "main",
     ]
+    alias_candidates = []
+    for main_dir in alias_main_dirs:
+        alias_candidates.extend([
+            main_dir / f"phi6_main_Df9em3_seed{seed}_fullcols.samples.csv",
+            main_dir / f"phi6_main_seed{seed}_fullcols.samples.csv",
+        ])
     for p in alias_candidates:
         if p.exists():
             candidates.append(p.resolve())
@@ -100,16 +110,18 @@ def choose_main_file(data_dir: Path, seed: int) -> Path:
         print("or copy those run2 files into data/main and rerun.")
         raise ValueError(f"No full-column main file found for seed={seed}.")
 
-    def score(p: Path) -> tuple[int, int, str]:
-        # Higher is better: prefer run2, then files under data/robustness or data/main are both OK.
+    def score(p: Path) -> tuple[int, int, int, str]:
+        # Higher is better.
+        # Prefer the explicit full-column alias files when present; they are short,
+        # stable, and avoid accidental selection of older long-name outputs.
+        alias_fullcols = 1 if p.name.startswith("phi6_main_") and "fullcols" in p.name else 0
         run2 = 1 if "run2" in p.name else 0
-        # Prefer robustness/run2 over old data/main if both exist, because old main files lack full columns.
         robustness = 1 if "data" in p.parts and "robustness" in p.parts else 0
         try:
             rel = str(p.relative_to(data_dir))
         except ValueError:
             rel = str(p)
-        return (run2, robustness, rel)
+        return (alias_fullcols, run2, robustness, rel)
 
     chosen = sorted(full_candidates, key=score, reverse=True)[0]
     print(f"[found] STRICT-FULL main seed{seed}: {chosen.relative_to(data_dir)}")

@@ -33,10 +33,12 @@ tdgl-mpemba-seed-quality/
   src/
     tdgl_run_auto_v3.py
     tdgl_phi4_baseline_figure.py
-    tdgl_manuscript_figures_v5_multipanel.py
+    tdgl_manuscript_figures_v5_strict_fullcols_alias.py
+    make_tnuc_ttr_supplement_v3.py
 
   data/
     main/
+    processed/
     robustness/
 
   figures/
@@ -88,6 +90,26 @@ figures/supplemental/figS1_ordered_seed_multipanel.pdf
 figures/supplemental/figS2_numerical_checks_multipanel.pdf
 figures/supplemental/figS3_robustness_multipanel.pdf
 ```
+
+## Figure generation smoke test
+
+From the repository root, the manuscript figures can be regenerated from the included CSV files with:
+
+```powershell
+$root = (Get-Location).Path
+$smoke = Join-Path $root "_smoke_figures"
+
+python .\src\tdgl_phi4_baseline_figure.py `
+  --data-dir .\data\main `
+  --outdir "$smoke\main"
+
+python .\src\tdgl_manuscript_figures_v5_strict_fullcols_alias.py `
+  --data-dir .\data `
+  --outdir "$smoke\v5" `
+  --max-survival-labels 3
+```
+
+The second command writes both PNG and PDF versions of the multi-panel manuscript figures.
 
 ## Manuscript
 
