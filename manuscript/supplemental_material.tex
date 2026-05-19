@@ -11,7 +11,7 @@
 
 \begin{document}
 
-\title{Supplemental Material for ``Seed quality in nucleation-controlled transition times in time-dependent Ginzburg--Landau models''}
+\title{Supplemental Material for ``Seed geometry in nucleation-controlled transition times in time-dependent Ginzburg--Landau models''}
 \author{Soma Suzuki}
 \affiliation{Independent researcher}
 \date{\today}
@@ -77,11 +77,11 @@ For the main first-order data set, the combined sample contains 600 realizations
 
 \clearpage
 
-\section*{Sample-level seed-quality analysis}
+\section*{Sample-level seed-geometry analysis}
 
 As an additional check, we examined whether initial seed variables carry sample-level information about whether a cluster nucleation event is observed within the finite observation window. For each realization in the main first-order data set, we defined a binary outcome equal to one if $t_{\rm nuc}$ was observed by the final observation time and zero otherwise. We then fitted logistic models using standardized predictors. This analysis should not be interpreted as a committor calculation: it uses only a small set of initial geometric descriptors and a finite final observation time.
 
-Table~S1 summarizes the Akaike information criterion (AIC) values for several low-dimensional models. The model using seed compactness and radius of gyration has the lowest AIC among the tested models, but its improvement over the intercept-only model is modest, with $\Delta{\rm AIC}=1.08$. The combined model containing both seed-amount and seed-geometry variables is not preferred by AIC. Thus, the sample-level predictive evidence is modest and should be used only as a consistency check.
+Table~S1 summarizes the Akaike information criterion (AIC) values for several low-dimensional models of the observed finite-time nucleation outcome. The model using seed compactness and radius of gyration has the lowest AIC among the tested models, but its improvement over the intercept-only model is modest, with $\Delta{\rm AIC}=1.08$. The combined model containing both seed-amount and seed-geometry variables is not preferred by AIC. Thus, the sample-level predictive evidence is modest and should be used only as a consistency check.
 
 \begin{table}[t]
 \centering
@@ -119,7 +119,7 @@ $R_g$ & 0.168 & 0.568 & 1.182 \\
 \end{tabular}
 \end{table}
 
-Figure~S5 visualizes the same sample-level check. The binned probabilities and within-$p_{\rm seed}$ comparisons are intended only as descriptive diagnostics. They do not replace a committor analysis or a direct critical-droplet calculation.
+Figure~S5 visualizes the same conservative sample-level check. The binned probabilities and within-$p_{\rm seed}$ comparisons are intended only as descriptive diagnostics. They do not replace a committor analysis or a direct critical-droplet calculation.
 
 \begin{figure}[t]
 \centering
