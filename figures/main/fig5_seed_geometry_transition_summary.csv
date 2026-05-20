@@ -13,3 +13,16 @@ t_nuc_vs_t_tr_pearson,0.9967142828840343
 t_nuc_vs_t_tr_spearman,0.9950978690074792
 transition_delay_mean_ttr_minus_tnuc,43.529187665485416
 transition_delay_std_ttr_minus_tnuc,4.275003295545479
+transition_delay_median_ttr_minus_tnuc,44.499514930670585
+label_1.05_p_seed_mean,0.06820068359375
+label_1.05_seed_compactness_mean,0.580712950937951
+label_1.10_p_seed_mean,0.0752783203125
+label_1.10_seed_compactness_mean,0.5553093073593074
+label_1.20_p_seed_mean,0.08716796875
+label_1.20_seed_compactness_mean,0.5408418461829175
+label_1.50_p_seed_mean,0.1277099609375
+label_1.50_seed_compactness_mean,0.4942166287196049
+label_2.00_p_seed_mean,0.1881298828125
+label_2.00_seed_compactness_mean,0.45213591470258135
+label_3.00_p_seed_mean,0.28683837890625
+label_3.00_seed_compactness_mean,0.3962576951450347
