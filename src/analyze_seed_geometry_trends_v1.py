@@ -232,38 +232,53 @@ def detect_perimeter_metric(df: pd.DataFrame) -> tuple[pd.DataFrame, str | None,
 
 
 def save_trend_figure(summary: pd.DataFrame, metrics: list[str], out_base: Path, dpi: int) -> None:
+    """Save a compact 2-column/3x2 grid version of the seed-geometry trend figure."""
     n = len(metrics)
-    fig, axes = plt.subplots(n, 1, figsize=(6.8, 2.25 * n), constrained_layout=True)
-    if n == 1:
-        axes = [axes]
+    ncols = 2 if n <= 4 else 3
+    nrows = int(np.ceil(n / ncols))
+    fig, axes = plt.subplots(nrows, ncols, figsize=(3.55 * ncols, 2.75 * nrows), constrained_layout=True)
+    axes_flat = np.ravel(axes)
 
     pretty = {
-        "p_seed": r"Mean barrier-crossing seed fraction $p_{\rm seed}$",
-        "c_seed": r"Mean largest barrier-crossing cluster size $c_{\rm seed}$",
-        "seed_compactness": r"Mean seed compactness $C_{\rm comp}$",
-        "seed_rg": r"Mean seed radius of gyration $R_g$",
-        "seed_perimeter_to_area_metric": r"Mean perimeter-to-area ratio",
+        "p_seed": r"$p_{\rm seed}$",
+        "c_seed": r"$c_{\rm seed}$",
+        "seed_compactness": r"$C_{\rm comp}$",
+        "seed_rg": r"$R_g$",
+        "seed_perimeter_to_area_metric": r"$P_{\rm seed}/A_{\rm seed}$",
     }
 
-    for ax, metric in zip(axes, metrics):
+    panel_letters = "abcdefghijklmnopqrstuvwxyz"
+    for idx, (ax, metric) in enumerate(zip(axes_flat, metrics)):
         ax.errorbar(
             summary["label"],
             summary[f"{metric}_mean"],
             yerr=summary[f"{metric}_se"],
             marker="o",
             capsize=3,
+            linewidth=1.2,
         )
         ax.set_xlabel("Initial-state label")
         ax.set_ylabel(pretty.get(metric, metric))
         ax.set_xticks(summary["label"])
         ax.set_xticklabels([f"{x:.2f}" for x in summary["label"]], rotation=30, ha="right")
+        ax.text(
+            0.03,
+            0.94,
+            f"({panel_letters[idx]})",
+            transform=ax.transAxes,
+            va="top",
+            ha="left",
+            fontweight="bold",
+        )
+
+    for ax in axes_flat[n:]:
+        ax.axis("off")
 
     for ext in ["png", "pdf"]:
         path = out_base.with_suffix(f".{ext}")
         fig.savefig(path, dpi=dpi if ext == "png" else None, bbox_inches="tight")
         print(f"[saved] {path}")
     plt.close(fig)
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extended seed-geometry trend tests.")

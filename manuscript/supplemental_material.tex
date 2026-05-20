@@ -65,7 +65,7 @@ Figures~S2 and S3 show numerical and operational robustness checks. The purpose 
 
 Figure~S4 shows the relation between the cluster nucleation time $t_{\rm nuc}$ and the global transition time $t_{\rm tr}$ for samples in which both times were observed. The two times are strongly correlated. This supports the interpretation that the global transition time is closely tied to the stochastic nucleation time in the first-order model.
 
-For the main first-order data set, the combined sample contains 600 realizations. Among these, 206 realizations show an observed cluster nucleation event and 165 realizations show an observed global transition by the final observation time. The scatter plot includes the 165 realizations for which both $t_{\rm nuc}$ and $t_{\rm tr}$ were observed. The Pearson correlation between these two times is approximately 0.997, and the Spearman rank correlation is approximately 0.995. The mean delay $t_{\rm tr}-t_{\rm nuc}$ is approximately 43.5 time units.
+For the main first-order data set, the combined sample contains 600 realizations. Among these, 206 realizations show an observed cluster nucleation event and 165 realizations show an observed global transition by the final observation time. The scatter plot includes the 165 realizations for which both $t_{\rm nuc}$ and $t_{\rm tr}$ were observed. The Pearson correlation between these two times is approximately 0.997, and the Spearman rank correlation is approximately 0.995. The mean growth delay is $\langle\Delta t_{\rm grow}\rangle=\langle t_{\rm tr}-t_{\rm nuc}\rangle=43.53\pm4.28$ time units, using the same summary convention as in the main text.
 
 \begin{figure}[t]
 \centering
@@ -133,7 +133,7 @@ Figure~S5 visualizes the same conservative sample-level check. The binned probab
 
 \section*{Bootstrap and permutation trend checks for seed geometry including perimeter-to-area}
 
-We additionally checked the label-level trends in the main seed observables by bootstrap resampling within each initial-state label and by a permutation test of the label-mean trend. The test statistic is the Spearman rank correlation between the initial-state label and the label-averaged observable. For the largest barrier-crossing seed cluster, we also compute a lattice perimeter-to-area diagnostic, $P_{\rm seed}/A_{\rm seed}$, where the perimeter is the number of nearest-neighbor boundary edges on the periodic square lattice. This analysis is not intended to prove a microscopic nucleation mechanism. Its purpose is to test whether the trends shown in Figs.~3 and 4 are stable under resampling of the finite ensemble.
+We additionally checked the label-level trends in the main seed observables by bootstrap resampling within each initial-state label and by a permutation test of the label-mean trend. The test statistic is the Spearman rank correlation between the initial-state label and the label-averaged observable. For the largest barrier-crossing seed cluster, we also compute a lattice perimeter-to-area diagnostic, $P_{\rm seed}/A_{\rm seed}$, where the perimeter is the number of nearest-neighbor boundary edges on the periodic square lattice. This ratio depends on both shape and size: it is sensitive not only to boundary irregularity but also to the growth of cluster area. This analysis is not intended to prove a microscopic nucleation mechanism. Its purpose is to test whether the trends shown in Figs.~3 and 4 are stable under resampling of the finite ensemble.
 
 Table~S3 summarizes the results. The trends are very stable in the present data set. The seed amount measures $p_{\rm seed}$ and $c_{\rm seed}$ increase monotonically with the initial-state label, while the compactness decreases monotonically, the radius of gyration increases monotonically, and the perimeter-to-area diagnostic decreases monotonically. In all four cases, the bootstrap confidence interval for the Spearman trend does not cross zero.
 
@@ -158,8 +158,8 @@ Figure~S6 shows the corresponding label-mean trends. These results strengthen th
 
 \begin{figure}[p]
 \centering
-\includegraphics[height=0.74\textheight,keepaspectratio]{figS6_seed_geometry_trend_tests}
-\caption{Bootstrap/permutation trend-check diagnostics for the main first-order data set. The plotted observables are label means with standard-error bars. The trends in seed amount, compactness, radius of gyration, and perimeter-to-area are stable under bootstrap resampling within labels.}
+\includegraphics[width=0.95\linewidth]{figS6_seed_geometry_trend_tests}
+\caption{Bootstrap/permutation trend-check diagnostics for the main first-order data set. The plotted observables are label means with standard-error bars in a compact multi-panel layout. The trends in seed amount, compactness, radius of gyration, and perimeter-to-area are stable under bootstrap resampling within labels.}
 \label{fig:S6-seed-geometry-trends}
 \end{figure}
 
@@ -175,7 +175,7 @@ q_{\rm nuc}(\phi_0)=\frac{\text{number of restarts that nucleate by }t_{\max}}
 \end{equation}
 using the same cluster-nucleation criterion as in the main analysis. This quantity is not an exact transition-path committor because the observation time is finite and the event definition is operational. It is nevertheless a direct restart-based diagnostic of whether a given initial configuration is more or less likely to nucleate under the post-quench dynamics.
 
-The production-lite analysis used eight frozen initial configurations for each of the six initial-state labels and sixteen independent post-quench restarts per configuration, for a total of 768 restart trajectories. Table~S4 summarizes the label-averaged values of $q_{\rm nuc}$. The values lie between approximately 0.28 and 0.38, with substantial configuration-to-configuration variation within each label.
+The finite-time restart analysis used eight frozen initial configurations for each of the six initial-state labels and sixteen independent post-quench restarts per configuration, for a total of 768 restart trajectories. Table~S4 summarizes the label-averaged values of $q_{\rm nuc}$. The values lie between approximately 0.28 and 0.38, with substantial configuration-to-configuration variation within each label.
 
 \begin{table}[t]
 \centering
@@ -235,5 +235,4 @@ Finite-time committor-style restart analysis. (a) Label-averaged restart probabi
 \clearpage
 
 \end{document}
-
 
