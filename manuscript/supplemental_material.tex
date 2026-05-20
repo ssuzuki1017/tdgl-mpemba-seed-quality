@@ -1,4 +1,4 @@
-﻿\documentclass[floatfix,aps,pre,preprint,amsmath,amssymb,superscriptaddress]{revtex4-2}
+\documentclass[aps,pre,preprint,amsmath,amssymb,superscriptaddress]{revtex4-2}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -163,5 +163,67 @@ Figure~S6 shows the corresponding label-mean trends. These results strengthen th
 \label{fig:S6-seed-geometry-trends}
 \end{figure}
 
-\end{document}
 
+\clearpage
+
+\section*{Finite-time committor-style restart analysis}
+
+To test more directly whether the initial seed observables predict nucleation, we performed a finite-time restart analysis. For each selected initial configuration $\phi_0$, the post-quench dynamics was restarted multiple times with independent post-quench noise. We then estimated
+\begin{equation}
+q_{\rm nuc}(\phi_0)=\frac{\text{number of restarts that nucleate by }t_{\max}}
+{\text{number of restarts}},
+\end{equation}
+using the same cluster-nucleation criterion as in the main analysis. This quantity is not an exact transition-path committor because the observation time is finite and the event definition is operational. It is nevertheless a direct restart-based diagnostic of whether a given initial configuration is more or less likely to nucleate under the post-quench dynamics.
+
+The production-lite analysis used eight frozen initial configurations for each of the six initial-state labels and sixteen independent post-quench restarts per configuration, for a total of 768 restart trajectories. Table~S4 summarizes the label-averaged values of $q_{\rm nuc}$. The values lie between approximately 0.28 and 0.38, with substantial configuration-to-configuration variation within each label.
+
+\begin{table}[t]
+\centering
+\caption{Finite-time committor-style restart analysis. For each initial-state label, eight frozen initial configurations were generated and each was restarted sixteen times with independent post-quench noise.}
+\label{tab:S4-committor-label}
+\begin{tabular}{lcccc}
+\hline
+Label & Configurations & Restarts & Mean $q_{\rm nuc}$ & Range of $q_{\rm nuc}$ \\
+\hline
+1.05 & 8 & 128 & 0.297 & 0.125--0.438 \\
+1.10 & 8 & 128 & 0.336 & 0.188--0.438 \\
+1.20 & 8 & 128 & 0.289 & 0.125--0.438 \\
+1.50 & 8 & 128 & 0.281 & 0.063--0.563 \\
+2.00 & 8 & 128 & 0.344 & 0.188--0.500 \\
+3.00 & 8 & 128 & 0.375 & 0.188--0.688 \\
+\hline
+\end{tabular}
+\end{table}
+
+Table~S5 reports correlations between $q_{\rm nuc}$ and several initial seed observables across the 48 frozen initial configurations. The correlations are weak for all tested low-dimensional observables. In particular, the Pearson and Spearman correlations with seed compactness, radius of gyration, perimeter, and perimeter-to-area are small in magnitude. Thus, within this finite restart ensemble, the simple seed-geometry observables used in the main text are not sufficient committor-level predictors.
+
+\begin{table}[t]
+\centering
+\caption{Correlations between the finite-time committor-like probability $q_{\rm nuc}$ and initial seed observables across the 48 frozen initial configurations.}
+\label{tab:S5-committor-correlations}
+\begin{tabular}{lcc}
+\hline
+Observable & Pearson correlation & Spearman correlation \\
+\hline
+$p_{\rm seed}$ & 0.185 & 0.131 \\
+$c_{\rm seed}$ & 0.007 & $-0.029$ \\
+$C_{\rm comp}$ & $-0.144$ & $-0.144$ \\
+$R_g$ & 0.028 & $-0.010$ \\
+Seed perimeter & 0.036 & 0.006 \\
+Seed perimeter/area & 0.042 & 0.125 \\
+$p_{\rm ordered}$ & 0.017 & $-0.064$ \\
+$c_{\rm ordered}$ & $-0.014$ & $-0.066$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Figure~S7 visualizes the same restart analysis. The weak correlations should not be read as a failure of the seed-geometry diagnostics. Rather, they delimit their interpretation. Compactness, radius of gyration, and perimeter-to-area capture systematic label-level changes in the morphology of barrier-crossing seed clusters, but a finite-time nucleation probability depends on additional dynamical information not contained in these few scalar descriptors alone. This supports the conservative framing used in the main text: seed amount and seed geometry should be tracked separately, but the present geometry measures are not a complete committor theory.
+
+\begin{figure}[p]
+\centering
+\includegraphics[height=0.72\textheight,keepaspectratio]{figS7_committor_seed_geometry}
+\caption{Finite-time committor-style restart analysis. (a) Label-averaged restart probability $q_{\rm nuc}$. (b--d) Configuration-level relations between $q_{\rm nuc}$ and initial seed compactness, radius of gyration, and perimeter-to-area. The weak correlations indicate that these simple scalar geometry diagnostics are not sufficient committor-level predictors in the present finite restart ensemble.}
+\label{fig:S7-committor-seed-geometry}
+\end{figure}
+
+\end{document}
