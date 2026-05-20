@@ -32,3 +32,10 @@ venv/
 .DS_Store
 Thumbs.db
 .vscode/
+_smoke_figures/
+_perimeter_smoke/
+runs_perimeter_main/
+figures_regen_binomial_ci/
+analysis_seed_quality/
+analysis_seed_geometry*/
+analysis_committor*/
