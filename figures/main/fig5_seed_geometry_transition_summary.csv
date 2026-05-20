@@ -1,0 +1,15 @@
+quantity,value
+sample_count_total,600.0
+sample_count_nucleated,206.0
+sample_count_transitioned,165.0
+sample_count_tnuc_and_ttr_observed,165.0
+p_seed_vs_seed_compactness_pearson,-0.5039594150305895
+p_seed_vs_seed_compactness_spearman,-0.5172944917082816
+c_seed_vs_seed_compactness_pearson,-0.5347766954180123
+c_seed_vs_seed_compactness_spearman,-0.5954234875198299
+seed_rg_vs_seed_compactness_pearson,-0.6922550607157846
+seed_rg_vs_seed_compactness_spearman,-0.7454331481115147
+t_nuc_vs_t_tr_pearson,0.9967142828840343
+t_nuc_vs_t_tr_spearman,0.9950978690074792
+transition_delay_mean_ttr_minus_tnuc,43.529187665485416
+transition_delay_std_ttr_minus_tnuc,4.275003295545479
