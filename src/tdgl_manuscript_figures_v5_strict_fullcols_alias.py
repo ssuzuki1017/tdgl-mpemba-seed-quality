@@ -178,6 +178,22 @@ def stderr(series: pd.Series) -> float:
     return float(x.std(ddof=1) / math.sqrt(len(x)))
 
 
+def wilson_binomial_ci(k: int, n: int, z: float = 1.959963984540054) -> tuple[float, float]:
+    """Wilson score interval for a binomial proportion.
+
+    This is used for observed finite-time nucleation probabilities. It is more
+    appropriate than a normal standard error when n is modest or probabilities
+    are not close to 1/2.
+    """
+    if n <= 0:
+        return (np.nan, np.nan)
+    phat = k / n
+    denom = 1.0 + z**2 / n
+    center = (phat + z**2 / (2.0 * n)) / denom
+    half = z * math.sqrt((phat * (1.0 - phat) + z**2 / (4.0 * n)) / n) / denom
+    return (max(0.0, center - half), min(1.0, center + half))
+
+
 def summarize(df: pd.DataFrame) -> pd.DataFrame:
     missing = [c for c in BASE_REQUIRED_COLUMNS if c not in df.columns]
     if missing:
@@ -195,11 +211,17 @@ def summarize(df: pd.DataFrame) -> pd.DataFrame:
             return stderr(g[name]) if name in g.columns else np.nan
 
         n = len(g)
-        p_nuc = float(tn.notna().mean())
-        p_tr = float(tt.notna().mean())
+        k_nuc = int(tn.notna().sum())
+        k_tr = int(tt.notna().sum())
+        p_nuc = float(k_nuc / n) if n else np.nan
+        p_tr = float(k_tr / n) if n else np.nan
+        p_nuc_ci_low, p_nuc_ci_high = wilson_binomial_ci(k_nuc, n)
+        p_tr_ci_low, p_tr_ci_high = wilson_binomial_ci(k_tr, n)
         rows.append({
             "label": float(label),
             "n": n,
+            "n_nuc": k_nuc,
+            "n_tr": k_tr,
             "p_seed_mean": mean_col("p_seed"),
             "p_seed_se": se_col("p_seed"),
             "c_seed_mean": mean_col("c_seed"),
@@ -214,8 +236,16 @@ def summarize(df: pd.DataFrame) -> pd.DataFrame:
             "c_ordered_seed_se": se_col("c_ordered_seed"),
             "p_nuc": p_nuc,
             "p_nuc_se": math.sqrt(p_nuc * (1 - p_nuc) / n) if n else np.nan,
+            "p_nuc_ci_low": p_nuc_ci_low,
+            "p_nuc_ci_high": p_nuc_ci_high,
+            "p_nuc_ci_lower_err": p_nuc - p_nuc_ci_low if np.isfinite(p_nuc) else np.nan,
+            "p_nuc_ci_upper_err": p_nuc_ci_high - p_nuc if np.isfinite(p_nuc) else np.nan,
             "p_tr": p_tr,
             "p_tr_se": math.sqrt(p_tr * (1 - p_tr) / n) if n else np.nan,
+            "p_tr_ci_low": p_tr_ci_low,
+            "p_tr_ci_high": p_tr_ci_high,
+            "p_tr_ci_lower_err": p_tr - p_tr_ci_low if np.isfinite(p_tr) else np.nan,
+            "p_tr_ci_upper_err": p_tr_ci_high - p_tr if np.isfinite(p_tr) else np.nan,
         })
     return pd.DataFrame(rows)
 
@@ -255,6 +285,26 @@ def errorbar_panel(ax, summary: pd.DataFrame, ycol: str, yerrcol: str, ylabel: s
     ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
 
 
+def asymmetric_errorbar_panel(
+    ax,
+    summary: pd.DataFrame,
+    ycol: str,
+    lower_err_col: str,
+    upper_err_col: str,
+    ylabel: str,
+    panel_label: str,
+):
+    yerr = np.vstack([
+        pd.to_numeric(summary[lower_err_col], errors="coerce").to_numpy(dtype=float),
+        pd.to_numeric(summary[upper_err_col], errors="coerce").to_numpy(dtype=float),
+    ])
+    ax.errorbar(summary["label"], summary[ycol], yerr=yerr, marker="o", capsize=3)
+    set_label_ticks(ax, summary["label"])
+    ax.set_xlabel("Initial-state label")
+    ax.set_ylabel(ylabel)
+    ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
+
+
 def kaplan_meier_curve(times: np.ndarray, observed: np.ndarray) -> tuple[list[float], list[float]]:
     order = np.argsort(times)
     t = np.asarray(times)[order]
@@ -280,7 +330,15 @@ def kaplan_meier_curve(times: np.ndarray, observed: np.ndarray) -> tuple[list[fl
 def plot_fig2(df_main: pd.DataFrame, sum_main: pd.DataFrame, outdir: Path, dpi: int, max_survival_labels: int | None, tmax: float):
     fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
     ax = axes[0]
-    errorbar_panel(ax, sum_main, "p_nuc", "p_nuc_se", r"Nucleation probability $P_{\mathrm{nuc}}$", "(a)")
+    asymmetric_errorbar_panel(
+        ax,
+        sum_main,
+        "p_nuc",
+        "p_nuc_ci_lower_err",
+        "p_nuc_ci_upper_err",
+        r"Observed finite-time nucleation probability $P_{\mathrm{nuc}}$",
+        "(a)",
+    )
 
     ax = axes[1]
     labels = choose_survival_labels(sorted(df_main["label"].unique()), max_survival_labels)
@@ -335,6 +393,25 @@ def multi_errorbar(ax, datasets, ycol: str, yerrcol: str, ylabel: str, panel_lab
     ax.legend(fontsize=8, loc="best")
 
 
+def multi_asymmetric_errorbar(ax, datasets, ycol: str, lower_err_col: str, upper_err_col: str, ylabel: str, panel_label: str):
+    first_summary = None
+    for label, summary in datasets:
+        if summary is None or ycol not in summary.columns or summary[ycol].isna().all():
+            continue
+        first_summary = summary if first_summary is None else first_summary
+        yerr = np.vstack([
+            pd.to_numeric(summary[lower_err_col], errors="coerce").to_numpy(dtype=float),
+            pd.to_numeric(summary[upper_err_col], errors="coerce").to_numpy(dtype=float),
+        ])
+        ax.errorbar(summary["label"], summary[ycol], yerr=yerr, marker="o", capsize=3, label=label)
+    if first_summary is not None:
+        set_label_ticks(ax, first_summary["label"])
+    ax.set_xlabel("Initial-state label")
+    ax.set_ylabel(ylabel)
+    ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
+    ax.legend(fontsize=8, loc="best")
+
+
 def plot_supplementals(sum_main, sum_cth10, sum_cth30, sum_dt001, sum_n128, sum_pre1000, outdir: Path, dpi: int):
     fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
     errorbar_panel(axes[0], sum_main, "p_ordered_seed_mean", "p_ordered_seed_se", r"Mean ordered-like seed fraction $p_{\mathrm{ordered}}$", "(a)")
@@ -344,8 +421,24 @@ def plot_supplementals(sum_main, sum_cth10, sum_cth30, sum_dt001, sum_n128, sum_
 
     if sum_cth10 is not None and sum_cth30 is not None and sum_dt001 is not None:
         fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
-        multi_errorbar(axes[0], [("Cth=10", sum_cth10), ("Cth=20", sum_main), ("Cth=30", sum_cth30)], "p_nuc", "p_nuc_se", r"Nucleation probability $P_{\mathrm{nuc}}$", "(a)")
-        multi_errorbar(axes[1], [("dt=0.02", sum_main), ("dt=0.01", sum_dt001)], "p_nuc", "p_nuc_se", r"Nucleation probability $P_{\mathrm{nuc}}$", "(b)")
+        multi_asymmetric_errorbar(
+            axes[0],
+            [("Cth=10", sum_cth10), ("Cth=20", sum_main), ("Cth=30", sum_cth30)],
+            "p_nuc",
+            "p_nuc_ci_lower_err",
+            "p_nuc_ci_upper_err",
+            r"Observed finite-time nucleation probability $P_{\mathrm{nuc}}$",
+            "(a)",
+        )
+        multi_asymmetric_errorbar(
+            axes[1],
+            [("dt=0.02", sum_main), ("dt=0.01", sum_dt001)],
+            "p_nuc",
+            "p_nuc_ci_lower_err",
+            "p_nuc_ci_upper_err",
+            r"Observed finite-time nucleation probability $P_{\mathrm{nuc}}$",
+            "(b)",
+        )
         save_figure(fig, outdir / "figS2_numerical_checks_multipanel", dpi)
         plt.close(fig)
 

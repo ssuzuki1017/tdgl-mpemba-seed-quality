@@ -1,4 +1,4 @@
-\documentclass[aps,pre,preprint,amsmath,amssymb,superscriptaddress]{revtex4-2}
+﻿\documentclass[floatfix,aps,pre,preprint,amsmath,amssymb,superscriptaddress]{revtex4-2}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -48,7 +48,7 @@ Figures~S2 and S3 show numerical and operational robustness checks. The purpose 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\linewidth]{figS2_numerical_checks_multipanel}
-\caption{Numerical robustness checks for the nucleation probability. (a) Dependence on the cluster threshold $C_{\rm th}$ used to identify nucleation events. (b) Dependence on the time step. Error bars indicate standard errors over stochastic realizations.}
+\caption{Numerical robustness checks for the observed finite-time nucleation probability. (a) Dependence on the cluster threshold $C_{\rm th}$ used to identify nucleation events. (b) Dependence on the time step. Error bars indicate 95\% Wilson binomial confidence intervals.}
 \label{fig:S2-numerical-checks}
 \end{figure}
 
@@ -156,11 +156,12 @@ $P_{\rm seed}/A_{\rm seed}$ & $-1.000$ & 0.0031 & $[-1.000,-0.943]$ & $-0.369$ \
 
 Figure~S6 shows the corresponding label-mean trends. These results strengthen the conservative conclusion that seed amount and seed geometry change systematically in different directions. The perimeter-to-area diagnostic decreases with the initial-state label, while the absolute perimeter increases. This indicates that larger-label seeds are not simply compact droplets with larger interface length; rather, the largest barrier-crossing clusters become larger and more spatially extended, with a lower perimeter-to-area value because their area grows faster than their boundary length. Therefore, the perimeter-to-area result should be interpreted together with compactness and $R_g$, not as a standalone committor-like predictor.
 
-\begin{figure}[t]
+\begin{figure}[p]
 \centering
-\includegraphics[width=0.90\linewidth]{figS6_seed_geometry_trend_tests}
+\includegraphics[height=0.74\textheight,keepaspectratio]{figS6_seed_geometry_trend_tests}
 \caption{Bootstrap/permutation trend-check diagnostics for the main first-order data set. The plotted observables are label means with standard-error bars. The trends in seed amount, compactness, radius of gyration, and perimeter-to-area are stable under bootstrap resampling within labels.}
 \label{fig:S6-seed-geometry-trends}
 \end{figure}
 
 \end{document}
+
