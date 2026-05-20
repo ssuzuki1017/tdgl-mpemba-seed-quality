@@ -234,3 +234,90 @@ The smoke test passes if:
 7. the sample-level seed-quality diagnostic figure and CSV tables are generated,
 8. the main manuscript and supplemental PDFs compile without undefined citations or references,
 9. temporary output directories and LaTeX auxiliary files are not committed.
+
+
+
+## Reproducing the manuscript figures and supplemental analyses
+
+This repository contains the code, processed data, and manuscript sources for the TDGL seed-geometry manuscript.
+
+### Main manuscript figures
+
+From the repository root:
+
+```powershell
+python .\src\tdgl_phi4_baseline_figure.py `
+  --data-dir .\data\main `
+  --outdir .\figures\main
+
+python .\src\tdgl_manuscript_figures_v5_strict_fullcols_alias.py `
+  --data-dir .\data `
+  --outdir .\figures\main `
+  --max-survival-labels 3
+
+python .\src\make_fig5_seed_geometry_transition.py `
+  --data-dir .\data `
+  --outdir .\figures\main
+```
+
+### Seed-quality sample-level analysis
+
+```powershell
+python .\src\analyze_seed_quality_sample_level.py `
+  --data-dir .\data `
+  --outdir .\analysis_seed_quality `
+  --bootstrap 500
+```
+
+### Seed-geometry bootstrap/permutation analysis
+
+```powershell
+python .\src\analyze_seed_geometry_trends_v1.py `
+  --data-dir .\data `
+  --outdir .\analysis_seed_geometry_perimeter_grid `
+  --bootstrap 2000 `
+  --permutations 20000
+```
+
+### Finite-time committor-style restart analysis
+
+The archived committor restart tables are stored in:
+
+```text
+data/processed/committor_v1/
+data/processed/committor_v2/
+```
+
+To rerun the larger restart analysis:
+
+```powershell
+python .\src\committor_restart_phi6_v1.py `
+  --outdir .\analysis_committor_v2 `
+  --n-configs-per-label 12 `
+  --n-restarts 24
+```
+
+Expected output size:
+
+```text
+72 frozen initial configurations
+1728 restart trajectories
+```
+
+### Manuscript compilation
+
+```powershell
+cd .\manuscript
+
+pdflatex manuscript_revtex.tex
+bibtex manuscript_revtex
+pdflatex manuscript_revtex.tex
+pdflatex manuscript_revtex.tex
+
+pdflatex supplemental_material.tex
+pdflatex supplemental_material.tex
+```
+
+### Notes
+
+The initial-state labels are protocol labels rather than calibrated thermodynamic temperatures. The finite-time committor-style restart analysis is an operational restart diagnostic, not an exact transition-path committor.

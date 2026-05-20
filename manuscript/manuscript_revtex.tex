@@ -1,4 +1,4 @@
-\documentclass[aps,pre,preprint,showkeys,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
+﻿\documentclass[aps,pre,preprint,showkeys,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -329,7 +329,7 @@ Third, we reduced the time step from $\Delta t=0.02$ to $\Delta t=0.01$. As show
 
 Finally, we checked the system size and pre-equilibration length. As shown in Fig.~S3, the increase of $p_{\rm seed}$ and the decrease of seed compactness with the initial-state label are preserved in an $N=128$ system-size check and in simulations with longer pre-equilibration. These robustness checks support the central conclusion that larger initial-state labels generate more barrier-crossing seeds, but those seeds are less compact and more spatially extended. Bootstrap and permutation trend checks reported in the Supplemental Material further confirm that these label-level trends are robust in the present data set. A lattice perimeter-to-area diagnostic provides an additional geometric measure of the largest barrier-crossing cluster.
 
-As an additional sample-level check, we fitted logistic models for whether a cluster nucleation event was observed by the final observation time using seed-amount variables, seed-geometry variables, and their combination. The details are reported in the Supplemental Material. The seed-geometry-only model has the lowest Akaike information criterion in this check, but its improvement over an intercept-only model is modest. In the combined model, seed compactness has a positive standardized coefficient close to conventional significance, whereas $p_{\rm seed}$, $c_{\rm seed}$, and $R_g$ do not provide statistically decisive predictors. We therefore do not interpret the logistic analysis as a committor calculation. Its role is instead to support the more conservative conclusion that seed amount and seed geometry should not be conflated. A finite-time restart analysis reported in the Supplemental Material reaches a similar conclusion: the committor-like nucleation probability varies across frozen initial configurations, but the present simple seed-geometry observables show only weak correlations with it.
+As an additional sample-level check, we fitted logistic models for whether a cluster nucleation event was observed by the final observation time using seed-amount variables, seed-geometry variables, and their combination. The details are reported in the Supplemental Material. The seed-geometry-only model has the lowest Akaike information criterion in this check, but its improvement over an intercept-only model is modest. In the combined model, seed compactness has a positive standardized coefficient close to conventional significance, whereas $p_{\rm seed}$, $c_{\rm seed}$, and $R_g$ do not provide statistically decisive predictors. We therefore do not interpret the logistic analysis as a committor calculation. Its role is instead to support the more conservative conclusion that seed amount and seed geometry should not be conflated. A finite-time restart analysis reported in the Supplemental Material reaches a similar conclusion: the committor-like nucleation probability varies across frozen initial configurations, but the present simple seed-geometry observables show only weak-to-modest correlations with it.
 
 \section{Discussion}\label{discussion}
 
@@ -422,3 +422,4 @@ The simulation data, figure-generation scripts, and reproducibility instructions
 \bibliography{references_verified}
 
 \end{document}
+
