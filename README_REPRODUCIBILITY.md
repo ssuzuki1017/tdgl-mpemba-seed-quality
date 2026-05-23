@@ -1,51 +1,106 @@
-# Reproducibility guide
+# Reproducibility notes
 
-This document describes how to reproduce the smoke-test figure outputs for the TDGL Mpemba seed-quality study.
+This document describes how to reproduce the figures and analyses for:
 
-The intended workflow is:
+**Seed geometry in nucleation-controlled transition times in time-dependent Ginzburg--Landau models**
 
-1. install the Python dependencies,
-2. verify that the required CSV files are present,
-3. regenerate the phi4 baseline figure,
-4. regenerate the phi6 main and supplemental multi-panel figures,
-5. regenerate the sample-level seed-quality diagnostic used for Supplemental Fig. S5,
-6. confirm that the expected files are produced.
-
-The full stochastic simulations do not need to be rerun if the CSV files are already included under `data/`.
+All commands below are intended to be run from the repository root unless otherwise noted.
 
 ## 1. Environment
 
-From the repository root:
-
-```powershell
-python --version
-python -m pip install -r requirements.txt
-```
-
-The required Python packages are listed in `requirements.txt`:
+Recommended environment:
 
 ```text
+Python >= 3.10
 numpy
 pandas
 matplotlib
 ```
 
-## 2. Required data files
+Install dependencies:
 
-The phi4 baseline figure expects:
+```bash
+pip install -r requirements.txt
+```
+
+The scripts do not require GPU computation.
+
+## 2. Main numerical parameters
+
+The main first-order `phi6` calculations use:
+
+| Parameter | Value |
+|---|---|
+| Model | first-order `phi6` TDGL |
+| System size | `N = 64` |
+| Grid spacing | `dx = 1` |
+| Time step | `dt = 0.02` |
+| Final time | `tmax = 300` |
+| Pre-equilibration steps | `preeq_steps = 500` |
+| Final potential parameter | `a_f = 0.02` |
+| Landau coefficients | `b = c = 1` |
+| Initial fluctuation scale | `D_i = D_0 T_i`, `D_0 = 0.02` |
+| Post-quench noise strength | `D_f = 9e-3` |
+| Initial-state labels | `1.05, 1.10, 1.20, 1.50, 2.00, 3.00` |
+| Barrier-crossing seed threshold | `abs(phi) > phi_b` |
+| Ordered-like seed threshold | `abs(phi) > 0.5 phi_s` |
+| Nucleation cluster threshold | `C_th = 20` |
+| Persistence condition | `n_cons = 3` |
+
+The main `phi6` results combine two independent random seeds:
+
+```text
+seed = 5678, nsamples = 50 per label
+seed = 9876, nsamples = 50 per label
+combined = 100 realizations per label
+total = 600 realizations
+```
+
+The continuous-transition `phi4` baseline uses:
+
+```text
+N = 64
+dt = 0.05
+tmax = 10
+preeq_steps = 500
+5 realizations per label
+```
+
+Robustness checks include:
+
+```text
+cluster_threshold = 10 and 30
+dt = 0.01
+N = 128
+preeq_steps = 1000
+```
+
+## 3. Data files
+
+The `data/` directory contains the CSV files used to generate the manuscript figures.
+
+Expected main data files:
 
 ```text
 data/main/phi4_samples.csv
-```
-
-The phi6 v5 multi-panel figure script expects full-column main files containing the seed-quality columns:
-
-```text
 data/main/phi6_main_Df9em3_seed5678_fullcols.samples.csv
 data/main/phi6_main_Df9em3_seed9876_fullcols.samples.csv
 ```
 
-These files must include at least the following columns:
+Expected robustness data are under:
+
+```text
+data/robustness/
+```
+
+Processed restart-analysis tables are under:
+
+```text
+data/processed/committor_v1/
+data/processed/committor_v2/
+```
+
+Important columns for `phi6` sample files:
 
 ```text
 label
@@ -53,271 +108,216 @@ t_nuc_cluster
 t_tr
 p_seed
 c_seed
-seed_compactness
-seed_rg
 p_ordered_seed
 c_ordered_seed
+seed_compactness
+seed_rg
+seed_perimeter
+seed_perimeter_to_area
 ```
 
-The repository may also contain older long-name main CSV files without `seed_compactness` and `seed_rg`. Those files are useful historical outputs, but they are not sufficient for regenerating the v5 seed-quality figures.
+Important columns for `phi4_samples.csv`:
 
-Optional robustness files are read from `data/robustness/` when present.
-
-To list available CSV files:
-
-```powershell
-Get-ChildItem .\data -Recurse -Filter "*.csv" | Select-Object FullName
+```text
+label
+t_tr
 ```
 
-## 3. Smoke-test output directory
+## 4. Reproducing the main manuscript figures
 
-Create a temporary output directory so the committed `figures/` directory is not modified:
+### Fig. 1: continuous-transition `phi4` baseline
 
-```powershell
-$root = (Get-Location).Path
-$smoke = Join-Path $root "_smoke_figures"
-
-Remove-Item $smoke -Recurse -Force -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Path $smoke | Out-Null
+```bash
+python src/tdgl_phi4_baseline_figure.py --data-dir data/main --outdir figures/main
 ```
 
-## 4. Regenerate the phi4 baseline figure
+Expected outputs:
 
-```powershell
-python .\src\tdgl_phi4_baseline_figure.py `
-  --data-dir .\data\main `
-  --outdir "$smoke\main"
+```text
+figures/main/phi4_baseline_transition_time.pdf
+figures/main/phi4_baseline_transition_time.png
+figures/main/phi4_baseline_summary.csv
+```
+
+### Figs. 2--4 and supplemental multipanel figures
+
+```bash
+python src/tdgl_manuscript_figures_v5_strict_fullcols_alias.py --data-dir data --outdir figures --max-survival-labels 3
+```
+
+Expected main outputs:
+
+```text
+figures/main/fig2_nucleation_multipanel.pdf
+figures/main/fig2_nucleation_multipanel.png
+figures/main/fig3_seed_amount_multipanel.pdf
+figures/main/fig3_seed_amount_multipanel.png
+figures/main/fig4_seed_quality_multipanel.pdf
+figures/main/fig4_seed_quality_multipanel.png
+```
+
+Expected supplemental outputs include:
+
+```text
+figures/supplemental/figS1_ordered_seed_multipanel.pdf
+figures/supplemental/figS2_numerical_checks_multipanel.pdf
+figures/supplemental/figS3_robustness_multipanel.pdf
+```
+
+### Fig. 5: sample-level seed geometry and transition timing
+
+```bash
+python src/make_fig5_seed_geometry_transition.py --data-dir data --outdir figures/main
+```
+
+Expected outputs:
+
+```text
+figures/main/fig5_seed_geometry_transition.pdf
+figures/main/fig5_seed_geometry_transition.png
+figures/main/fig5_seed_geometry_transition_summary.csv
+figures/main/fig5_seed_geometry_transition_numbers.tex
+```
+
+## 5. Supplemental analyses
+
+### Sample-level seed-quality analysis
+
+```bash
+python src/analyze_seed_quality_sample_level.py --data-dir data --outdir analysis_seed_quality --bootstrap 500
 ```
 
 Expected outputs include:
 
 ```text
-_smoke_figures/main/phi4_baseline_summary.csv
-_smoke_figures/main/phi4_baseline_transition_time.png
-_smoke_figures/main/phi4_baseline_transition_time.pdf
-_smoke_figures/main/README_phi4_baseline_figure.md
-```
-
-## 5. Regenerate the phi6 v5 multi-panel figures
-
-```powershell
-python .\src\tdgl_manuscript_figures_v5_strict_fullcols_alias.py `
-  --data-dir .\data `
-  --outdir "$smoke\v5" `
-  --max-survival-labels 3
-```
-
-Important notes:
-
-- Do not pass `--formats`; this script always writes both `.png` and `.pdf`.
-- `--data-dir .\data` is the recommended form.
-- The script should select the full-column alias files in `data/main/` for seed `5678` and seed `9876`.
-
-Expected outputs include:
-
-```text
-_smoke_figures/v5/fig2_nucleation_multipanel.png
-_smoke_figures/v5/fig2_nucleation_multipanel.pdf
-_smoke_figures/v5/fig3_seed_amount_multipanel.png
-_smoke_figures/v5/fig3_seed_amount_multipanel.pdf
-_smoke_figures/v5/fig4_seed_quality_multipanel.png
-_smoke_figures/v5/fig4_seed_quality_multipanel.pdf
-_smoke_figures/v5/figS1_ordered_seed_multipanel.png
-_smoke_figures/v5/figS1_ordered_seed_multipanel.pdf
-_smoke_figures/v5/figS2_numerical_checks_multipanel.png
-_smoke_figures/v5/figS2_numerical_checks_multipanel.pdf
-_smoke_figures/v5/figS3_robustness_multipanel.png
-_smoke_figures/v5/figS3_robustness_multipanel.pdf
-_smoke_figures/v5/summary_main_df9.csv
-```
-
-Check the output list with:
-
-```powershell
-Get-ChildItem "$smoke\v5" -File | Select-Object Name
-```
-
-## 6. Regenerate the sample-level seed-quality analysis
-
-The sample-level seed-quality diagnostic used for Supplemental Fig. S5 can be regenerated with:
-
-```powershell
-python .\src\analyze_seed_quality_sample_level.py `
-  --data-dir .\data `
-  --outdir .\analysis_seed_quality
-```
-
-Expected outputs include:
-
-```text
-analysis_seed_quality/fig5_sample_level_seed_quality.png
 analysis_seed_quality/fig5_sample_level_seed_quality.pdf
 analysis_seed_quality/seed_quality_model_comparison.csv
 analysis_seed_quality/seed_quality_logistic_coefficients.csv
-analysis_seed_quality/seed_quality_binned_probabilities.csv
-analysis_seed_quality/seed_quality_within_pseed_bins.csv
-analysis_seed_quality/sample_level_main_data_used.csv
-analysis_seed_quality/README_seed_quality_analysis.md
 ```
 
-For the supplemental material, the figure files are copied as:
+The figure used in the supplement is archived as:
 
 ```text
-figures/supplemental/figS5_sample_level_seed_quality.png
 figures/supplemental/figS5_sample_level_seed_quality.pdf
-```
-
-## 7. Compile the manuscript
-
-The manuscript uses REVTeX. A typical local build is:
-
-```powershell
-cd .\manuscript
-
-pdflatex manuscript_revtex.tex
-bibtex manuscript_revtex
-pdflatex manuscript_revtex.tex
-pdflatex manuscript_revtex.tex
-
-pdflatex supplemental_material.tex
-pdflatex supplemental_material.tex
-```
-
-Expected PDF outputs:
-
-```text
-manuscript/manuscript_revtex.pdf
-manuscript/supplemental_material.pdf
-```
-
-If `pdflatex` or `bibtex` is not recognized, install a LaTeX distribution such as MiKTeX or TeX Live and reopen the terminal so that the PATH is updated.
-
-## 8. Git hygiene
-
-The `_smoke_figures/` and `analysis_seed_quality/` directories are temporary output directories and do not need to be committed unless you intentionally want to archive intermediate analysis tables.
-
-LaTeX auxiliary files should normally not be committed:
-
-```text
-*.aux
-*.bbl
-*.blg
-*.log
-*.out
-*Notes.bib
-*.synctex.gz
-```
-
-After the test:
-
-```powershell
-git status
-```
-
-If temporary outputs appear as untracked files, remove them:
-
-```powershell
-Remove-Item .\_smoke_figures -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item .\analysis_seed_quality -Recurse -Force -ErrorAction SilentlyContinue
-```
-
-## 9. Pass criteria
-
-The smoke test passes if:
-
-1. dependencies install without error,
-2. `data/main/phi4_samples.csv` is detected,
-3. the phi4 baseline PNG/PDF files are generated,
-4. the two full-column phi6 main alias files are detected,
-5. the six phi6 multi-panel PNG/PDF figure pairs are generated,
-6. `summary_main_df9.csv` is generated,
-7. the sample-level seed-quality diagnostic figure and CSV tables are generated,
-8. the main manuscript and supplemental PDFs compile without undefined citations or references,
-9. temporary output directories and LaTeX auxiliary files are not committed.
-
-
-
-## Reproducing the manuscript figures and supplemental analyses
-
-This repository contains the code, processed data, and manuscript sources for the TDGL seed-geometry manuscript.
-
-### Main manuscript figures
-
-From the repository root:
-
-```powershell
-python .\src\tdgl_phi4_baseline_figure.py `
-  --data-dir .\data\main `
-  --outdir .\figures\main
-
-python .\src\tdgl_manuscript_figures_v5_strict_fullcols_alias.py `
-  --data-dir .\data `
-  --outdir .\figures\main `
-  --max-survival-labels 3
-
-python .\src\make_fig5_seed_geometry_transition.py `
-  --data-dir .\data `
-  --outdir .\figures\main
-```
-
-### Seed-quality sample-level analysis
-
-```powershell
-python .\src\analyze_seed_quality_sample_level.py `
-  --data-dir .\data `
-  --outdir .\analysis_seed_quality `
-  --bootstrap 500
+figures/supplemental/figS5_sample_level_seed_quality.png
 ```
 
 ### Seed-geometry bootstrap/permutation analysis
 
-```powershell
-python .\src\analyze_seed_geometry_trends_v1.py `
-  --data-dir .\data `
-  --outdir .\analysis_seed_geometry_perimeter_grid `
-  --bootstrap 2000 `
-  --permutations 20000
+```bash
+python src/analyze_seed_geometry_trends_v1.py --data-dir data --outdir analysis_seed_geometry_perimeter_grid --bootstrap 2000 --permutations 20000
+```
+
+Expected outputs include:
+
+```text
+analysis_seed_geometry_perimeter_grid/figS6_seed_geometry_trend_tests.pdf
+analysis_seed_geometry_perimeter_grid/seed_geometry_trend_tests.csv
+```
+
+The figure used in the supplement is archived as:
+
+```text
+figures/supplemental/figS6_seed_geometry_trend_tests.pdf
+figures/supplemental/figS6_seed_geometry_trend_tests.png
 ```
 
 ### Finite-time committor-style restart analysis
 
-The archived committor restart tables are stored in:
+The larger restart analysis used in the current supplement is reproduced with:
 
-```text
-data/processed/committor_v1/
-data/processed/committor_v2/
+```bash
+python src/committor_restart_phi6_v1.py --outdir analysis_committor_v2 --n-configs-per-label 12 --n-restarts 24
 ```
 
-To rerun the larger restart analysis:
-
-```powershell
-python .\src\committor_restart_phi6_v1.py `
-  --outdir .\analysis_committor_v2 `
-  --n-configs-per-label 12 `
-  --n-restarts 24
-```
-
-Expected output size:
+Expected scale:
 
 ```text
 72 frozen initial configurations
 1728 restart trajectories
 ```
 
-### Manuscript compilation
+Expected outputs:
 
-```powershell
-cd .\manuscript
+```text
+analysis_committor_v2/committor_initial_configs.csv
+analysis_committor_v2/committor_restarts.csv
+analysis_committor_v2/committor_label_summary.csv
+analysis_committor_v2/committor_geometry_correlations.csv
+analysis_committor_v2/figS7_committor_seed_geometry.pdf
+analysis_committor_v2/figS7_committor_seed_geometry.png
+```
 
+Archived processed tables are stored under:
+
+```text
+data/processed/committor_v2/
+```
+
+## 6. Re-running simulations
+
+If the processed CSV files are already included in `data/`, re-running simulations is not required to reproduce the manuscript figures.
+
+Example main `phi6` simulation commands:
+
+```bash
+python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 50 --tmax 300 --preeq_steps 500 --af 0.02 --Df 0.009 --D0 0.02 --cluster_threshold 20 --seed 5678
+
+python src/tdgl_run_auto_v3.py phi6 --N 64 --nsamples 50 --tmax 300 --preeq_steps 500 --af 0.02 --Df 0.009 --D0 0.02 --cluster_threshold 20 --seed 9876
+```
+
+If command-line options differ, inspect:
+
+```bash
+python src/tdgl_run_auto_v3.py --help
+```
+
+## 7. Manuscript compilation
+
+Main manuscript:
+
+```bash
+cd manuscript
 pdflatex manuscript_revtex.tex
 bibtex manuscript_revtex
 pdflatex manuscript_revtex.tex
 pdflatex manuscript_revtex.tex
+```
 
+Supplemental material:
+
+```bash
 pdflatex supplemental_material.tex
 pdflatex supplemental_material.tex
 ```
 
-### Notes
+The bibliography file is:
 
-The initial-state labels are protocol labels rather than calibrated thermodynamic temperatures. The finite-time committor-style restart analysis is an operational restart diagnostic, not an exact transition-path committor.
+```text
+manuscript/references_verified.bib
+```
+
+## 8. Figure mapping
+
+| Manuscript figure | Source file |
+|---|---|
+| Fig. 1 | `figures/main/phi4_baseline_transition_time.pdf` |
+| Fig. 2 | `figures/main/fig2_nucleation_multipanel.pdf` |
+| Fig. 3 | `figures/main/fig3_seed_amount_multipanel.pdf` |
+| Fig. 4 | `figures/main/fig4_seed_quality_multipanel.pdf` |
+| Fig. 5 | `figures/main/fig5_seed_geometry_transition.pdf` |
+| Fig. S1 | `figures/supplemental/figS1_ordered_seed_multipanel.pdf` |
+| Fig. S2 | `figures/supplemental/figS2_numerical_checks_multipanel.pdf` |
+| Fig. S3 | `figures/supplemental/figS3_robustness_multipanel.pdf` |
+| Fig. S4 | `figures/supplemental/figS7_tnuc_vs_ttr_scatter.pdf` |
+| Fig. S5 | `figures/supplemental/figS5_sample_level_seed_quality.pdf` |
+| Fig. S6 | `figures/supplemental/figS6_seed_geometry_trend_tests.pdf` |
+| Fig. S7 | `figures/supplemental/figS7_committor_seed_geometry.pdf` |
+
+## 9. Notes
+
+The initial-state labels are protocol labels rather than calibrated thermodynamic temperatures.
+
+The finite-time committor-style restart analysis is an operational restart diagnostic, not an exact transition-path committor.
+
+The main conclusion is not that compactness alone predicts nucleation, but that seed-amount-only descriptions are incomplete for the present nucleation-controlled transition-time protocol.

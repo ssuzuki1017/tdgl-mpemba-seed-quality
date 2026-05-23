@@ -1,8 +1,11 @@
 cff-version: 1.2.0
-title: "Seed quality and nucleation-controlled Mpemba-like transition times in TDGL models"
+message: "If you use this repository, please cite the archived Zenodo release and the associated manuscript."
+title: "Seed geometry in nucleation-controlled transition times in time-dependent Ginzburg-Landau models"
 authors:
   - family-names: Suzuki
     given-names: Soma
-version: "0.1.0"
-date-released: "2026-05-18"
-message: "If you use this code or data, please cite the associated manuscript."
+    affiliation: "Independent researcher"
+version: "1.0.0"
+date-released: "2026-05-24"
+repository-code: "https://github.com/ssuzuki1017/tdgl-mpemba-seed-quality"
+license: "MIT"

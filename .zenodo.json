@@ -1,0 +1,20 @@
+{
+  "title": "Seed geometry in nucleation-controlled transition times in time-dependent Ginzburg-Landau models",
+  "creators": [
+    {
+      "name": "Suzuki, Soma",
+      "affiliation": "Independent researcher"
+    }
+  ],
+  "description": "Code, processed data, random seeds, figure-generation scripts, and manuscript source for a TDGL study of seed geometry in nucleation-controlled transition times.",
+  "keywords": [
+    "time-dependent Ginzburg-Landau",
+    "nucleation",
+    "Mpemba effect",
+    "first-order transition",
+    "seed geometry",
+    "statistical physics"
+  ],
+  "upload_type": "software",
+  "license": "MIT"
+}
