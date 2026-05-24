@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from pathlib import Path
 import argparse
@@ -263,11 +263,27 @@ def choose_survival_labels(labels: list[float], max_labels: int | None) -> list[
     return [labels[i] for i in sorted(set(idx))]
 
 
+def label_positions(labels):
+    vals = [float(x) for x in list(labels)]
+    return np.asarray(vals, dtype=float), vals
+
+
+def staggered_tick_labels(vals):
+    out = []
+    for i, x in enumerate(vals):
+        s = f"{x:.2f}"
+        out.append(s + "\n" if i % 2 == 0 else "\n" + s)
+    return out
+
+
 def set_label_ticks(ax, labels):
-    labels = list(labels)
-    ax.set_xticks(labels)
-    ax.set_xticklabels([f"{x:.2f}" for x in labels], rotation=35, ha="right")
-    ax.tick_params(axis="x", labelsize=8)
+    positions, vals = label_positions(labels)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(staggered_tick_labels(vals), rotation=0, ha="center")
+    ax.tick_params(axis="x", labelsize=8, pad=1)
+    xmin, xmax = min(vals), max(vals)
+    pad = 0.04 * (xmax - xmin)
+    ax.set_xlim(xmin - pad, xmax + pad)
 
 
 def save_figure(fig, out_base: Path, dpi: int):
@@ -278,7 +294,8 @@ def save_figure(fig, out_base: Path, dpi: int):
 
 
 def errorbar_panel(ax, summary: pd.DataFrame, ycol: str, yerrcol: str, ylabel: str, panel_label: str):
-    ax.errorbar(summary["label"], summary[ycol], yerr=summary[yerrcol], marker="o", capsize=3)
+    x, _ = label_positions(summary["label"])
+    ax.errorbar(x, summary[ycol], yerr=summary[yerrcol], marker="o", capsize=3)
     set_label_ticks(ax, summary["label"])
     ax.set_xlabel("Initial-state label")
     ax.set_ylabel(ylabel)
@@ -294,16 +311,66 @@ def asymmetric_errorbar_panel(
     ylabel: str,
     panel_label: str,
 ):
+    x, _ = label_positions(summary["label"])
     yerr = np.vstack([
         pd.to_numeric(summary[lower_err_col], errors="coerce").to_numpy(dtype=float),
         pd.to_numeric(summary[upper_err_col], errors="coerce").to_numpy(dtype=float),
     ])
-    ax.errorbar(summary["label"], summary[ycol], yerr=yerr, marker="o", capsize=3)
+    ax.errorbar(x, summary[ycol], yerr=yerr, marker="o", capsize=3)
     set_label_ticks(ax, summary["label"])
     ax.set_xlabel("Initial-state label")
     ax.set_ylabel(ylabel)
     ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
 
+
+def multi_errorbar(ax, datasets, ycol: str, yerrcol: str, ylabel: str, panel_label: str):
+    first_summary = None
+    for label, summary in datasets:
+        if summary is None or ycol not in summary.columns or summary[ycol].isna().all():
+            continue
+        first_summary = summary if first_summary is None else first_summary
+        x, _ = label_positions(summary["label"])
+        ax.errorbar(x, summary[ycol], yerr=summary[yerrcol], marker="o", capsize=3, label=label)
+    if first_summary is not None:
+        set_label_ticks(ax, first_summary["label"])
+    ax.set_xlabel("Initial-state label")
+    ax.set_ylabel(ylabel)
+    ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
+    ax.legend(fontsize=8, loc="best")
+
+
+def multi_asymmetric_errorbar(
+    ax,
+    datasets,
+    ycol: str,
+    lower_err_col: str,
+    upper_err_col: str,
+    ylabel: str,
+    panel_label: str,
+):
+    first_summary = None
+    for label, summary in datasets:
+        if (
+            summary is None
+            or ycol not in summary.columns
+            or lower_err_col not in summary.columns
+            or upper_err_col not in summary.columns
+            or summary[ycol].isna().all()
+        ):
+            continue
+        first_summary = summary if first_summary is None else first_summary
+        x, _ = label_positions(summary["label"])
+        yerr = np.vstack([
+            pd.to_numeric(summary[lower_err_col], errors="coerce").to_numpy(dtype=float),
+            pd.to_numeric(summary[upper_err_col], errors="coerce").to_numpy(dtype=float),
+        ])
+        ax.errorbar(x, summary[ycol], yerr=yerr, marker="o", capsize=3, label=label)
+    if first_summary is not None:
+        set_label_ticks(ax, first_summary["label"])
+    ax.set_xlabel("Initial-state label")
+    ax.set_ylabel(ylabel)
+    ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
+    ax.legend(fontsize=8, loc="best")
 
 def kaplan_meier_curve(times: np.ndarray, observed: np.ndarray) -> tuple[list[float], list[float]]:
     order = np.argsort(times)
@@ -328,7 +395,7 @@ def kaplan_meier_curve(times: np.ndarray, observed: np.ndarray) -> tuple[list[fl
 
 
 def plot_fig2(df_main: pd.DataFrame, sum_main: pd.DataFrame, outdir: Path, dpi: int, max_survival_labels: int | None, tmax: float):
-    fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), constrained_layout=True)
     ax = axes[0]
     asymmetric_errorbar_panel(
         ax,
@@ -363,7 +430,7 @@ def plot_fig2(df_main: pd.DataFrame, sum_main: pd.DataFrame, outdir: Path, dpi: 
 
 
 def plot_fig3(sum_main: pd.DataFrame, outdir: Path, dpi: int):
-    fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), constrained_layout=True)
     errorbar_panel(axes[0], sum_main, "p_seed_mean", "p_seed_se", r"Mean barrier-crossing seed fraction $p_{\mathrm{seed}}$", "(a)")
     errorbar_panel(axes[1], sum_main, "c_seed_mean", "c_seed_se", r"Mean largest barrier-crossing cluster size $c_{\mathrm{seed}}$", "(b)")
     save_figure(fig, outdir / "fig3_seed_amount_multipanel", dpi)
@@ -371,7 +438,7 @@ def plot_fig3(sum_main: pd.DataFrame, outdir: Path, dpi: int):
 
 
 def plot_fig4(sum_main: pd.DataFrame, outdir: Path, dpi: int):
-    fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), constrained_layout=True)
     errorbar_panel(axes[0], sum_main, "seed_compactness_mean", "seed_compactness_se", "Mean seed compactness", "(a)")
     errorbar_panel(axes[1], sum_main, "seed_rg_mean", "seed_rg_se", r"Mean seed radius of gyration $R_g$", "(b)")
     save_figure(fig, outdir / "fig4_seed_quality_multipanel", dpi)
@@ -384,43 +451,24 @@ def multi_errorbar(ax, datasets, ycol: str, yerrcol: str, ylabel: str, panel_lab
         if summary is None or ycol not in summary.columns or summary[ycol].isna().all():
             continue
         first_summary = summary if first_summary is None else first_summary
-        ax.errorbar(summary["label"], summary[ycol], yerr=summary[yerrcol], marker="o", capsize=3, label=label)
+        x, _ = label_positions(summary["label"])
+        ax.errorbar(x, summary[ycol], yerr=summary[yerrcol], marker="o", capsize=3, label=label)
     if first_summary is not None:
         set_label_ticks(ax, first_summary["label"])
     ax.set_xlabel("Initial-state label")
     ax.set_ylabel(ylabel)
     ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
     ax.legend(fontsize=8, loc="best")
-
-
-def multi_asymmetric_errorbar(ax, datasets, ycol: str, lower_err_col: str, upper_err_col: str, ylabel: str, panel_label: str):
-    first_summary = None
-    for label, summary in datasets:
-        if summary is None or ycol not in summary.columns or summary[ycol].isna().all():
-            continue
-        first_summary = summary if first_summary is None else first_summary
-        yerr = np.vstack([
-            pd.to_numeric(summary[lower_err_col], errors="coerce").to_numpy(dtype=float),
-            pd.to_numeric(summary[upper_err_col], errors="coerce").to_numpy(dtype=float),
-        ])
-        ax.errorbar(summary["label"], summary[ycol], yerr=yerr, marker="o", capsize=3, label=label)
-    if first_summary is not None:
-        set_label_ticks(ax, first_summary["label"])
-    ax.set_xlabel("Initial-state label")
-    ax.set_ylabel(ylabel)
-    ax.text(0.03, 0.95, panel_label, transform=ax.transAxes, va="top", ha="left", fontweight="bold")
-    ax.legend(fontsize=8, loc="best")
-
 
 def plot_supplementals(sum_main, sum_cth10, sum_cth30, sum_dt001, sum_n128, sum_pre1000, outdir: Path, dpi: int):
-    fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), constrained_layout=True)
     errorbar_panel(axes[0], sum_main, "p_ordered_seed_mean", "p_ordered_seed_se", r"Mean ordered-like seed fraction $p_{\mathrm{ordered}}$", "(a)")
     errorbar_panel(axes[1], sum_main, "c_ordered_seed_mean", "c_ordered_seed_se", r"Mean largest ordered-like cluster size $c_{\mathrm{ordered}}$", "(b)")
     save_figure(fig, outdir / "figS1_ordered_seed_multipanel", dpi)
     plt.close(fig)
 
     if sum_cth10 is not None and sum_cth30 is not None and sum_dt001 is not None:
-        fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
+        fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), constrained_layout=True)
         multi_asymmetric_errorbar(
             axes[0],
             [("Cth=10", sum_cth10), ("Cth=20", sum_main), ("Cth=30", sum_cth30)],
@@ -443,7 +491,7 @@ def plot_supplementals(sum_main, sum_cth10, sum_cth30, sum_dt001, sum_n128, sum_
         plt.close(fig)
 
     if sum_n128 is not None and sum_pre1000 is not None:
-        fig, axes = plt.subplots(1, 2, figsize=(8.2, 3.7), constrained_layout=True)
+        fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9), constrained_layout=True)
         multi_errorbar(axes[0], [("N64 pre500", sum_main), ("N64 pre1000", sum_pre1000), ("N128 pre500", sum_n128)], "p_seed_mean", "p_seed_se", r"Mean barrier-crossing seed fraction $p_{\mathrm{seed}}$", "(a)")
         multi_errorbar(axes[1], [("N64 pre500", sum_main), ("N64 pre1000", sum_pre1000), ("N128 pre500", sum_n128)], "seed_compactness_mean", "seed_compactness_se", "Mean seed compactness", "(b)")
         save_figure(fig, outdir / "figS3_robustness_multipanel", dpi)
@@ -498,3 +546,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
