@@ -122,11 +122,11 @@ pdflatex supplemental_material.tex
 
 ## Data and code availability
 
-The simulation data, processed tables, figure-generation scripts, and manuscript sources are included in this repository. For citation in a manuscript, use the Zenodo version DOI corresponding to the archived release.
+The simulation data, processed tables, random seeds, figure-generation scripts, manuscript figures, and manuscript sources are archived at Zenodo: [10.5281/zenodo.20357154](https://doi.org/10.5281/zenodo.20357154). They are also available in this GitHub repository.
 
 ## Citation
 
-If you use this repository, cite the archived Zenodo release and the associated manuscript. Repository citation metadata are provided in [`CITATION.cff`](CITATION.cff).
+If you use this repository, cite the archived Zenodo release, DOI [10.5281/zenodo.20357154](https://doi.org/10.5281/zenodo.20357154), and the associated manuscript. Repository citation metadata are provided in [`CITATION.cff`](CITATION.cff).
 
 ## License
 

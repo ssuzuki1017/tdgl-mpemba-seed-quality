@@ -6,6 +6,16 @@ This document describes how to reproduce the figures and analyses for:
 
 All commands below are intended to be run from the repository root unless otherwise noted.
 
+## Archived release
+
+The release corresponding to the current manuscript package is archived at Zenodo:
+
+```text
+DOI: 10.5281/zenodo.20357154
+URL: https://doi.org/10.5281/zenodo.20357154
+```
+
+
 ## 1. Environment
 
 Recommended environment:

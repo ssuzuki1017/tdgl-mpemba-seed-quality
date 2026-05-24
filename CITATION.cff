@@ -8,4 +8,5 @@ authors:
 version: "1.0.0"
 date-released: "2026-05-24"
 repository-code: "https://github.com/ssuzuki1017/tdgl-mpemba-seed-quality"
+doi: "10.5281/zenodo.20357154"
 license: "MIT"
