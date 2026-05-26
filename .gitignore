@@ -39,3 +39,7 @@ figures_regen_binomial_ci/
 analysis_seed_quality/
 analysis_seed_geometry*/
 analysis_committor*/
+
+# Paper 2 generated data
+paper2_thermal_correlations/data_raw/
+paper2_thermal_correlations/data_processed/
